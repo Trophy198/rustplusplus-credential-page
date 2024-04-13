@@ -1,10 +1,13 @@
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
+import Spinner from '@/components/Spinner';
+import styles from '@/styles/CallbackPage.module.css';
 
 const CallbackPage: NextPage = () => {
     const router = useRouter();
     const { token, steamId } = router.query;
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         if (typeof token === 'string' && typeof steamId === 'string') {
@@ -16,14 +19,15 @@ const CallbackPage: NextPage = () => {
                 })
                 .catch((error) => {
                     console.error('Failed to process the callback:', error);
-                });
+                })
+                .finally(() => setLoading(false));
         }
     }, [token, steamId]);
 
-    return (
-        <div>
-            <h1>Processing your request...</h1>
-            <p>Please wait a moment.</p>
+    return loading && (
+        <div className={styles.center}>
+            <h1 className={styles.title}>Creating your credentials, please wait...</h1>
+            <Spinner />
         </div>
     );
 };
