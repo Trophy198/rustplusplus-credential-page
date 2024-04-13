@@ -1,6 +1,7 @@
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
+import styles from '@/styles/Display.module.css';
 
 interface Credentials {
     fcm_credentials: {
@@ -56,10 +57,19 @@ const Display: NextPage = () => {
             `steam_id:${steamId}`;
     }
 
+    function copyToClipboard() {
+        navigator.clipboard.writeText(formattedData).then(() => {
+            alert('Data copied to clipboard!');
+        }, (err) => {
+            console.error('Failed to copy text: ', err);
+        });
+    }
+
     return (
-        <div>
-            <h1>Configuration Data</h1>
-            <pre>{formattedData}</pre>
+        <div className={styles.container}>
+            <h1 className={styles.title}>Configuration Data</h1>
+            <pre className={styles.pre}>{formattedData}</pre>
+            <button className={styles.button} onClick={copyToClipboard}>Copy to Clipboard</button>
         </div>
     );
 };
