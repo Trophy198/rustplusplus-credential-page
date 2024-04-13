@@ -1,9 +1,10 @@
 import React from 'react';
+import styles from '@/styles/Home.module.css';
 
 const Home: React.FC = () => {
   return (
-    <div>
-      <h1>Welcome to Next.js!</h1>
+    <div className={styles.container}>
+      <h1>The main page is being prepared</h1>
     </div>
   );
 }
