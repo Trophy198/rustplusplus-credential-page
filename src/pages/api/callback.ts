@@ -61,7 +61,9 @@ export default async function handler(
       `fcmToken=${encodeURIComponent(fcmToken)}; Path=/; HttpOnly`,
       `config=${encodeURIComponent(JSON.stringify(config))}; Path=/; HttpOnly`,
     ]);
-    res.redirect(307, '/display');
+    res
+      .status(200)
+      .json({ success: true, message: 'Registration successsful' });
   } catch (error) {
     console.error('Error in processing request:', error);
     res.status(500).send('An error occurred while processing your request');
