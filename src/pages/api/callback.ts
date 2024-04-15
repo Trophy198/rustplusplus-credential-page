@@ -15,16 +15,20 @@ interface RegistrationData {
   message: string;
 }
 
-export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+export default async function handler(
+  req: NextApiRequest,
+  res: NextApiResponse,
+) {
   try {
     // FCM 토큰 등록
+    const deviceId = uuidv4();
     const fcmCredentials: FCMCredentials = await register('976529667804');
     const fcmToken = fcmCredentials.fcm.token;
     console.log('FCM Token obtained:', fcmToken);
-    console.log(fcmCredentials)
+    console.log(fcmCredentials);
 
     // Expo 푸시 토큰 요청
-    const expoPushToken = await getExpoPushToken(fcmToken);
+    const expoPushToken = await getExpoPushToken(deviceId, fcmToken);
     console.log('Expo Push Token obtained:', expoPushToken);
 
     const { token, steamId } = req.query;
@@ -36,22 +40,28 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       return;
     }
 
-    console.log('Auth Token received:', token)
+    console.log('Auth Token received:', token);
 
     // Rust+ 등록 프로세스 시작
-    const registrationData: RegistrationData = await registerWithRustPlus(token, expoPushToken);
+    const registrationData: RegistrationData = await registerWithRustPlus(
+      token,
+      expoPushToken,
+    );
     console.log('Registration with Rust+ successful:', registrationData);
 
     // 성공적으로 모든 정보를 받았다면, 최종 데이터를 사용자에게 보내기
     const config = {
       fcm_credentials: fcmCredentials,
-      expo_push_token: expoPushToken,
-      rustplus_auth_token: token,
       steamId: steamId,
     };
 
     console.log('Configuration ready to display.');
-    res.redirect(`/display?data=${encodeURIComponent(JSON.stringify(config))}`);
+    res.setHeader('Set-Cookie', [
+      `deviceId=${encodeURIComponent(deviceId)}; Path=/; HttpOnly`,
+      `fcmToken=${encodeURIComponent(fcmToken)}; Path=/; HttpOnly`,
+      `config=${encodeURIComponent(JSON.stringify(config))}; Path=/; HttpOnly`,
+    ]);
+    res.redirect(307, '/display');
   } catch (error) {
     console.error('Error in processing request:', error);
     res.status(500).send('An error occurred while processing your request');
@@ -59,15 +69,21 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 }
 
 // Expo 푸시 토큰 가져오기
-async function getExpoPushToken(fcmToken: string): Promise<string> {
-  const response = await axios.post('https://exp.host/--/api/v2/push/getExpoPushToken', {
-    deviceId: uuidv4(),
-    experienceId: '@facepunch/RustCompanion',
-    appId: 'com.facepunch.rust.companion',
-    deviceToken: fcmToken,
-    type: 'fcm',
-    development: false,
-  });
+async function getExpoPushToken(
+  deviceId: string,
+  fcmToken: string,
+): Promise<string> {
+  const response = await axios.post(
+    'https://exp.host/--/api/v2/push/getExpoPushToken',
+    {
+      deviceId,
+      experienceId: '@facepunch/RustCompanion',
+      appId: 'com.facepunch.rust.companion',
+      deviceToken: fcmToken,
+      type: 'fcm',
+      development: false,
+    },
+  );
   return response.data.data.expoPushToken;
 }
 
@@ -81,6 +97,6 @@ async function registerWithRustPlus(authToken: any, expoPushToken: any) {
       PushKind: 0,
       PushToken: expoPushToken,
     },
-  )
-  return response.data
+  );
+  return response.data;
 }
