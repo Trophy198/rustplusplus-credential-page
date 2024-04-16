@@ -8,11 +8,15 @@ const Home: NextPage = () => {
   const [showMessage, setShowMessage] = useState<boolean>(false);
 
   useEffect(() => {
-    if (typeof window !== 'undefined') {
+    window.onload = () => {
       const beacon = document.getElementById('chromeAddon');
-      setExtensionInstalled(!!beacon);
-      console.log(beacon);
-    }
+      if (beacon) {
+        setExtensionInstalled(true);
+        console.log('Beacon found:', beacon);
+      } else {
+        console.log('Beacon not found');
+      }
+    };
   }, []);
 
   const handleClickLink = () => {
