@@ -11,6 +11,7 @@ const Home: NextPage = () => {
     if (typeof window !== 'undefined') {
       const beacon = document.getElementById('chromeAddon');
       setExtensionInstalled(!!beacon);
+      console.log(beacon);
     }
   }, []);
 
