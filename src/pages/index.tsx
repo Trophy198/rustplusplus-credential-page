@@ -8,8 +8,10 @@ const Home: NextPage = () => {
   const [showMessage, setShowMessage] = useState<boolean>(false);
 
   useEffect(() => {
-    const beacon = document.getElementById('chromeAddon');
-    setExtensionInstalled(!!beacon);
+    if (typeof window !== 'undefined') {
+      const beacon = document.getElementById('chromeAddon');
+      setExtensionInstalled(!!beacon);
+    }
   }, []);
 
   const handleClickLink = () => {
