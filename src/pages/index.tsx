@@ -35,7 +35,10 @@ const Home: NextPage = () => {
       setIsLoading(false);
     };
 
-    if (document.readyState !== 'loading') {
+    if (
+      document.readyState === 'interactive' ||
+      document.readyState === 'complete'
+    ) {
       extensionCheck();
     } else {
       window.addEventListener('DOMContentLoaded', extensionCheck);
