@@ -3,58 +3,72 @@ import styles from '@/styles/Home.module.css';
 import type { NextPage } from 'next';
 
 const Home: NextPage = () => {
-  const [isLoading, setIsLoading] = useState<boolean>(true);
-  const [isExtensionInstalled, setExtensionInstalled] =
-    useState<boolean>(false);
-  const [showMessage, setShowMessage] = useState<boolean>(false);
+  const [browserType, setBrowserType] = useState('');
+  const [isExtensionInstalled, setExtensionInstalled] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+  const [showMessage, setShowMessage] = useState(false);
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      const beacon = document.getElementById('chromeAddon');
-      if (beacon) {
+    const userAgent = navigator.userAgent;
+    let browser;
+    if (userAgent.includes('Firefox')) {
+      browser = 'Firefox';
+    } else if (userAgent.includes('Chrome')) {
+      browser = 'Chrome';
+    } else {
+      browser = 'Other';
+    }
+    setBrowserType(browser);
+
+    const extensionCheck = () => {
+      const chromeAddon = document.getElementById('chromeAddon');
+      const mozAddon = document.getElementById('mozAddon');
+      if (
+        (browser === 'Chrome' && chromeAddon) ||
+        (browser === 'Firefox' && mozAddon)
+      ) {
         setExtensionInstalled(true);
-        clearInterval(interval);
       }
-    }, 100);
-
-    setTimeout(() => {
       setIsLoading(false);
-      clearInterval(interval);
-    }, 100);
+    };
 
-    return () => clearInterval(interval);
+    if (document.readyState === 'complete') {
+      extensionCheck();
+    } else {
+      window.addEventListener('DOMContentLoaded', extensionCheck);
+      return () => {
+        window.removeEventListener('DOMContentLoaded', extensionCheck);
+      };
+    }
   }, []);
-
-  const handleClickLink = () => {
-    setShowMessage(true);
-  };
 
   return (
     <main className={styles.container}>
       <h1 className={styles.landingPageTitle}>Rustplusplus-credentials-page</h1>
       <section>
-        {!isLoading && (
-          <section>
-            {isExtensionInstalled ? (
-              <a
-                className={styles.rustplusplusActionButton}
-                href="https://companion-rust.facepunch.com/login"
-              >
-                Log In
-              </a>
-            ) : (
-              <a
-                className={styles.rustplusplusActionButton}
-                onClick={handleClickLink}
-                href="https://chrome.google.com/webstore/detail/rustplusplus-credential-a/ooahmkklkanfgfmphpknpcgdpdcoikhe"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Install Extension
-              </a>
-            )}
-          </section>
-        )}
+        {!isLoading &&
+          (isExtensionInstalled ? (
+            <a
+              className={styles.rustplusplusActionButton}
+              href="https://companion-rust.facepunch.com/login"
+            >
+              Log In
+            </a>
+          ) : (
+            <a
+              className={styles.rustplusplusActionButton}
+              onClick={() => setShowMessage(true)}
+              href={
+                browserType === 'Chrome'
+                  ? 'https://chrome.google.com/webstore/detail/rustplusplus-credential-a/ooahmkklkanfgfmphpknpcgdpdcoikhe'
+                  : 'https://addons.mozilla.org/en-US/firefox/addon/rustplusplus-credential-app/'
+              }
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Install Extension
+            </a>
+          ))}
       </section>
       {showMessage && (
         <aside className={styles.installMessage}>
