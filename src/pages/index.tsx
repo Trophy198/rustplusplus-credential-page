@@ -21,8 +21,11 @@ const Home: NextPage = () => {
     setBrowserType(browser);
 
     const extensionCheck = () => {
+      console.log('Extension check running...');
       const chromeAddon = document.getElementById('chromeAddon');
       const mozAddon = document.getElementById('mozAddon');
+      console.log('Chrome Addon found:', chromeAddon);
+      console.log('Mozilla Addon found:', mozAddon);
       if (
         (browser === 'Chrome' && chromeAddon) ||
         (browser === 'Firefox' && mozAddon)
@@ -41,6 +44,9 @@ const Home: NextPage = () => {
       };
     }
   }, []);
+  console.log('브라우저 타입', browserType);
+  console.log('로딩 상태', isLoading);
+  console.log('익스텐션 설치 상태', isExtensionInstalled);
 
   return (
     <main className={styles.container}>
