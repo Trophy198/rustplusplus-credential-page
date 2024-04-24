@@ -21,9 +21,9 @@ const Home: NextPage = () => {
     setBrowserType(browser);
 
     const extensionCheck = () => {
-      console.log('Extension check running...');
       const chromeAddon = document.getElementById('chromeAddon');
       const mozAddon = document.getElementById('mozAddon');
+      console.log('Extension check running...');
       console.log('Chrome Addon found:', chromeAddon);
       console.log('Mozilla Addon found:', mozAddon);
       if (
@@ -35,18 +35,16 @@ const Home: NextPage = () => {
       setIsLoading(false);
     };
 
-    if (document.readyState === 'complete') {
+    if (document.readyState !== 'loading') {
       extensionCheck();
     } else {
       window.addEventListener('DOMContentLoaded', extensionCheck);
-      return () => {
-        window.removeEventListener('DOMContentLoaded', extensionCheck);
-      };
     }
+
+    return () => {
+      window.removeEventListener('DOMContentLoaded', extensionCheck);
+    };
   }, []);
-  console.log('브라우저 타입', browserType);
-  console.log('로딩 상태', isLoading);
-  console.log('익스텐션 설치 상태', isExtensionInstalled);
 
   return (
     <main className={styles.container}>
