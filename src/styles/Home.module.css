@@ -10,10 +10,21 @@
 }
 
 .landingPageTitle {
-  margin-bottom: 1rem;
+  gap: 1rem;
+}
+
+.rustplusplusActionButton:hover {
+  background-color: #ffffff;
+  color: #cd412b;
+}
+
+.installMessage {
+  color: #cd412b;
+  margin-top: 20px;
 }
 
 .rustplusplusActionButton {
+  display: block;
   background: #cd412b;
   border: 1px solid #cd412b;
   border-radius: 6px;
@@ -29,12 +40,28 @@
   transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
 }
 
-.rustplusplusActionButton:hover {
-  background-color: #ffffff;
-  color: #cd412b;
+.loadingbox {
+  height: 42px;
+  width: 157px;
+  border-radius: 6px;
+  overflow: hidden;
+  background: #d0d0d0;
 }
 
-.installMessage {
-  color: #cd412b;
-  margin-top: 20px;
+.loadingbox::before {
+  content: '';
+  display: block;
+  height: 100%;
+  width: 100%;
+  animation: loading 1s infinite;
+  background: linear-gradient(to right, transparent, #d9d9d9, transparent);
+}
+
+@keyframes loading {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
 }

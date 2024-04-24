@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styles from '@/styles/Home.module.css';
 import type { NextPage } from 'next';
+import Spinner from '@/components/spinner';
 
 const Home: NextPage = () => {
   const [browserType, setBrowserType] = useState('');
@@ -50,8 +51,8 @@ const Home: NextPage = () => {
     <main className={styles.container}>
       <h1 className={styles.landingPageTitle}>Rustplusplus-credentials-page</h1>
       <section>
-        {!isLoading &&
-          (isExtensionInstalled ? (
+        {!isLoading ? (
+          isExtensionInstalled ? (
             <a
               className={styles.rustplusplusActionButton}
               href="https://companion-rust.facepunch.com/login"
@@ -72,7 +73,10 @@ const Home: NextPage = () => {
             >
               Install Extension
             </a>
-          ))}
+          )
+        ) : (
+          <div className={styles.loadingbox}></div>
+        )}
       </section>
       {showMessage && (
         <aside className={styles.installMessage}>
