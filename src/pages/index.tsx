@@ -20,32 +20,29 @@ const Home: NextPage = () => {
     }
     setBrowserType(browser);
 
-    const extensionCheck = () => {
+    let checkCount = 0;
+    const maxCheckCount = 10;
+    const checkInterval = 100;
+
+    const extensionCheckInterval = setInterval(() => {
       const chromeAddon = document.getElementById('chromeAddon');
       const mozAddon = document.getElementById('mozAddon');
-      console.log('Extension check running...');
-      console.log('Chrome Addon found:', chromeAddon);
-      console.log('Mozilla Addon found:', mozAddon);
       if (
         (browser === 'Chrome' && chromeAddon) ||
         (browser === 'Firefox' && mozAddon)
       ) {
         setExtensionInstalled(true);
+        setIsLoading(false);
+        clearInterval(extensionCheckInterval);
+      } else if (checkCount >= maxCheckCount) {
+        setIsLoading(false);
+        clearInterval(extensionCheckInterval);
       }
-      setIsLoading(false);
-    };
-
-    if (
-      document.readyState === 'interactive' ||
-      document.readyState === 'complete'
-    ) {
-      extensionCheck();
-    } else {
-      window.addEventListener('DOMContentLoaded', extensionCheck);
-    }
+      checkCount++;
+    }, checkInterval);
 
     return () => {
-      window.removeEventListener('DOMContentLoaded', extensionCheck);
+      clearInterval(extensionCheckInterval);
     };
   }, []);
 
