@@ -1,77 +1,85 @@
-import { NextPage } from 'next';
-import { useRouter } from 'next/router';
-import React, { useEffect, useState } from 'react';
+import { GetServerSideProps, NextPage } from 'next';
+import { parseCookies, destroyCookie } from 'nookies';
+import { formatCredentialsData } from '@/utils/formatCredentialsData';
 import styles from '@/styles/Display.module.css';
 
 interface Credentials {
-    fcm_credentials: {
-        fcm: {
-            token: string;
-            pushSet: string;
-        };
-        gcm: {
-            token: string;
-            androidId: string;
-            securityToken: string;
-            appId: string;
-        };
-        keys: {
-            privateKey: string;
-            publicKey: string;
-            authSecret: string;
-        };
+  fcm_credentials: {
+    fcm: {
+      token: string;
+      pushSet: string;
     };
-    expo_push_token: string;
-    rustplus_auth_token: string;
-    steamId: string;
+    gcm: {
+      token: string;
+      androidId: string;
+      securityToken: string;
+      appId: string;
+    };
+    keys: {
+      privateKey: string;
+      publicKey: string;
+      authSecret: string;
+    };
+  };
+  steamId: string;
 }
 
-const Display: NextPage = () => {
-    const router = useRouter();
-    const [formattedData, setFormattedData] = useState<string>('Loading configuration data...');
+interface DisplayProps {
+  formattedCredentials?: string;
+  error?: string;
+}
 
-    useEffect(() => {
-        const data = router.query.data as string;
-        if (data) {
-            const credentials: Credentials = JSON.parse(decodeURIComponent(data));
-            const formatted = formatData(credentials);
-            setFormattedData(formatted);
-        } else {
-            setFormattedData('No configuration data found.');
-        }
-    }, [router.query.data]);
-
-    function formatData(credentials: Credentials): string {
-        const { fcm_credentials, steamId } = credentials;
-        const { fcm, gcm, keys } = fcm_credentials;
-        return `/credentials add ` +
-            `keys_private_key:${keys.privateKey} ` +
-            `keys_public_key:${keys.publicKey} ` +
-            `keys_auth_secret:${keys.authSecret} ` +
-            `fcm_token:${fcm.token} ` +
-            `fcm_push_set:${fcm.pushSet} ` +
-            `gcm_token:${gcm.token} ` +
-            `gcm_android_id:${gcm.androidId} ` +
-            `gcm_security_token:${gcm.securityToken} ` +
-            `gcm_app_id:${gcm.appId} ` +
-            `steam_id:${steamId}`;
+const Display: NextPage<DisplayProps> = ({ formattedCredentials, error }) => {
+  const copyToClipboard = async () => {
+    try {
+      await navigator.clipboard.writeText(formattedCredentials || '');
+      alert('Credentials copied to clipboard!');
+    } catch (err) {
+      console.error('Failed to copy credentials:', err);
+      alert('Failed to copy credentials. Please try again.');
     }
+  };
 
-    function copyToClipboard() {
-        navigator.clipboard.writeText(formattedData).then(() => {
-            alert('Data copied to clipboard!');
-        }, (err) => {
-            console.error('Failed to copy text: ', err);
-        });
-    }
-
-    return (
-        <div className={styles.container}>
-            <h1 className={styles.title}>Configuration Data</h1>
-            <pre className={styles.pre}>{formattedData}</pre>
-            <button className={styles.button} onClick={copyToClipboard}>Copy to Clipboard</button>
+  return (
+    <div className={styles.container}>
+      <h1 className={styles.title}>Configuration Data</h1>
+      {error ? (
+        <div>Error: {error}</div>
+      ) : (
+        <div>
+          <pre className={styles.pre}>{formattedCredentials}</pre>
+          <button className={styles.button} onClick={copyToClipboard}>
+            Copy to Clipboard
+          </button>
         </div>
-    );
+      )}
+    </div>
+  );
 };
 
 export default Display;
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const cookies = parseCookies(context);
+  const config = cookies.config;
+
+  if (!config) {
+    return {
+      props: { error: 'No configuration data found.' },
+    };
+  }
+
+  try {
+    const credentials: Credentials = JSON.parse(decodeURIComponent(config));
+    const formattedCredentials = formatCredentialsData(credentials);
+    return {
+      props: { formattedCredentials },
+    };
+  } catch (error) {
+    console.error('Error parsing credentials:', error);
+    destroyCookie(context, 'config');
+    return {
+      props: { error: 'Failed to parse configuration data.' },
+    };
+  }
+};
