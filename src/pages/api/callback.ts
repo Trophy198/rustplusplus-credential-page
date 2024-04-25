@@ -10,11 +10,6 @@ interface FCMCredentials {
   };
 }
 
-interface RegistrationData {
-  success: boolean;
-  message: string;
-}
-
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse,
@@ -43,11 +38,11 @@ export default async function handler(
     console.log('Auth Token received:', token);
 
     // Rust+ 등록 프로세스 시작
-    const registrationData: RegistrationData = await registerWithRustPlus(
-      token,
-      expoPushToken,
-    );
+    const registrationData = await registerWithRustPlus(token, expoPushToken);
     console.log('Registration with Rust+ successful:', registrationData);
+    const rustplusToken = registrationData.token;
+    const header = decodeJWTHeader(rustplusToken);
+    const expiryDate = new Date(header.exp * 1000);
 
     // 성공적으로 모든 정보를 받았다면, 최종 데이터를 사용자에게 보내기
     const config = {
@@ -55,11 +50,10 @@ export default async function handler(
       steamId: steamId,
     };
 
-    console.log('Configuration ready to display.');
     res.setHeader('Set-Cookie', [
-      `deviceId=${encodeURIComponent(deviceId)}; Path=/; HttpOnly`,
-      `fcmToken=${encodeURIComponent(fcmToken)}; Path=/; HttpOnly`,
-      `config=${encodeURIComponent(JSON.stringify(config))}; Path=/; HttpOnly`,
+      `config=${encodeURIComponent(
+        JSON.stringify(config),
+      )}; Path=/; HttpOnly; Expires=${expiryDate.toUTCString()}`,
     ]);
     res
       .status(200)
@@ -101,4 +95,20 @@ async function registerWithRustPlus(authToken: any, expoPushToken: any) {
     },
   );
   return response.data;
+}
+
+// JWT 토큰 헤더 디코딩
+function decodeJWTHeader(token: string) {
+  const base64Url = token.split('.')[0];
+  const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+  const jsonHeader = decodeURIComponent(
+    atob(base64)
+      .split('')
+      .map(function (c) {
+        return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+      })
+      .join(''),
+  );
+
+  return JSON.parse(jsonHeader);
 }
