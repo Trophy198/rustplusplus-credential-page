@@ -30,20 +30,12 @@ interface DisplayProps {
 }
 
 const Display: NextPage<DisplayProps> = ({ formattedCredentials, error }) => {
-  if (error) {
-    return <div>Error: {error}</div>;
-  }
-
-  if (!formattedCredentials) {
-    return <div>No configuration data found.</div>;
-  }
-
   const copyToClipboard = async () => {
     try {
-      await navigator.clipboard.writeText(formattedCredentials);
+      await navigator.clipboard.writeText(formattedCredentials || '');
       alert('Credentials copied to clipboard!');
     } catch (err) {
-      console.error('Failed to copy credentials: ', err);
+      console.error('Failed to copy credentials:', err);
       alert('Failed to copy credentials. Please try again.');
     }
   };
@@ -51,22 +43,29 @@ const Display: NextPage<DisplayProps> = ({ formattedCredentials, error }) => {
   return (
     <div className={styles.container}>
       <h1 className={styles.title}>Configuration Data</h1>
-      <pre className={styles.pre}>{formattedCredentials}</pre>
-      <button className={styles.button} onClick={copyToClipboard}>
-        Copy to Clipboard
-      </button>
+      {error ? (
+        <div>Error: {error}</div>
+      ) : (
+        <div>
+          <pre className={styles.pre}>{formattedCredentials}</pre>
+          <button className={styles.button} onClick={copyToClipboard}>
+            Copy to Clipboard
+          </button>
+        </div>
+      )}
     </div>
   );
 };
+
+export default Display;
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const cookies = parseCookies(context);
   const config = cookies.config;
 
   if (!config) {
-    destroyCookie(context, 'config');
     return {
-      props: { error: 'Configuration data not found or expired.' },
+      props: { error: 'No configuration data found.' },
     };
   }
 
@@ -84,5 +83,3 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     };
   }
 };
-
-export default Display;
