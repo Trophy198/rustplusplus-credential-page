@@ -17,12 +17,20 @@ interface Credentials {
     };
   };
   steamId: string;
+  expire: number;
 }
 
-export function formatCredentialsData(credentials: Credentials): string {
-  const { fcm_credentials, steamId } = credentials;
+interface FormattedCredentialsData {
+  formattedData: string;
+  expire: number;
+}
+
+export function formatCredentialsData(
+  credentials: Credentials,
+): FormattedCredentialsData {
+  const { fcm_credentials, steamId, expire } = credentials;
   const { fcm, gcm, keys } = fcm_credentials;
-  return (
+  const formattedData =
     `/credentials add ` +
     `keys_private_key:${keys.privateKey} ` +
     `keys_public_key:${keys.publicKey} ` +
@@ -33,6 +41,7 @@ export function formatCredentialsData(credentials: Credentials): string {
     `gcm_android_id:${gcm.androidId} ` +
     `gcm_security_token:${gcm.securityToken} ` +
     `gcm_app_id:${gcm.appId} ` +
-    `steam_id:${steamId}`
-  );
+    `steam_id:${steamId} ` +
+    `expire:${expire}`;
+  return { formattedData, expire };
 }

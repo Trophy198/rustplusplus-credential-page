@@ -15,39 +15,31 @@ export default async function handler(
   res: NextApiResponse,
 ) {
   try {
-    // FCM 토큰 등록
     const deviceId = uuidv4();
     const fcmCredentials: FCMCredentials = await register('976529667804');
     const fcmToken = fcmCredentials.fcm.token;
-    console.log('FCM Token obtained:', fcmToken);
-    console.log(fcmCredentials);
-
-    // Expo 푸시 토큰 요청
     const expoPushToken = await getExpoPushToken(deviceId, fcmToken);
-    console.log('Expo Push Token obtained:', expoPushToken);
-
     const { token, steamId } = req.query;
 
-    // 필수 토큰 검증
     if (!token || typeof token !== 'string') {
       console.log('Token missing from request!');
       res.status(400).send('Token missing from request!');
       return;
     }
 
-    console.log('Auth Token received:', token);
-
-    // Rust+ 등록 프로세스 시작
-    const registrationData = await registerWithRustPlus(token, expoPushToken);
-    console.log('Registration with Rust+ successful:', registrationData);
+    const registrationData = await registerWithRustPlus(
+      token,
+      deviceId,
+      expoPushToken,
+    );
     const rustplusToken = registrationData.token;
     const header = decodeJWTHeader(rustplusToken);
     const expiryDate = new Date(header.exp * 1000);
 
-    // 성공적으로 모든 정보를 받았다면, 최종 데이터를 사용자에게 보내기
     const config = {
       fcm_credentials: fcmCredentials,
       steamId: steamId,
+      expire: header.exp,
     };
 
     res.setHeader('Set-Cookie', [
@@ -64,7 +56,6 @@ export default async function handler(
   }
 }
 
-// Expo 푸시 토큰 가져오기
 async function getExpoPushToken(
   deviceId: string,
   fcmToken: string,
@@ -83,13 +74,16 @@ async function getExpoPushToken(
   return response.data.data.expoPushToken;
 }
 
-// Rust+ 등록 함수
-async function registerWithRustPlus(authToken: any, expoPushToken: any) {
+async function registerWithRustPlus(
+  authToken: string,
+  deviceId: string,
+  expoPushToken: string,
+) {
   const response = await axios.post(
     'https://companion-rust.facepunch.com/api/push/register',
     {
       AuthToken: authToken,
-      DeviceId: 'rustplus.js',
+      DeviceId: deviceId,
       PushKind: 0,
       PushToken: expoPushToken,
     },
@@ -97,7 +91,6 @@ async function registerWithRustPlus(authToken: any, expoPushToken: any) {
   return response.data;
 }
 
-// JWT 토큰 헤더 디코딩
 function decodeJWTHeader(token: string) {
   const base64Url = token.split('.')[0];
   const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
