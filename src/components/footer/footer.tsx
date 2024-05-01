@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import styles from './footer.module.css';
-import GitHubIcon from './../../public/icons/github.png';
-import DiscordIcon from './../../public/icons/discord.png';
+import GitHubIcon from './../../../public/icons/github.png';
+import DiscordIcon from './../../../public/icons/discord.png';
 
 const Footer = () => {
   const gitHubURL: string = 'https://github.com/alexemanuelol/rustplusplus';
