@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import styles from '@/styles/Footer.module.css';
+import styles from './footer.module.css';
 import GitHubIcon from './../../public/icons/github.png';
 import DiscordIcon from './../../public/icons/discord.png';
 
