@@ -1,0 +1,56 @@
+.container {
+  display: flex;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  padding: 1.5rem;
+  border-bottom: solid 1px #4f4d4d;
+  background-color: var(--color-background);
+}
+
+.title {
+  font-size: 2rem;
+  color: var(--color-text);
+  text-decoration: none;
+}
+
+.buttonContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.rustplusplusActionButton {
+  display: flex;
+  align-items: center;
+  margin-right: 1rem;
+  background: var(--color-primary);
+  border: 1px solid var(--color-primary);
+  border-radius: 6px;
+  text-decoration: none;
+  color: var(--color-text);
+  padding: 10px 14px;
+  font-size: 16px;
+  font-weight: 800;
+  line-height: 16px;
+  min-height: 40px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
+}
+
+.rustplusplusActionButton:hover {
+  background-color: var(--color-primary-hover);
+}
+
+.rustplusplusActionButton:last-child {
+  margin-right: 0;
+}
+
+.loadingContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  color: var(--color-text);
+  padding: 15px 14px;
+}

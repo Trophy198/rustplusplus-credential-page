@@ -1,35 +1,19 @@
 import { GetServerSideProps, NextPage } from 'next';
 import { parseCookies, destroyCookie } from 'nookies';
 import { formatCredentialsData } from '@/utils/formatCredentialsData';
-import styles from '@/styles/Display.module.css';
-
-interface Credentials {
-  fcm_credentials: {
-    fcm: {
-      token: string;
-      pushSet: string;
-    };
-    gcm: {
-      token: string;
-      androidId: string;
-      securityToken: string;
-      appId: string;
-    };
-    keys: {
-      privateKey: string;
-      publicKey: string;
-      authSecret: string;
-    };
-  };
-  steamId: string;
-}
+import styles from './display.module.css';
 
 interface DisplayProps {
   formattedCredentials?: string;
+  expire?: string;
   error?: string;
 }
 
-const Display: NextPage<DisplayProps> = ({ formattedCredentials, error }) => {
+const Display: NextPage<DisplayProps> = ({
+  formattedCredentials,
+  expire,
+  error,
+}) => {
   const copyToClipboard = async () => {
     try {
       await navigator.clipboard.writeText(formattedCredentials || '');
@@ -70,10 +54,10 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   }
 
   try {
-    const credentials: Credentials = JSON.parse(decodeURIComponent(config));
-    const formattedCredentials = formatCredentialsData(credentials);
+    const credentials = JSON.parse(decodeURIComponent(config));
+    const { formattedData, expire } = formatCredentialsData(credentials);
     return {
-      props: { formattedCredentials },
+      props: { formattedCredentials: formattedData, expire, error: null },
     };
   } catch (error) {
     console.error('Error parsing credentials:', error);
