@@ -1,8 +1,9 @@
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
-import Spinner from '@/components/spinner';
-import styles from '@/styles/CallbackPage.module.css';
+import Spinner from '@/components/loadingCollection/spinner/spinner';
+import styles from './callback.module.css';
+import axios from 'axios';
 
 const CallbackPage: NextPage = () => {
   const router = useRouter();
@@ -11,15 +12,17 @@ const CallbackPage: NextPage = () => {
 
   useEffect(() => {
     if (typeof token === 'string' && typeof steamId === 'string') {
-      fetch(
-        `/api/callback?token=${encodeURIComponent(
-          token,
-        )}&steamId=${encodeURIComponent(steamId)}`,
-      )
-        .then((res) => res.json())
-        .then((data) => {
+      axios
+        .get(`/api/callback`, {
+          params: {
+            token: token,
+            steamId: steamId,
+          },
+        })
+        .then((response) => {
+          const data = response.data;
           if (data.success) {
-            router.push('/display');
+            window.location.href = '/display';
           } else {
             throw new Error(data.message || 'Unknown error');
           }
@@ -30,7 +33,7 @@ const CallbackPage: NextPage = () => {
         })
         .finally(() => setLoading(false));
     }
-  }, [router, token, steamId]);
+  }, [token, steamId]);
 
   return (
     loading && (
