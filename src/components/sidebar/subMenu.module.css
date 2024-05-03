@@ -1,5 +1,6 @@
 .container {
   margin: 0.375rem 0;
+  list-style: none;
 }
 
 .subLinks {
@@ -15,14 +16,14 @@
   padding-left: 0.5rem;
   text-align: left;
   font-size: 0.875rem;
-  color: #1d1f21;
+  color: #ffffff;
   text-decoration: none;
 }
 
 .subLinks:hover {
-  color: #e5e7eb;
+  color: #dbdbdb;
 }
 
 .selected {
-  color: blue;
+  color: #006ffe;
 }

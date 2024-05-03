@@ -14,7 +14,15 @@
 
 .header {
   text-decoration: none;
-  color: black;
+  color: #ffffff;
+  font-size: 16px;
+  display: flex;
+  position:relative;
+  
+}
+
+.header:hover {
+  color: #dbdbdb;
 }
 
 .dropDownMenuItems {
@@ -53,12 +61,12 @@
   text-align: left;
   font-size: 0.875rem;
   font-weight: 500;
-  color: #ff811b;
+  color: #ffffff;
   text-decoration: none;
 }
 
 .links:hover {
-  color: #e5e7eb;
+  color: #dbdbdb;
 }
 
 .nestedSubItems {
@@ -78,5 +86,5 @@
 }
 
 .selected {
-  color: blue;
+  color: #006ffe;
 }

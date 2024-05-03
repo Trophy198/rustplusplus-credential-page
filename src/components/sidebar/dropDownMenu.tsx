@@ -18,18 +18,17 @@ const DropdownMenu = ({ items }: MenuItemProps) => {
   }, []);
 
   const toggleSubMenu = (event: React.MouseEvent, id: string) => {
-    const lastId = localStorage.getItem('lastOpenMenuId');
     event.stopPropagation();
     if (openSubmenuId === id) {
-      if (lastId !== id) {
-        localStorage.setItem('lastOpenMenuId', id);
-      } else {
-        setOpenSubmenuId(null);
-        localStorage.removeItem('lastOpenMenuId');
+      setOpenSubmenuId(null);
+      localStorage.removeItem('lastOpenMenuId');
+      if (selectedItemId === id) {
+        setSelectedItemId(null);
       }
     } else {
       setOpenSubmenuId(id);
       localStorage.setItem('lastOpenMenuId', id);
+      setSelectedItemId(id);
     }
   };
 
@@ -47,7 +46,7 @@ const DropdownMenu = ({ items }: MenuItemProps) => {
           <Link
             href={items.href}
             className={`${styles.header} ${
-              selectedItemId === items.id && path.includes(items.id)
+              selectedItemId === items.id && path?.includes(items.id)
                 ? styles.selected
                 : ''
             }`}
@@ -64,9 +63,7 @@ const DropdownMenu = ({ items }: MenuItemProps) => {
                       <Link
                         href={subItem.href}
                         className={`${styles.links} ${
-                          openSubmenuId === subItem.id &&
-                          path?.includes(subItem.id) &&
-                          selectedItemId === subItem.id
+                          path?.endsWith(subItem.id)
                             ? styles.selected
                             : ''
                         }`}
