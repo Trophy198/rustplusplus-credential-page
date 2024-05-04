@@ -11,34 +11,38 @@ const Footer = () => {
 
   return (
     <footer className={styles.footer}>
-      <div className={styles.footerImage}>
-        <a href={gitHubURL} target="_blank">
-          <Image
-            src={GitHubIcon}
-            alt="github install link"
-            placeholder="blur"
-            width={45}
-            height={45}
-          />
+      <nav className={styles.footerNav}>
+        <ul>
+          <li>
+            <a href={gitHubURL} target="_blank">
+              <Image
+                src={GitHubIcon}
+                alt="github install link"
+                placeholder="blur"
+                width={45}
+                height={45}
+              />
+            </a>
+          </li>
+          <li>
+            <a href={discordURL} target="_blank" rel="noopener noreferrer">
+              <Image
+                src={DiscordIcon}
+                alt="discord community link"
+                placeholder="blur"
+                width={45}
+                height={45}
+              />
+            </a>
+          </li>
+        </ul>
+      </nav>
+      <section className={styles.footerSection}>
+        <a href={privacyPolicyURL} target="_blank" rel="noopener noreferrer">
+          Privacy Policy
         </a>
-        <a href={discordURL} target="_blank">
-          <Image
-            src={DiscordIcon}
-            alt="discord community link"
-            placeholder="blur"
-            width={45}
-            height={45}
-          />
-        </a>
-      </div>
-      <div className={styles.footerText}>
-        <p>
-          <a href={privacyPolicyURL} target="_blank">
-            Privacy Policy
-          </a>
-        </p>
         <p>Copyright ©2024 RUSTPLUSPLUS Inc. All Rights Reserved</p>
-      </div>
+      </section>
     </footer>
   );
 };
