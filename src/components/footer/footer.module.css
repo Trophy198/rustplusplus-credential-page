@@ -29,12 +29,7 @@
   justify-content: space-between;
   align-items: center;
   width: 2.75rem;
-  width: 2.8125rem;
-}
-
-.footerNav a img {
-  width: 100%;
-  height: 100%;
+  height: 2.75rem;
 }
 
 .footerNav a:hover img {
@@ -55,6 +50,7 @@
 }
 
 .footerSection a {
+  margin-bottom: 15px;
   color: var(--color-text);
   text-decoration: none;
 }
