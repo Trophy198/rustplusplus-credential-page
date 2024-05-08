@@ -1,0 +1,271 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  overflow-x: hidden;
+}
+
+.heroSection {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  min-height: calc(100vh - 89px);
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(27, 27, 27, 0.75) 76.18%, #1b1b1b 95.22%),
+    url('/images/background.png') #d3d3d3 0px 0px / 100% 100% no-repeat;
+  margin-bottom: 2rem;
+  padding: 2rem;
+}
+
+.heroContent {
+  width: 100%;
+  max-width: 1144px;
+}
+
+.heroContent div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--color-text);
+  text-shadow: 0px 4px 4px #000;
+  font-size: 1.25rem;
+  letter-spacing: -1.92px;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.heroContent p {
+  color: var(--color-text);
+  text-shadow: 0px 1px 16.4px #000;
+  font-size: 1.25rem;
+  text-align: center;
+  margin-bottom: 2rem;
+  margin-top: 1rem;
+}
+
+.heroContent img {
+  border-radius: 8px;
+}
+
+.features {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.startButton,
+.getStartedLink,
+.extensionButton {
+  text-decoration: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 18rem;
+  height: 4rem;
+  margin: 1rem auto;
+  padding: 7px 20px;
+  border: none;
+  border-radius: 8px;
+  background: var(--color-primary);
+  color: var(--color-text);
+  text-align: center;
+  font-size: 1.25rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
+}
+
+.getStartedLink {
+  display: none;
+}
+
+.startButton:hover,
+.getStartedLink:hover,
+.extensionButton:hover {
+  background-color: var(--color-primary-hover);
+}
+
+.feature {
+  display: flex;
+  flex-direction: row;
+}
+
+.feature p {
+  opacity: 0;
+  animation: slideInTextLeft 1s ease-out forwards;
+  margin: 0.75rem;
+  color: var(--color-text);
+}
+
+.feature:nth-child(2) p {
+  animation-delay: 0.5s;
+}
+
+.feature:nth-child(3) p {
+  animation-delay: 1s;
+}
+
+.feature:nth-child(4) p {
+  animation-delay: 1.5s;
+}
+
+.featureIcon {
+  width: 100px;
+  height: 100px;
+}
+
+.section {
+  display: flex;
+  flex-direction: row;
+  width: 90%;
+  max-width: 1144px;
+  height: 324px;
+  border-radius: 8px;
+  background: #313338;
+  margin: auto;
+  margin-bottom: 5rem;
+  overflow: hidden;
+  opacity: 0;
+  transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+}
+
+.section.visible {
+  animation: fadeInUp 0.5s forwards;
+}
+
+.sectionImg {
+  flex: 0 0 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  max-width: 100%;
+}
+
+.sectionImg img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 10px;
+  transition: transform 0.3s ease-in-out;
+}
+
+.sectionImg img:hover {
+  transform: scale(1.1);
+}
+
+.sectionText {
+  color: var(--color-text);
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.sectionText h2 {
+  font-size: 2rem;
+  font-weight: 800;
+  margin-bottom: 1rem;
+}
+
+.extensionTitle {
+  text-align: center;
+  color: var(--color-text);
+  margin-bottom: 1rem;
+}
+
+@media (max-width: 1024px) {
+  .heroSection {
+    padding: 1rem;
+    flex-direction: column;
+  }
+
+  .heroContent {
+    margin-bottom: 1.25rem;
+  }
+
+  .heroContent div {
+    font-size: 1rem;
+  }
+
+  .heroContent p {
+    font-size: 1rem;
+  }
+
+  .startButton {
+    display: none;
+  }
+
+  .getStartedLink {
+    display: flex;
+    width: 12rem;
+    height: 3rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .featureIcon {
+    width: 80px;
+    height: 80px;
+  }
+
+  .section {
+    flex-direction: column;
+    height: auto;
+  }
+
+  .section:nth-child(even) {
+    flex-direction: column-reverse;
+  }
+
+  .sectionImg {
+    flex: none;
+    width: 100%;
+    margin-bottom: 1rem;
+  }
+
+  .sectionText {
+    width: 100%;
+    padding: 1rem;
+  }
+
+  .sectionText h2 {
+    font-size: 1.5rem;
+  }
+
+  .feature p {
+    font-size: 0.75rem;
+  }
+
+  .extensionTitle {
+    font-size: 1rem;
+  }
+
+  .startButton,
+  .getStartedLink,
+  .extensionButton {
+    width: 12rem;
+    height: 3rem;
+  }
+}
+
+@keyframes slideInTextLeft {
+  0% {
+    transform: translateX(-10%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0%);
+    opacity: 1;
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
