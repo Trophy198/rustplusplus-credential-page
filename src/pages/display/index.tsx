@@ -9,11 +9,10 @@ interface DisplayProps {
   error?: string;
 }
 
-const Display: NextPage<DisplayProps> = ({
-  formattedCredentials,
-  expire,
-  error,
-}) => {
+/**
+ * todo : add expire in credentials
+ */
+const Display: NextPage<DisplayProps> = ({ formattedCredentials, expire, error }) => {
   const copyToClipboard = async () => {
     try {
       await navigator.clipboard.writeText(formattedCredentials || '');
