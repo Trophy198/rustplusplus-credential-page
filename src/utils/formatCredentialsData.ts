@@ -25,9 +25,7 @@ interface FormattedCredentialsData {
   expire: number;
 }
 
-export function formatCredentialsData(
-  credentials: Credentials,
-): FormattedCredentialsData {
+export function formatCredentialsData(credentials: Credentials): FormattedCredentialsData {
   const { fcm_credentials, steamId, expire } = credentials;
   const { fcm, gcm, keys } = fcm_credentials;
   const formattedData =

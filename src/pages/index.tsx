@@ -1,10 +1,16 @@
 import type { NextPage } from 'next';
+import styles from './mainpage.module.css';
+import HeroSection from '@/components/homepage/heroSection';
+import FeatureSection from '@/components/homepage/featureSection';
+import ExtensionSection from '@/components/homepage/extensionSection';
 
 const Home: NextPage = () => {
   return (
-    <main>
-      <h1>Rustplusplus-credentials-page</h1>
-    </main>
+    <div className={styles.wrapper}>
+      <HeroSection />
+      <FeatureSection />
+      <ExtensionSection />
+    </div>
   );
 };
 
