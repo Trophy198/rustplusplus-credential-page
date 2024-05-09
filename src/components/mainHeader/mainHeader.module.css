@@ -6,6 +6,7 @@
   padding: 1.5rem;
   border-bottom: solid 1px #4f4d4d;
   background-color: var(--color-background);
+  z-index: 9999;
 }
 
 .title {
@@ -53,4 +54,17 @@
   align-items: center;
   color: var(--color-text);
   padding: 15px 14px;
+}
+
+@media (max-width: 768px) {
+  .rustplusplusActionButton:first-of-type {
+    display: none;
+  }
+  .title {
+    font-size: 1.5rem;
+  }
+  .rustplusplusActionButton {
+    font-size: 1rem;
+    font-weight: 600;
+  }
 }
