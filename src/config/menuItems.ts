@@ -30,68 +30,7 @@ const menuItems = [
     id: 'discord-text-channels',
     label: 'Discord Text Channels',
     href: '/documents/discord-text-channels',
-    subItems: [
-      {
-        id: 'information',
-        label: 'Information',
-        href: '/documents/discord-text-channels/information',
-      },
-      {
-        id: 'servers',
-        label: 'Servers',
-        href: '/documents/discord-text-channels/servers',
-      },
-      {
-        id: 'settings',
-        label: 'Settings',
-        href: '/documents/discord-text-channels/settings',
-      },
-      {
-        id: 'channel-commands',
-        label: 'Commands',
-        href: '/documents/discord-text-channels/channel-commands',
-      },
-      {
-        id: 'events',
-        label: 'Events',
-        href: '/documents/discord-text-channels/events',
-      },
-      {
-        id: 'teamchat',
-        label: 'Teamchat',
-        href: '/documents/discord-text-channels/teamchat',
-      },
-      {
-        id: 'switches',
-        label: 'Switches',
-        href: '/documents/discord-text-channels/switches',
-      },
-      {
-        id: 'switchgroups',
-        label: 'Switchgroups',
-        href: '/documents/discord-text-channels/switchgroups',
-      },
-      {
-        id: 'alarms',
-        label: 'Alarms',
-        href: '/documents/discord-text-channels/alarms',
-      },
-      {
-        id: 'storagemonitors',
-        label: 'Storagemonitors',
-        href: '/documents/discord-text-channels/storagemonitors',
-      },
-      {
-        id: 'activity',
-        label: 'Activity',
-        href: '/documents/discord-text-channels/activity',
-      },
-      {
-        id: 'trackers',
-        label: 'Trackers',
-        href: '/documents/discord-text-channels/trackers',
-      },
-    ],
+    subItems: [],
   },
   {
     id: 'commands',

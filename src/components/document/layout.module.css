@@ -3,3 +3,7 @@
     margin: auto;
     width: 100%;
 }
+
+.main {
+    border-left: 1px solid #4f4d4d;
+}

@@ -1,5 +1,6 @@
 .container {
   position: sticky;
-  top: 121px;
-  width: 284px;
+  left: 0;
+  right: 0;
+  bottom: 0;
 }

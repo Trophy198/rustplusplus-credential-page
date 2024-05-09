@@ -1,7 +1,6 @@
 .container {
   display: flex;
   flex-direction: column;
-  border-right: 1px solid #4f4d4d;
   padding-bottom: 16px;
   padding-right: 8px;
   color: white;

@@ -1,9 +1,8 @@
-import { useRouter } from 'next/router';
 import styles from './documents.module.css';
 import { GetServerSideProps } from 'next';
 import { MenuRender } from '@/types/sidebarTypes';
 import menuItems from '@/config/menuItems';
-import Layout from '@/components/documentComponent/layout';
+import Layout from '@/components/document/layout';
 
 export const getServerSideProps: GetServerSideProps<MenuRender> = async () => {
   return {
@@ -14,8 +13,6 @@ export const getServerSideProps: GetServerSideProps<MenuRender> = async () => {
 };
 
 const Page = ({ menuItems }: MenuRender) => {
-  const router = useRouter();
-  const query = router.query;
 
   return (
     <Layout menuItems={menuItems}>
