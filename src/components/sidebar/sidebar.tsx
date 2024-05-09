@@ -1,8 +1,8 @@
-import SectionHeader from './sectionHeader';
-import menuItems from '../../config/menuItems';
+import SectionHeader from './sectionHeader/sectionHeader';
 import styles from './sidebar.module.css';
+import { MenuRender } from '@/types/sidebarTypes';
 
-const Sidebar = () => {
+const Sidebar = ({ menuItems }: MenuRender) => {
   return (
     <div className={styles.container}>
       <SectionHeader menuItems={menuItems} />

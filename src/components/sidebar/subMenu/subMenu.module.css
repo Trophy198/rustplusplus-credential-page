@@ -1,7 +1,6 @@
 .container {
   display: flex;
   flex-direction: column;
-  overflow-y: scroll;
   padding-right: 8px;
   scrollbar-width: thin;
   scrollbar-color: #eaeaea transparent;
@@ -25,7 +24,7 @@
   color: #dbdbdb;
 }
 
-.dropDownMenuItems {
+.subMenu {
   height: auto;
   opacity: 1;
   overflow: hidden;
@@ -34,7 +33,7 @@
   transition: opacity 0.15s ease 0s, height 0.2s ease-in-out 0s;
 }
 
-.dropDownMenuItem {
+.subMenuItem {
   position: relative;
 }
 
