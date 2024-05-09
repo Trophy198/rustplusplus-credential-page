@@ -1,13 +1,14 @@
 import Sidebar from '@/components/sidebar/sidebar';
 import styles from './layout.module.css';
 import { MenuRender } from '@/types/sidebarTypes';
+import { ReactNode } from 'react';
 
 interface LayoutProps {
-  children: React.ReactNode;
+  children: ReactNode;
   menuItems: MenuRender['menuItems'];
 }
 
-const Layout = ({ children, menuItems }: LayoutProps) => {
+const DocumentLayout = ({ children, menuItems }: LayoutProps) => {
   return (
     <div className={styles.container}>
       <Sidebar menuItems={menuItems} />
@@ -16,4 +17,4 @@ const Layout = ({ children, menuItems }: LayoutProps) => {
   );
 };
 
-export default Layout;
+export default DocumentLayout;

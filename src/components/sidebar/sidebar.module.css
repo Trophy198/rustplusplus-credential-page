@@ -1,6 +1,5 @@
 .container {
   position: sticky;
   top: 121px;
-  height: calc(100vh - 121px);
   width: 284px;
 }
