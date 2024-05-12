@@ -12,8 +12,7 @@ export const getServerSideProps: GetServerSideProps<MenuRender> = async () => {
   };
 };
 
-const Page = ({ menuItems }: MenuRender) => {
-
+const Documents = ({ menuItems }: MenuRender) => {
   return (
     <Layout menuItems={menuItems}>
       <p>Document Page</p>
@@ -21,4 +20,4 @@ const Page = ({ menuItems }: MenuRender) => {
   );
 };
 
-export default Page;
+export default Documents;
