@@ -6,8 +6,7 @@ import DiscordIcon from './../../../public/icons/discord.png';
 const Footer = () => {
   const gitHubURL: string = 'https://github.com/alexemanuelol/rustplusplus';
   const discordURL: string = 'https://discord.com/invite/vcrKbKVAbc';
-  const privacyPolicyURL: string =
-    'https://sites.google.com/view/rustplusplus-privacy-policy/%ED%99%88';
+  const privacyPolicyURL: string = 'https://sites.google.com/view/rustplusplus-privacy-policy/%ED%99%88';
 
   return (
     <footer className={styles.footer}>
@@ -15,24 +14,12 @@ const Footer = () => {
         <ul>
           <li>
             <a href={gitHubURL} target="_blank">
-              <Image
-                src={GitHubIcon}
-                alt="github install link"
-                placeholder="blur"
-                width={45}
-                height={45}
-              />
+              <Image src={GitHubIcon} alt="github install link" placeholder="blur" className={styles.footerImage} />
             </a>
           </li>
           <li>
             <a href={discordURL} target="_blank" rel="noopener noreferrer">
-              <Image
-                src={DiscordIcon}
-                alt="discord community link"
-                placeholder="blur"
-                width={45}
-                height={45}
-              />
+              <Image src={DiscordIcon} alt="discord community link" placeholder="blur" className={styles.footerImage} />
             </a>
           </li>
         </ul>
