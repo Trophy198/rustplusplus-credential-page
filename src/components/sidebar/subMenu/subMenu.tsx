@@ -16,7 +16,7 @@ const SubMenu = ({ items }: Props) => {
   return (
     <ul className={styles.container} onClick={toggleSidebar}>
       <li className={styles.menuItems}>
-        <Link href={items.href} className={`${styles.header} ${isSelected(items.href) ? styles.selected : ''}`}>
+        <Link href={items.href} className={`${styles.header} ${isSelected(items.href) ? styles.headerSelected : ''}`}>
           {items.label}
         </Link>
         {items.subItems && (
@@ -27,7 +27,7 @@ const SubMenu = ({ items }: Props) => {
                   <li key={subItem.id} className={styles.subItem}>
                     <Link
                       href={subItem.href}
-                      className={`${styles.links} ${isSelected(subItem.href) ? styles.selected : ''}`}
+                      className={`${styles.links} ${isSelected(subItem.href) ? styles.selected : styles.unSelected}`}
                     >
                       {subItem.label}
                     </Link>
