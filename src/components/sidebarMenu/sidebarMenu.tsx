@@ -10,13 +10,13 @@ const SidebarMenu = () => {
   return (
     <div className={styles.container}>
       <button onClick={toggleSidebar}>
+        <span>Menu</span>
         <Image
           src={isSidebarOpen ? ArrowLeftIcon : ArrowRightIcon}
           alt="sidebarIcon"
           placeholder="blur"
           width={17}
         ></Image>
-        <span>Menu</span>
       </button>
     </div>
   );
