@@ -7,8 +7,7 @@ import Dot from '../loadingCollection/dot';
 
 const MainHeader = () => {
   const { isLoggedIn, setIsLoggedIn } = useAuthStore();
-  const { browserType, isExtensionInstalled, isLoading } =
-    useExtensionDetection();
+  const { browserType, isExtensionInstalled, isLoading } = useExtensionDetection();
 
   const handleLogout = async () => {
     try {
@@ -36,24 +35,15 @@ const MainHeader = () => {
               <>
                 {isLoggedIn ? (
                   <>
-                    <Link
-                      className={styles.rustplusplusActionButton}
-                      href="/display"
-                    >
+                    <Link className={styles.rustplusplusActionButton} href="/display">
                       Credential Info
                     </Link>
-                    <button
-                      className={styles.rustplusplusActionButton}
-                      onClick={handleLogout}
-                    >
+                    <button className={styles.rustplusplusActionButton} onClick={handleLogout}>
                       Log Out
                     </button>
                   </>
                 ) : (
-                  <a
-                    className={styles.rustplusplusActionButton}
-                    href="https://companion-rust.facepunch.com/login"
-                  >
+                  <a className={styles.rustplusplusActionButton} href="https://companion-rust.facepunch.com/login">
                     Log In
                   </a>
                 )}
@@ -72,9 +62,12 @@ const MainHeader = () => {
                 Install Extension
               </a>
             )}
-            <Link className={styles.rustplusplusActionButton} href="/documents">
+            <button
+              onClick={() => alert('documents page will be updated soon!')}
+              className={styles.rustplusplusActionButton}
+            >
               Docs
-            </Link>
+            </button>
           </>
         ) : (
           <div className={styles.loadingContainer}>
