@@ -30,6 +30,7 @@ const CallbackPage: NextPage = () => {
         .catch((error) => {
           console.error('Failed to process the callback:', error);
           alert(error.message);
+          window.location.href = '/';
         })
         .finally(() => setLoading(false));
     }
@@ -38,9 +39,7 @@ const CallbackPage: NextPage = () => {
   return (
     loading && (
       <div className={styles.center}>
-        <h1 className={styles.title}>
-          Creating your credentials, please wait...
-        </h1>
+        <h1 className={styles.title}>Creating your credentials, please wait...</h1>
         <Spinner />
       </div>
     )
