@@ -1,0 +1,101 @@
+.container {
+  list-style: none;
+  margin-bottom: 18px;
+  width: 100%;
+}
+
+.header {
+  text-decoration: none;
+  color: #ffffff;
+  font-size: 1rem;
+  display: flex;
+  position: relative;
+  padding: 9px 9px 9px 0px;
+}
+
+.header:hover {
+  color: var(--color-link-hover);
+}
+
+.subMenu {
+  height: auto;
+  opacity: 1;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: opacity 0.15s ease 0s, height 0.2s ease-in-out 0s;
+}
+
+.subMenuItem {
+  position: relative;
+}
+
+.subMenuItems {
+  padding-left: 0.125rem;
+  padding-right: 0.125rem;
+}
+
+.subItem {
+  color: var(--color-link-text);
+}
+
+.links {
+  position: relative;
+  display: flex;
+  width: 100%;
+  cursor: pointer;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.5rem 0 0.5rem 0.5rem;
+  text-align: left;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--color-link-text);
+  text-decoration: none;
+}
+
+.links:hover {
+  color: var(--color-link-hover);
+}
+
+.nestedSubItems {
+  opacity: 1;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: opacity 0.15s ease, height 0.2s ease-in-out;
+}
+
+.nestedSubItem {
+  padding-left: 0.75rem;
+  margin-right: 1.5rem;
+  margin-left: 1rem;
+}
+
+.headerSelected {
+  color: var(--color-primary);
+  border-left: none;
+}
+
+.selected {
+  color: var(--color-primary);
+  border-left: 1px solid var(--color-primary);
+}
+
+.unSelected {
+  border-left: 1px solid #e5e7eb;
+}
+
+@media (max-width: 768px) {
+  .links {
+    padding: 0.5rem 0 0.5rem 0;
+  }
+
+  .selected {
+    border-left: none;
+  }
+
+  .unSelected {
+    border-left: none;
+  }
+}

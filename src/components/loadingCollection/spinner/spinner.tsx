@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from '@/styles/Spinner.module.css';
+import styles from './spinner.module.css';
 
 const Spinner = () => {
   return (
@@ -7,6 +7,6 @@ const Spinner = () => {
       <div className={styles.spinner}></div>
     </div>
   );
-}
+};
 
 export default Spinner;

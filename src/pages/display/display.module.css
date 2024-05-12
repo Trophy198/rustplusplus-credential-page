@@ -1,0 +1,131 @@
+.container {
+  padding: 20px;
+}
+
+.pageTitle {
+  color: var(--color-text);
+}
+
+.errorContainer {
+  color: var(--color-text);
+}
+
+.credentialsContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.credentialsPre {
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  background-color: #f4f4f4;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 0.75rem;
+  margin-top: 10px;
+  width: 100%;
+}
+
+.copyButton {
+  padding: 10px 20px;
+  margin-top: 20px;
+  background-color: var(--color-primary);
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
+}
+
+.copyButton:hover {
+  background-color: var(--color-primary-hover);
+}
+
+.statusContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+}
+
+.expireText {
+  color: var(--color-text);
+}
+
+.statusTitle {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--color-text);
+}
+
+.statusIndicatorText {
+  padding-left: 10px;
+  color: #03c75a;
+}
+
+.statusIndicator {
+  position: relative;
+  display: inline-block;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  margin: 10px;
+}
+
+.statusIndicator.active,
+.statusIndicator.active::before {
+  background: #03c75a;
+}
+
+.statusIndicator.inactive,
+.statusIndicator.inactive::before {
+  background: var(--color-primary);
+}
+
+.statusIndicator::before {
+  content: '';
+  display: block;
+  position: absolute;
+  left: -5px;
+  top: -5px;
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  animation: pulse 1.5s infinite ease-in;
+}
+
+@keyframes pulse {
+  from {
+    transform: scale(0.5);
+    opacity: 1;
+  }
+
+  to {
+    transform: scale(1.5);
+    opacity: 0;
+  }
+}
+
+@media (max-width: 768px) {
+  .pageTitle {
+    text-align: center;
+    font-size: 1.5rem;
+  }
+
+  .credentialsContainer {
+    align-items: center;
+  }
+
+  .copyButton {
+    align-self: center;
+  }
+  .errorContainer {
+    text-align: center;
+  }
+  .statusContainer {
+    margin-top: 1rem;
+  }
+}

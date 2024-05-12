@@ -5,8 +5,8 @@
   align-items: center;
   height: 100vh;
   text-align: center;
-  font-family: Arial, sans-serif;
-  color: #333;
+  color: var(--color-text);
+  gap: 1rem;
 }
 
 .title {

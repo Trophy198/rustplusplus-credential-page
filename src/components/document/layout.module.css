@@ -1,0 +1,28 @@
+.container {
+  display: flex;
+  justify-content: center;
+  margin-top: 50px;
+  padding: 0 30px;
+  width: 100%;
+  height: 100%;
+}
+
+.container section {
+  width: 100%;
+  max-width: 943px;
+  height: 100%;
+  font-size: 1.5rem;
+  color: var(--color-text);
+}
+
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column;
+    margin-top: 0;
+    padding: 0;
+  }
+
+  .container section {
+    padding: 40px 16px;
+  }
+}
