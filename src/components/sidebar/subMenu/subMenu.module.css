@@ -1,27 +1,20 @@
 .container {
-  display: flex;
-  flex-direction: column;
-  padding-right: 8px;
-  scrollbar-width: thin;
-  scrollbar-color: #eaeaea transparent;
-  scrollbar-gutter: stable;
-}
-
-.menuItems {
-  margin-left: 3px;
+  list-style: none;
+  margin-bottom: 18px;
+  width: 100%;
 }
 
 .header {
   text-decoration: none;
   color: #ffffff;
-  font-size: 16px;
+  font-size: 1rem;
   display: flex;
-  position:relative;
-  margin-top: 0.5rem;
+  position: relative;
+  padding: 9px 9px 9px 0px;
 }
 
 .header:hover {
-  color: #dbdbdb;
+  color: var(--color-link-hover);
 }
 
 .subMenu {
@@ -43,7 +36,8 @@
 }
 
 .subItem {
-  margin: 0.375rem 0;
+  color: var(--color-link-text);
+  border-left: 1px solid var(--color-link-text);
 }
 
 .links {
@@ -54,18 +48,16 @@
   align-items: center;
   justify-content: space-between;
   border-radius: 0.375rem;
-  padding-top: 0.25rem;
-  padding-bottom: 0.25rem;
-  padding-left: 0.5rem;
+  padding: 0.5rem 0 0.5rem 0.5rem;
   text-align: left;
   font-size: 0.875rem;
   font-weight: 500;
-  color: #ffffff;
+  color: var(--color-link-text);
   text-decoration: none;
 }
 
 .links:hover {
-  color: #dbdbdb;
+  color: var(--color-link-hover);
 }
 
 .nestedSubItems {
@@ -85,5 +77,15 @@
 }
 
 .selected {
-  color: #006ffe;
+  color: var(--color-primary);
+}
+
+@media (max-width: 768px) {
+  .subItem {
+    border-left: none;
+  }
+
+  .links {
+    padding: 0.5rem 0 0.5rem 0;
+  }
 }
