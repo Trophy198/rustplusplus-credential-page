@@ -1,0 +1,40 @@
+.container {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .container {
+    z-index: 101;
+    position: sticky;
+    top: 90px;
+    left: 0px;
+    display: flex;
+    flex-direction: row;
+    border-bottom: 1px solid #727272;
+    padding: 12px 16px;
+    width: 100%;
+    background-color: #1b1b1b;
+  }
+
+  .container:hover span {
+    padding-right: 0.3125rem;
+    color: var(--color-link-hover);
+    transition: color 0.1s ease 0.1s;
+  }
+
+  .container button {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    border: none;
+    background-color: transparent;
+    width: 100%;
+    cursor: pointer;
+  }
+
+  .container button span {
+    font-size: 1rem;
+    color: white;
+    padding-left: 5px;
+  }
+}
