@@ -11,12 +11,7 @@ const SidebarMenu = () => {
     <div className={styles.container}>
       <button onClick={toggleSidebar}>
         <span>Menu</span>
-        <Image
-          src={isSidebarOpen ? ArrowLeftIcon : ArrowRightIcon}
-          alt="sidebarIcon"
-          placeholder="blur"
-          width={17}
-        ></Image>
+        <Image src={isSidebarOpen ? ArrowLeftIcon : ArrowRightIcon} alt="sidebarIcon" width={17}></Image>
       </button>
     </div>
   );
