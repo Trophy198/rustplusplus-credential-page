@@ -39,7 +39,7 @@
 
 .footerImage {
   width: 44px;
-  height: 44px;
+  height: auto;
 }
 
 .footerSection {
@@ -54,7 +54,7 @@
 }
 
 .footerSection a {
-  margin-bottom: 15px;
+  margin-bottom: 0.9375rem;
   color: var(--color-text);
 }
 
@@ -75,7 +75,7 @@
 
   .footerImage {
     width: 40px;
-    height: 40px;
+    height: auto;
   }
 
   .footerSection {
@@ -87,6 +87,6 @@
   }
 
   .footerSection a {
-    margin-bottom: 7.5px;
+    margin-bottom: 0.8125rem;
   }
 }
