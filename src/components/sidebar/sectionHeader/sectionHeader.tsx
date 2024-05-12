@@ -4,11 +4,11 @@ import styles from './sectionHeader.module.css';
 
 const SectionHeader = ({ menuItems }: MenuRender) => {
   return (
-    <div className={styles.container}>
+    <nav className={styles.container}>
       {menuItems?.map((items) => (
         <SubMenu key={items.id} items={items} />
       ))}
-    </div>
+    </nav>
   );
 };
 

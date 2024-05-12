@@ -16,6 +16,8 @@
   /* Text colors */
   --color-text: #ededed;
   --color-text-dark: #101010;
+  --color-link-text: #d0d0d0;
+  --color-link-hover: #aaaaaa;
 }
 
 body,
