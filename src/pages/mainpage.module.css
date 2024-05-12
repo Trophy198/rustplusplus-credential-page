@@ -16,6 +16,8 @@
     url('/images/background.png') #d3d3d3 0px 0px / 100% 100% no-repeat;
   margin-bottom: 2rem;
   padding: 2rem;
+  background-size: cover;
+  background-position: center;
 }
 
 .heroContent {

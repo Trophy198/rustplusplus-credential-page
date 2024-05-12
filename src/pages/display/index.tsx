@@ -2,6 +2,7 @@ import { GetServerSideProps, NextPage } from 'next';
 import { parseCookies, destroyCookie } from 'nookies';
 import { formatCredentialsData } from '@/utils/formatCredentialsData';
 import styles from './display.module.css';
+import { formatTimeRemaining } from '@/utils/formatTimeRemaining';
 
 interface DisplayProps {
   formattedCredentials?: string;
@@ -23,18 +24,33 @@ const Display: NextPage<DisplayProps> = ({ formattedCredentials, expire, error }
     }
   };
 
+  const timeRemaining = expire ? formatTimeRemaining(parseInt(expire)) : null;
+
   return (
     <div className={styles.container}>
-      <h1 className={styles.title}>Configuration Data</h1>
       {error ? (
-        <div>Error: {error}</div>
-      ) : (
-        <div>
-          <pre className={styles.pre}>{formattedCredentials}</pre>
-          <button className={styles.button} onClick={copyToClipboard}>
-            Copy to Clipboard
-          </button>
+        <div className={styles.errorContainer}>
+          <h3>Error: {error}</h3>
         </div>
+      ) : (
+        <>
+          <h1 className={styles.pageTitle}>Credential Info</h1>
+          <div className={styles.credentialsContainer}>
+            <pre className={styles.credentialsPre}>{formattedCredentials}</pre>
+            <button className={styles.copyButton} onClick={copyToClipboard}>
+              Copy to Clipboard
+            </button>
+          </div>
+          {timeRemaining && (
+            <div className={styles.statusContainer}>
+              <h2 className={styles.statusTitle}>
+                Status: <span className={styles.statusIndicatorText}>Active</span>
+                <span className={`${styles.statusIndicator} ${styles.active}`}></span>
+              </h2>
+              <p className={styles.expireText}>Expires in: {timeRemaining}</p>
+            </div>
+          )}
+        </>
       )}
     </div>
   );
