@@ -40,11 +40,13 @@
 
   .menuOpen {
     width: 1rem;
+    height: auto;
     transition: 0.1s ease 0.1s;
   }
 
   .menuClose {
     width: 1rem;
+    height: auto;
     transform: rotate(90deg);
     transition: 0.1s ease 0.1s;
   }
