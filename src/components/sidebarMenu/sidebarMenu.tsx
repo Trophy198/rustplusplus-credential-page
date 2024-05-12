@@ -1,7 +1,6 @@
 import Image from 'next/image';
 import styles from './sidebarMenu.module.css';
-import ArrowRightIcon from './../../../public/icons/arrow_right.png';
-import ArrowLeftIcon from './../../../public/icons/arrow_Left.png';
+import ArrowRightIcon from '@/public/icons/arrow_right.png';
 import useSidebarStore from '@/store/useSidebarStore';
 
 const SidebarMenu = () => {
@@ -11,7 +10,11 @@ const SidebarMenu = () => {
     <div className={styles.container}>
       <button onClick={toggleSidebar}>
         <span>Menu</span>
-        <Image src={isSidebarOpen ? ArrowLeftIcon : ArrowRightIcon} alt="sidebarIcon" width={17}></Image>
+        <Image
+          src={ArrowRightIcon}
+          alt="sidebarIcon"
+          className={isSidebarOpen ? styles.menuOpen : styles.menuClose}
+        ></Image>
       </button>
     </div>
   );
