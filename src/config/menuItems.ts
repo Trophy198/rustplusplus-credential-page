@@ -11,7 +11,7 @@ const menuItems = [
       },
       {
         id: 'discord-bot-setup',
-        label: 'discord-bot-setup',
+        label: 'Discord Bot Setup',
         href: '/documents/getting-started/discord-bot-setup',
       },
       {
