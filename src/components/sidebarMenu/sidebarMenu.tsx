@@ -6,9 +6,14 @@ import useSidebarStore from '@/store/useSidebarStore';
 const SidebarMenu = () => {
   const { isSidebarOpen, toggleSidebar } = useSidebarStore();
 
+  const handleSidebar = (): void => {
+    toggleSidebar();
+    !isSidebarOpen ? (document.body.style.overflow = 'hidden') : (document.body.style.overflow = 'auto');
+  };
+
   return (
     <div className={styles.container}>
-      <button onClick={toggleSidebar}>
+      <button onClick={handleSidebar}>
         <span>Menu</span>
         <Image
           src={ArrowRightIcon}
