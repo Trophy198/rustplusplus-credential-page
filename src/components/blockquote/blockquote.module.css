@@ -1,0 +1,12 @@
+.container {
+  padding: 0 1rem;
+  color: #848d97;
+  border-left: 0.25rem solid #30363d;
+  font-size: 1rem;
+  margin-bottom: 1rem;
+}
+
+.description {
+  line-height: 1.5;
+  word-wrap: break-word;
+}
