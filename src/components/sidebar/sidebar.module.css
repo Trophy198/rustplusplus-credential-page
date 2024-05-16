@@ -6,16 +6,18 @@
   height: 100%;
   background-color: var(--color-background);
   transition: transform 0.3s ease-in-out;
+  overflow-y: auto;
 }
 
 @media (max-width: 768px) {
   .sidebar {
-    position: absolute;
-    top: 141px;
+    position: fixed;
+    top: 133px;
     z-index: 100;
     padding: 20px;
     width: 100%;
-    height: calc(100vh - 141px);
+    min-width: none;
+    height: calc(100vh - 133px);
     transform: translateX(-100%);
   }
 
