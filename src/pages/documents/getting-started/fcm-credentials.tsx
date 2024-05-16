@@ -5,12 +5,12 @@ import usePagination from '@/hooks/usePagination';
 import { MenuRender } from '@/types/sidebarTypes';
 import { GetStaticProps } from 'next';
 
-const CommandsPage = ({ menuItems }: MenuRender) => {
+const FCMCredentialsPage = ({ menuItems }: MenuRender) => {
   const { previousHref, previousLabel, nextHref, nextLabel } = usePagination();
 
   return (
     <DocumentLayout menuItems={menuItems}>
-      <h1>Commands Page</h1>
+      <h1>FCM Credentials</h1>
       <Pagination previousHref={previousHref} previousLabel={previousLabel} nextHref={nextHref} nextLabel={nextLabel} />
     </DocumentLayout>
   );
@@ -24,4 +24,4 @@ export const getStaticProps: GetStaticProps = async () => {
   };
 };
 
-export default CommandsPage;
+export default FCMCredentialsPage;
