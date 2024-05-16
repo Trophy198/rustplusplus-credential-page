@@ -62,12 +62,9 @@ const MainHeader = () => {
                 Install Extension
               </a>
             )}
-            <button
-              onClick={() => alert('documents page will be updated soon!')}
-              className={styles.rustplusplusActionButton}
-            >
+            <Link href="/documents" className={styles.rustplusplusActionButton}>
               Docs
-            </button>
+            </Link>
           </>
         ) : (
           <div className={styles.loadingContainer}>
