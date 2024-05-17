@@ -4,13 +4,14 @@ import menuItems from '@/config/menuItems';
 import usePagination from '@/hooks/usePagination';
 import { MenuRender } from '@/types/sidebarTypes';
 import { GetStaticProps } from 'next';
+import FcmCredentialsSection from '@/components/document/pages/fcmCredentials/section';
 
 const FCMCredentialsPage = ({ menuItems }: MenuRender) => {
   const { previousHref, previousLabel, nextHref, nextLabel } = usePagination();
 
   return (
     <DocumentLayout menuItems={menuItems}>
-      <h1>FCM Credentials</h1>
+      <FcmCredentialsSection />
       <Pagination previousHref={previousHref} previousLabel={previousLabel} nextHref={nextHref} nextLabel={nextLabel} />
     </DocumentLayout>
   );
