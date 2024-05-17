@@ -4,6 +4,7 @@ import { MenuRender } from '@/types/sidebarTypes';
 import { ReactNode, useLayoutEffect } from 'react';
 import SidebarMenu from '../sidebarMenu/sidebarMenu';
 import useSidebarStore from '@/store/useSidebarStore';
+import { useRouter } from 'next/router';
 
 interface LayoutProps {
   children: ReactNode;
@@ -12,6 +13,7 @@ interface LayoutProps {
 
 const DocumentLayout = ({ children, menuItems }: LayoutProps) => {
   const { isSidebarOpen, setSidebarClosed } = useSidebarStore();
+  const router = useRouter();
 
   useLayoutEffect(() => {
     const handleResize = () => {
@@ -20,13 +22,21 @@ const DocumentLayout = ({ children, menuItems }: LayoutProps) => {
       }
     };
 
+    const handleRouteChange = () => {
+      setSidebarClosed();
+      document.body.style.overflow = '';
+      document.body.style.touchAction = '';
+    };
+
     window.addEventListener('resize', handleResize);
     handleResize();
+    router.events.on('routeChangeStart', handleRouteChange);
 
     return () => {
       window.removeEventListener('resize', handleResize);
+      router.events.off('routeChangeStart', handleRouteChange);
     };
-  }, [setSidebarClosed]);
+  }, [router.events, setSidebarClosed]);
 
   useLayoutEffect(() => {
     if (isSidebarOpen) {
