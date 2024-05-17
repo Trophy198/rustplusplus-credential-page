@@ -10,7 +10,7 @@ interface PaginationProps {
 
 const Pagination = ({ previousHref, previousLabel, nextHref, nextLabel }: PaginationProps) => {
   return (
-    <div className={styles.container}>
+    <nav className={styles.container}>
       {previousHref ? (
         <Link className={styles.link} href={previousHref}>
           <span className={styles.arrow}>&larr;</span> {previousLabel}
@@ -25,7 +25,7 @@ const Pagination = ({ previousHref, previousLabel, nextHref, nextLabel }: Pagina
       ) : (
         <span></span>
       )}
-    </div>
+    </nav>
   );
 };
 

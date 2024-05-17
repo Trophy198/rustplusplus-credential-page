@@ -4,13 +4,14 @@ import menuItems from '@/config/menuItems';
 import usePagination from '@/hooks/usePagination';
 import { MenuRender } from '@/types/sidebarTypes';
 import { GetStaticProps } from 'next';
+import PairAndConnectToServerSection from '@/components/document/pages/pairAndConnectToServer/section';
 
 const PairAndConnectToServerPage = ({ menuItems }: MenuRender) => {
   const { previousHref, previousLabel, nextHref, nextLabel } = usePagination();
 
   return (
     <DocumentLayout menuItems={menuItems}>
-      <h1>Pair And Connect To Server</h1>
+      <PairAndConnectToServerSection />
       <Pagination previousHref={previousHref} previousLabel={previousLabel} nextHref={nextHref} nextLabel={nextLabel} />
     </DocumentLayout>
   );

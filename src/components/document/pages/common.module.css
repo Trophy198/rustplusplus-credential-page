@@ -1,0 +1,12 @@
+.container {
+  border: 1px solid #4f4d4d;
+  border-top-left-radius: 6px;
+  border-top-right-radius: 6px;
+  padding: 2rem;
+}
+
+.documentimg {
+  margin-bottom: 1rem;
+  max-width: 100%;
+  height: auto;
+}
