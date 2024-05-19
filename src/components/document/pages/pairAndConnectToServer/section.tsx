@@ -17,7 +17,6 @@ const PairAndConnectToServerSection = ({ imageUrls }: { imageUrls: ImageUrl }) =
         height={800}
         alt="pairing_server"
         placeholder="blur"
-        priority
       />
       <OrderedList start={5} items={data.getServerAppearanceStep()} />
       <Image
@@ -27,7 +26,6 @@ const PairAndConnectToServerSection = ({ imageUrls }: { imageUrls: ImageUrl }) =
         height={836}
         alt="servers_channel"
         placeholder="blur"
-        priority
       />
       <OrderedList start={6} items={data.getConnectStep()} />
     </section>

@@ -25,7 +25,6 @@ const FcmCredentialsSection = ({ imageUrls }: { imageUrls: ImageUrl }) => {
         width={1200}
         height={850}
         placeholder="blur"
-        priority
       />
       <UnorderedList items={data.getSteamLoginStep()} />
       <Image
@@ -35,7 +34,6 @@ const FcmCredentialsSection = ({ imageUrls }: { imageUrls: ImageUrl }) => {
         width={1200}
         height={850}
         placeholder="blur"
-        priority
       />
       <UnorderedList items={data.getCopyCredentialsSteps()} />
       <Image
@@ -45,7 +43,6 @@ const FcmCredentialsSection = ({ imageUrls }: { imageUrls: ImageUrl }) => {
         width={1200}
         height={850}
         placeholder="blur"
-        priority
       />
       <UnorderedList items={data.getPasteCredentialsStep()} />
       <Image
@@ -55,7 +52,6 @@ const FcmCredentialsSection = ({ imageUrls }: { imageUrls: ImageUrl }) => {
         width={1200}
         height={850}
         placeholder="blur"
-        priority
       />
       <UnorderedList items={data.getTeammateRegistrationSteps()} />
       <Image
@@ -65,7 +61,6 @@ const FcmCredentialsSection = ({ imageUrls }: { imageUrls: ImageUrl }) => {
         width={455}
         height={320}
         placeholder="blur"
-        priority
       />
       <Heading2>Why are FCM Credentials necessary?</Heading2>
       <Paragraph>FCM Credentials are necessary in order to get the following:</Paragraph>
