@@ -17,8 +17,9 @@ const DiscordBotSetupSection = ({ imageUrls }: { imageUrls: ImageUrls }) => {
         className={styles.documentimg}
         width={383}
         height={173}
-        src={imageUrls.newApplicationBotSetup}
+        src={imageUrls.NewApplicationBotSetup}
         alt="new_application_bot_setup"
+        placeholder="blur"
         priority
       />
       <OrderedList start={3} items={data.getBotCreationStep()} />
@@ -26,8 +27,9 @@ const DiscordBotSetupSection = ({ imageUrls }: { imageUrls: ImageUrls }) => {
         className={styles.documentimg}
         width={465}
         height={396}
-        src={imageUrls.createAnApplicationBotSetup}
+        src={imageUrls.CreateAnApplicationBotSetup}
         alt="create_an_application_bot_setup"
+        placeholder="blur"
         priority
       />
       <OrderedList start={4} items={data.getApplicationIdSetupStep()} />
@@ -35,8 +37,9 @@ const DiscordBotSetupSection = ({ imageUrls }: { imageUrls: ImageUrls }) => {
         className={styles.documentimg}
         width={628}
         height={292}
-        src={imageUrls.copyApplicationIdBotSetup}
+        src={imageUrls.CopyApplicationIdBotSetup}
         alt="copy_application_id_bot_setup"
+        placeholder="blur"
         priority
       />
       <OrderedList start={5} items={data.getBotSetupStep()} />
@@ -44,8 +47,9 @@ const DiscordBotSetupSection = ({ imageUrls }: { imageUrls: ImageUrls }) => {
         className={styles.documentimg}
         width={614}
         height={194}
-        src={imageUrls.botBotSetup}
+        src={imageUrls.BotBotSetup}
         alt="bot_bot_setup"
+        placeholder="blur"
         priority
       />
       <OrderedList start={6} items={data.getBotConfirmationStep()} />
@@ -53,8 +57,9 @@ const DiscordBotSetupSection = ({ imageUrls }: { imageUrls: ImageUrls }) => {
         className={styles.documentimg}
         width={474}
         height={227}
-        src={imageUrls.yesCreateBotBotSetup}
+        src={imageUrls.YesCreateBotBotSetup}
         alt="yes_create_bot_bot_setup"
+        placeholder="blur"
         priority
       />
       <OrderedList start={7} items={data.getTokenResetStep()} />
@@ -62,8 +67,9 @@ const DiscordBotSetupSection = ({ imageUrls }: { imageUrls: ImageUrls }) => {
         className={styles.documentimg}
         width={827}
         height={187}
-        src={imageUrls.resetTokenBotSetup}
+        src={imageUrls.ResetTokenBotSetup}
         alt="reset_token_bot_setup"
+        placeholder="blur"
         priority
       />
       <OrderedList start={8} items={data.getTokenSetupStep()} />
@@ -71,8 +77,9 @@ const DiscordBotSetupSection = ({ imageUrls }: { imageUrls: ImageUrls }) => {
         className={styles.documentimg}
         width={1000}
         height={296}
-        src={imageUrls.botTokenBotSetup}
+        src={imageUrls.BotTokenBotSetup}
         alt="bot_token_bot_setup"
+        placeholder="blur"
         priority
       />
       <OrderedList start={9} items={data.getGatewayIntentSetupStep()} />
@@ -80,8 +87,9 @@ const DiscordBotSetupSection = ({ imageUrls }: { imageUrls: ImageUrls }) => {
         className={styles.documentimg}
         width={1000}
         height={296}
-        src={imageUrls.privilegedGatewayIntentsBotSetup}
+        src={imageUrls.PrivilegedGatewayIntentsBotSetup}
         alt="privileged_gateway_intents_bot_setup"
+        placeholder="blur"
         priority
       />
       <OrderedList start={10} items={data.getOAuth2SetupStep()} />
@@ -89,8 +97,9 @@ const DiscordBotSetupSection = ({ imageUrls }: { imageUrls: ImageUrls }) => {
         className={styles.documentimg}
         width={323}
         height={265}
-        src={imageUrls.oauth2BotSetup}
+        src={imageUrls.Oauth2BotSetup}
         alt="oauth2_bot_setup"
+        placeholder="blur"
         priority
       />
       <OrderedList start={11} items={data.getScopeSelectionStep()} />
@@ -98,8 +107,9 @@ const DiscordBotSetupSection = ({ imageUrls }: { imageUrls: ImageUrls }) => {
         className={styles.documentimg}
         width={1000}
         height={239}
-        src={imageUrls.scopesBotSetup}
+        src={imageUrls.ScopesBotSetup}
         alt="scopes_bot_setup"
+        placeholder="blur"
         priority
       />
       <OrderedList start={12} items={data.getBotPermissionsStep()} />
@@ -107,8 +117,9 @@ const DiscordBotSetupSection = ({ imageUrls }: { imageUrls: ImageUrls }) => {
         className={styles.documentimg}
         width={1000}
         height={424}
-        src={imageUrls.botPermissionsBotSetup}
+        src={imageUrls.BotPermissionsBotSetup}
         alt="bot_permissions_bot_setup"
+        placeholder="blur"
         priority
       />
       <OrderedList start={13} items={data.getGeneratedUrlStep()} />
@@ -116,8 +127,9 @@ const DiscordBotSetupSection = ({ imageUrls }: { imageUrls: ImageUrls }) => {
         className={styles.documentimg}
         width={1000}
         height={93}
-        src={imageUrls.generatedUrlBotSetup}
+        src={imageUrls.GeneratedUrlBotSetup}
         alt="generated_url_bot_setup"
+        placeholder="blur"
         priority
       />
       <OrderedList start={14} items={data.getBotAdditionStep()} />
@@ -125,8 +137,9 @@ const DiscordBotSetupSection = ({ imageUrls }: { imageUrls: ImageUrls }) => {
         className={styles.documentimg}
         width={414}
         height={646}
-        src={imageUrls.addBotToServerBotSetup}
+        src={imageUrls.AddBotToServerBotSetup}
         alt="add_bot_to_server_bot_setup"
+        placeholder="blur"
         priority
       />
       <OrderedList start={15} items={data.getAuthorizationStep()} />
@@ -134,8 +147,9 @@ const DiscordBotSetupSection = ({ imageUrls }: { imageUrls: ImageUrls }) => {
         className={styles.documentimg}
         width={421}
         height={677}
-        src={imageUrls.authoriseBotSetup}
+        src={imageUrls.AuthoriseBotSetup}
         alt="authorise_bot_setup"
+        placeholder="blur"
         priority
       />
       <OrderedList start={16} items={data.getBotVisibilityStep()} />
@@ -143,8 +157,9 @@ const DiscordBotSetupSection = ({ imageUrls }: { imageUrls: ImageUrls }) => {
         className={styles.documentimg}
         width={294}
         height={139}
-        src={imageUrls.botInServerBotSetup}
+        src={imageUrls.BotInServerBotSetup}
         alt="bot_in_server_bot_setup"
+        placeholder="blur"
         priority
       />
       <OrderedList start={17} items={data.getBotStartStep()} />
