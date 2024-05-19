@@ -1,5 +1,5 @@
 import DocumentLayout from '@/components/document/layout';
-import InstallationSection from '@/components/document/pages/installation/installation';
+import InstallationSection from '@/components/document/pages/installation/section';
 import Pagination from '@/components/pagination/pagination';
 import menuItems from '@/config/menuItems';
 import usePagination from '@/hooks/usePagination';
