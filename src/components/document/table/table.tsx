@@ -9,7 +9,7 @@ const CommonTable = ({ columns, rows }: CommonTableProps) => {
           <tr>
             {columns.map((column) => (
               <th key={column.key} className={styles.tableHeaderCell}>
-                {column.label}
+                <div dangerouslySetInnerHTML={{ __html: column.label as string }} />
               </th>
             ))}
           </tr>

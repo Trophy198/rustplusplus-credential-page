@@ -1,6 +1,6 @@
-import { TableColumnType, TableRowType } from '@/types/tableComponentTypes';
+import { TableType } from '@/types/tableComponentTypes';
 
-export const slashCommandsColumns: TableColumnType[] = [
+export const slashCommandsColumns: TableType[] = [
   {
     key: 'slash-command',
     label: 'Slash Command',
@@ -11,7 +11,7 @@ export const slashCommandsColumns: TableColumnType[] = [
   },
 ];
 
-export const slashCommandsRows: TableRowType[] = [
+export const slashCommandsRows: TableType[] = [
   {
     key: '1',
     'slash-command': '/alarm',
@@ -124,7 +124,7 @@ export const slashCommandsRows: TableRowType[] = [
   },
 ];
 
-export const inGameCommandsColumns: TableColumnType[] = [
+export const inGameCommandsColumns: TableType[] = [
   {
     key: 'in-game-command',
     label: 'In-Game Command',
@@ -135,7 +135,7 @@ export const inGameCommandsColumns: TableColumnType[] = [
   },
 ];
 
-export const inGameCommandsRows: TableRowType[] = [
+export const inGameCommandsRows: TableType[] = [
   {
     key: '1',
     'in-game-command': 'afk',
