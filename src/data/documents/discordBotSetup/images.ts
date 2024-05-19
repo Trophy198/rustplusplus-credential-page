@@ -14,7 +14,7 @@ import AddBotToServerBotSetup from '@/public/images/discordBotSetup/add_bot_to_s
 import AuthoriseBotSetup from '@/public/images/discordBotSetup/authorise_bot_setup.png';
 import BotInServerBotSetup from '@/public/images/discordBotSetup/bot_in_server_bot_setup.png';
 
-export const imageUrls = {
+export const ImageUrls = {
   NewApplicationBotSetup,
   CreateAnApplicationBotSetup,
   CopyApplicationIdBotSetup,

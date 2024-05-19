@@ -5,14 +5,14 @@ import usePagination from '@/hooks/usePagination';
 import { MenuRender } from '@/types/sidebarTypes';
 import { GetStaticProps, InferGetStaticPropsType } from 'next';
 import DiscordBotSetupSection from '@/components/document/pages/discordBotSetup/section';
-import { imageUrls } from '@/data/documents/discordBotSetup/images';
+import { ImageUrls } from '@/data/documents/discordBotSetup/images';
 
-const DiscordBotSetupPage = ({ menuItems, imageUrls }: InferGetStaticPropsType<typeof getStaticProps>) => {
+const DiscordBotSetupPage = ({ menuItems, ImageUrls }: InferGetStaticPropsType<typeof getStaticProps>) => {
   const { previousHref, previousLabel, nextHref, nextLabel } = usePagination();
 
   return (
     <DocumentLayout menuItems={menuItems}>
-      <DiscordBotSetupSection imageUrls={imageUrls} />
+      <DiscordBotSetupSection imageUrls={ImageUrls} />
       <Pagination previousHref={previousHref} previousLabel={previousLabel} nextHref={nextHref} nextLabel={nextLabel} />
     </DocumentLayout>
   );
@@ -22,7 +22,7 @@ export const getStaticProps: GetStaticProps = async () => {
   return {
     props: {
       menuItems,
-      imageUrls,
+      ImageUrls,
     },
   };
 };

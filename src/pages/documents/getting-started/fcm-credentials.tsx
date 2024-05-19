@@ -4,14 +4,14 @@ import menuItems from '@/config/menuItems';
 import usePagination from '@/hooks/usePagination';
 import { GetStaticProps, InferGetStaticPropsType } from 'next';
 import FcmCredentialsSection from '@/components/document/pages/fcmCredentials/section';
-import { imageUrls } from '@/data/documents/fcmCredentials/images';
+import { ImageUrls } from '@/data/documents/fcmCredentials/images';
 
-const FCMCredentialsPage = ({ menuItems, imageUrls }: InferGetStaticPropsType<typeof getStaticProps>) => {
+const FCMCredentialsPage = ({ menuItems, ImageUrls }: InferGetStaticPropsType<typeof getStaticProps>) => {
   const { previousHref, previousLabel, nextHref, nextLabel } = usePagination();
 
   return (
     <DocumentLayout menuItems={menuItems}>
-      <FcmCredentialsSection imageUrls={imageUrls} />
+      <FcmCredentialsSection imageUrls={ImageUrls} />
       <Pagination previousHref={previousHref} previousLabel={previousLabel} nextHref={nextHref} nextLabel={nextLabel} />
     </DocumentLayout>
   );
@@ -21,7 +21,7 @@ export const getStaticProps: GetStaticProps = async () => {
   return {
     props: {
       menuItems,
-      imageUrls,
+      ImageUrls,
     },
   };
 };

@@ -5,9 +5,9 @@ import OrderedList from '../../orderedList/orderedList';
 import Paragraph from '../../paragraph/paragraph';
 import styles from '../common.module.css';
 import * as data from '@/data/documents/discordBotSetup/orderedItems';
-import { ImageUrls } from '@/types/imageUrls';
+import { ImageUrl } from '@/types/imageUrlTypes';
 
-const DiscordBotSetupSection = ({ imageUrls }: { imageUrls: ImageUrls }) => {
+const DiscordBotSetupSection = ({ imageUrls }: { imageUrls: ImageUrl }) => {
   return (
     <section className={styles.container}>
       <Heading>Discord Bot Setup Documentation</Heading>
