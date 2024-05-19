@@ -7,14 +7,14 @@ import { ImageUrl } from '@/types/imageUrlTypes';
 
 const PairAndConnectToServerSection = ({ imageUrls }: { imageUrls: ImageUrl }) => {
   return (
-    <section className={styles.test}>
+    <section className={styles.container}>
       <Heading>Pair and Connect to a Server</Heading>
       <OrderedList items={data.getSetupSteps()} />
       <Image
         className={styles.documentimg}
         src={imageUrls.PairingServer}
-        width={1200}
-        height={800}
+        width={500}
+        height={313}
         alt="pairing_server"
         placeholder="blur"
       />
