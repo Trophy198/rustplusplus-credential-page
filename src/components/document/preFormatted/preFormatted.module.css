@@ -1,0 +1,18 @@
+.preformatted {
+  padding: 1rem;
+  font-size: 1rem;
+  color: var(--color-text);
+  background-color: #1e293b;
+  line-height: 1.45;
+  border-radius: 6px;
+  word-wrap: break-word;
+  margin: 1em 0;
+  overflow-x: auto;
+  white-space: pre-wrap;
+}
+
+@media (max-width: 600px) {
+  .preformatted {
+    font-size: 0.875rem;
+  }
+}
