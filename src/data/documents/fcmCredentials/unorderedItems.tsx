@@ -1,6 +1,30 @@
 import Code from '@/components/document/code/code';
 import ListItem from '@/components/document/listItem/listItem';
 
+export const getNavigateWebAndExtensionSteps = () => [
+  <ListItem key="click-extension-button">
+    Click the Install Extension button located at the top right corner of the page to install the extension, then
+    refresh the page. &#40;After installation, the Log In button should be visible&#41;
+  </ListItem>,
+];
+
+export const getWebSteamLoginStep = () => [
+  <ListItem key="web-steam-login">Click the Log In button to proceed with the Steam login.</ListItem>,
+];
+
+export const getRedirectedStep = () => [
+  <ListItem key="web-redirected">
+    After logging in, you will be redirected to the display page where the slash command will be shown{' '}
+    <Code>/credentials add ....</Code>
+  </ListItem>,
+];
+
+export const getCopyCredentialsInWebStep = () => [
+  <ListItem key="copy-credentials-web">
+    Click <Code>Copy to Clipboard</Code> to copy the Slash Command.
+  </ListItem>,
+];
+
 export const getDownloadAndInstallSteps = () => [
   <ListItem key="download-install-app">
     Download and install the{' '}
