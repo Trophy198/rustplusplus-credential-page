@@ -1,0 +1,17 @@
+export const imageUrls = {
+  newApplicationBotSetup: '/images/discordBotSetup/new_application_bot_setup.png',
+  createAnApplicationBotSetup: '/images/discordBotSetup/create_an_application_bot_setup.png',
+  copyApplicationIdBotSetup: '/images/discordBotSetup/copy_application_id_bot_setup.png',
+  botBotSetup: '/images/discordBotSetup/bot_bot_setup.png',
+  yesCreateBotBotSetup: '/images/discordBotSetup/yes_create_bot_bot_setup.png',
+  resetTokenBotSetup: '/images/discordBotSetup/reset_token_bot_setup.png',
+  botTokenBotSetup: '/images/discordBotSetup/bot_token_bot_setup.png',
+  privilegedGatewayIntentsBotSetup: '/images/discordBotSetup/privileged_gateway_intents_bot_setup.png',
+  oauth2BotSetup: '/images/discordBotSetup/oauth2_bot_setup.png',
+  scopesBotSetup: '/images/discordBotSetup/scopes_bot_setup.png',
+  botPermissionsBotSetup: '/images/discordBotSetup/bot_permissions_bot_setup.png',
+  generatedUrlBotSetup: '/images/discordBotSetup/generated_url_bot_setup.png',
+  addBotToServerBotSetup: '/images/discordBotSetup/add_bot_to_server_bot_setup.png',
+  authoriseBotSetup: '/images/discordBotSetup/authorise_bot_setup.png',
+  botInServerBotSetup: '/images/discordBotSetup/bot_in_server_bot_setup.png',
+};

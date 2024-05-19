@@ -6,8 +6,9 @@ import UnorderedList from '../../unorderedList/unorderedList';
 import * as data from '@/data/documents/fcmCredentials/unorderedItems';
 import styles from '../common.module.css';
 import Image from 'next/image';
+import { ImageUrls } from '@/types/imageUrls';
 
-const FcmCredentialsSection = () => {
+const FcmCredentialsSection = ({ imageUrls }: { imageUrls: ImageUrls }) => {
   return (
     <section className={styles.container}>
       <Heading>FCM Credentials Documentation</Heading>
@@ -16,54 +17,54 @@ const FcmCredentialsSection = () => {
         credentials makes it possible for you to pair with servers as well as connecting to them.
       </Blockquote>
       <Heading2>Retrieving FCM Credentials</Heading2>
-      <UnorderedList items={data.unorderedItems1} />
+      <UnorderedList items={data.getDownloadAndInstallSteps()} />
       <Image
         className={styles.documentimg}
-        src="/images/fcmCredentials/fcm_credential_application_connect.png"
+        src={imageUrls.fcmCredentialApplicationConnect}
         alt="fcm_credential_application_connect"
         width={1200}
         height={850}
         priority
       />
-      <UnorderedList items={data.unorderedItems2} />
+      <UnorderedList items={data.getSteamLoginStep()} />
       <Image
         className={styles.documentimg}
-        src="/images/fcmCredentials/steam_login.png"
+        src={imageUrls.steamLogin}
         alt="steam_login"
         width={1200}
         height={850}
         priority
       />
-      <UnorderedList items={data.unorderedItems3} />
+      <UnorderedList items={data.getCopyCredentialsSteps()} />
       <Image
         className={styles.documentimg}
-        src="/images/fcmCredentials/credentials_copy.png"
+        src={imageUrls.credentialsCopy}
         alt="credentials_copy"
         width={1200}
         height={850}
         priority
       />
-      <UnorderedList items={data.unorderedItems4} />
+      <UnorderedList items={data.getPasteCredentialsStep()} />
       <Image
         className={styles.documentimg}
-        src="/images/fcmCredentials/credentials_discord.png"
+        src={imageUrls.credentialsDiscord}
         alt="credentials_discord"
         width={1200}
         height={850}
         priority
       />
-      <UnorderedList items={data.unorderedItems5} />
+      <UnorderedList items={data.getTeammateRegistrationSteps()} />
       <Image
         className={styles.documentimg}
-        src="/images/fcmCredentials/teammates_paired.png"
+        src={imageUrls.teammatesPaired}
         alt="teammates_paired"
         width={455}
         height={320}
         priority
       />
-      <Heading2>Why is FCM Credentials necessary?</Heading2>
+      <Heading2>Why are FCM Credentials necessary?</Heading2>
       <Paragraph>FCM Credentials are necessary in order to get the following:</Paragraph>
-      <UnorderedList items={data.unorderedItems6} />
+      <UnorderedList items={data.getFcmUsageBenefits()} />
       <Paragraph>Without these, the bot would not operate properly.</Paragraph>
     </section>
   );
