@@ -1,6 +1,7 @@
-.strong {
-  font-weight: 600;
+.tablecolumn {
+  padding: 6px 13px;
   font-size: 1rem;
   line-height: 1.5;
   word-wrap: break-word;
+  border: 1px solid #30363d;
 }
