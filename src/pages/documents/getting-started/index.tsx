@@ -1,4 +1,5 @@
 import DocumentLayout from '@/components/document/layout';
+import GettingStartedSection from '@/components/document/pages/getting-started/section';
 import Pagination from '@/components/pagination/pagination';
 import menuItems from '@/config/menuItems';
 import usePagination from '@/hooks/usePagination';
@@ -10,7 +11,7 @@ const GettingStartedPage = ({ menuItems }: MenuRender) => {
 
   return (
     <DocumentLayout menuItems={menuItems}>
-      <h1>Getting Started Page</h1>
+      <GettingStartedSection />
       <Pagination previousHref={'/documents'} previousLabel={'Documents'} nextHref={nextHref} nextLabel={nextLabel} />
     </DocumentLayout>
   );

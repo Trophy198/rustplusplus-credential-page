@@ -50,6 +50,13 @@
   padding-bottom: 0.5rem;
 }
 
+.gridcontainer {
+  display: grid;
+  gap: 1.5rem;
+  padding: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+}
+
 @media (max-width: 768px) {
   .nav {
     padding: 0.5rem;
@@ -63,5 +70,9 @@
 
   .nav a {
     font-size: 1rem;
+  }
+
+  .gridcontainer {
+    padding: 0.5rem;
   }
 }
