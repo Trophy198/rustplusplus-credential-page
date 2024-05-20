@@ -34,8 +34,10 @@ code {
 }
 
 a {
-  text-underline-offset: 0.2rem;
+  text-decoration: underline;
+  text-underline-offset: 0.21rem;
   color: #4493f8;
+  cursor: pointer;
 }
 
 body {
