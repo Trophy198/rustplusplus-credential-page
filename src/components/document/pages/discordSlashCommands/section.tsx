@@ -202,8 +202,6 @@ const DiscordSlashCommandsSection = ({ imageUrls }: { imageUrls: ImageUrl }) => 
       </Table>
       <Image
         className={styles.documentimg}
-        // width={509}
-        // height={177}
         src={imageUrls.AlarmsSlashCommand}
         alt="alarms_slash_command"
         placeholder="blur"
@@ -278,8 +276,6 @@ const DiscordSlashCommandsSection = ({ imageUrls }: { imageUrls: ImageUrl }) => 
       </Table>
       <Image
         className={styles.documentimg}
-        // width={629}
-        // height={244}
         src={imageUrls.AliasSlashCommand}
         alt="alias_slash_command"
         placeholder="blur"
@@ -364,8 +360,6 @@ const DiscordSlashCommandsSection = ({ imageUrls }: { imageUrls: ImageUrl }) => 
       </Table>
       <Image
         className={styles.documentimg}
-        // width={629}
-        // height={359}
         src={imageUrls.BlacklistSlashCommand}
         alt="blacklist_slash_command"
         placeholder="blur"
@@ -396,8 +390,6 @@ const DiscordSlashCommandsSection = ({ imageUrls }: { imageUrls: ImageUrl }) => 
       </Table>
       <Image
         className={styles.documentimg}
-        // width={549}
-        // height={242}
         src={imageUrls.CctvSlashCommand}
         alt="cctv_slash_command"
         placeholder="blur"
@@ -448,8 +440,6 @@ const DiscordSlashCommandsSection = ({ imageUrls }: { imageUrls: ImageUrl }) => 
       </Table>
       <Image
         className={styles.documentimg}
-        // width={548}
-        // height={175}
         src={imageUrls.CraftSlashCommand}
         alt="craft_slash_command"
         placeholder="blur"
@@ -632,8 +622,6 @@ const DiscordSlashCommandsSection = ({ imageUrls }: { imageUrls: ImageUrl }) => 
       </Table>
       <Image
         className={styles.documentimg}
-        // width={508}
-        // height={340}
         src={imageUrls.CredentialSlashCommand}
         alt="credentials_slash_command"
         placeholder="blur"
@@ -684,8 +672,6 @@ const DiscordSlashCommandsSection = ({ imageUrls }: { imageUrls: ImageUrl }) => 
       </Table>
       <Image
         className={styles.documentimg}
-        // width={537}
-        // height={176}
         src={imageUrls.DecaySlashCommand}
         alt="decay_slash_command"
         placeholder="blur"
@@ -694,8 +680,6 @@ const DiscordSlashCommandsSection = ({ imageUrls }: { imageUrls: ImageUrl }) => 
       <Blockquote>Display help message.</Blockquote>
       <Image
         className={styles.documentimg}
-        // width={503}
-        // height={175}
         src={imageUrls.HelpSlashCommand}
         alt="help_slash_command"
         placeholder="blur"
@@ -736,8 +720,6 @@ const DiscordSlashCommandsSection = ({ imageUrls }: { imageUrls: ImageUrl }) => 
       </Table>
       <Image
         className={styles.documentimg}
-        // width={546}
-        // height={174}
         src={imageUrls.ItemSlashCommand}
         alt="item_slash_command"
         placeholder="blur"
@@ -768,8 +750,6 @@ const DiscordSlashCommandsSection = ({ imageUrls }: { imageUrls: ImageUrl }) => 
       </Table>
       <Image
         className={styles.documentimg}
-        // width={502}
-        // height={170}
         src={imageUrls.LeaderSlashCommand}
         alt="leader_slash_command"
         placeholder="blur"
@@ -822,8 +802,6 @@ const DiscordSlashCommandsSection = ({ imageUrls }: { imageUrls: ImageUrl }) => 
       </Table>
       <Image
         className={styles.documentimg}
-        // width={504}
-        // height={338}
         src={imageUrls.MapSlashCommand}
         alt="map_slash_command"
         placeholder="blur"
@@ -966,8 +944,6 @@ const DiscordSlashCommandsSection = ({ imageUrls }: { imageUrls: ImageUrl }) => 
       </Table>
       <Image
         className={styles.documentimg}
-        // width={505}
-        // height={339}
         src={imageUrls.MarketSlashCommand}
         alt="market_slash_command"
         placeholder="blur"
@@ -1058,24 +1034,18 @@ const DiscordSlashCommandsSection = ({ imageUrls }: { imageUrls: ImageUrl }) => 
       </Table>
       <Image
         className={styles.documentimg}
-        // width={505}
-        // height={339}
         src={imageUrls.PlayersSlashCommand}
         alt="players_slash_command"
         placeholder="blur"
       />
       <Image
         className={styles.documentimg}
-        // width={505}
-        // height={339}
         src={imageUrls.Players_all_players}
         alt="players_all_players_slash_command"
         placeholder="blur"
       />
       <Image
         className={styles.documentimg}
-        // width={505}
-        // height={339}
         src={imageUrls.Players_specific_user}
         alt="players_specific_user_slash_command"
         placeholder="blur"
@@ -1126,8 +1096,6 @@ const DiscordSlashCommandsSection = ({ imageUrls }: { imageUrls: ImageUrl }) => 
       </Table>
       <Image
         className={styles.documentimg}
-        // width={504}
-        // height={338}
         src={imageUrls.RecycleSlashCommand}
         alt="recycle_slash_command"
         placeholder="blur"
@@ -1168,8 +1136,6 @@ const DiscordSlashCommandsSection = ({ imageUrls }: { imageUrls: ImageUrl }) => 
       </Table>
       <Image
         className={styles.documentimg}
-        // width={504}
-        // height={338}
         src={imageUrls.ResearchSlashCommand}
         alt="research_slash_command"
         placeholder="blur"
@@ -1254,8 +1220,6 @@ const DiscordSlashCommandsSection = ({ imageUrls }: { imageUrls: ImageUrl }) => 
       </Table>
       <Image
         className={styles.documentimg}
-        // width={504}
-        // height={338}
         src={imageUrls.ResetSlashCommand}
         alt="reset_slash_command"
         placeholder="blur"
@@ -1302,8 +1266,6 @@ const DiscordSlashCommandsSection = ({ imageUrls }: { imageUrls: ImageUrl }) => 
       </Table>
       <Image
         className={styles.documentimg}
-        // width={629}
-        // height={244}
         src={imageUrls.RoleSlashCommand}
         alt="role_slash_command"
         placeholder="blur"
@@ -1352,8 +1314,6 @@ const DiscordSlashCommandsSection = ({ imageUrls }: { imageUrls: ImageUrl }) => 
       </Table>
       <Image
         className={styles.documentimg}
-        // width={629}
-        // height={244}
         src={imageUrls.StoragemonitorSlashCommand}
         alt="storagemonitor_slash_command"
         placeholder="blur"
@@ -1402,8 +1362,6 @@ const DiscordSlashCommandsSection = ({ imageUrls }: { imageUrls: ImageUrl }) => 
       </Table>
       <Image
         className={styles.documentimg}
-        // width={629}
-        // height={244}
         src={imageUrls.SwitchSlashCommand}
         alt="switch_slash_command"
         placeholder="blur"
@@ -1444,8 +1402,6 @@ const DiscordSlashCommandsSection = ({ imageUrls }: { imageUrls: ImageUrl }) => 
       </Table>
       <Image
         className={styles.documentimg}
-        // width={629}
-        // height={244}
         src={imageUrls.UpkeepSlashCommand}
         alt="upkeep_slash_command"
         placeholder="blur"
@@ -1482,8 +1438,6 @@ const DiscordSlashCommandsSection = ({ imageUrls }: { imageUrls: ImageUrl }) => 
       </Table>
       <Image
         className={styles.documentimg}
-        // width={629}
-        // height={244}
         src={imageUrls.UptimeSlashCommand}
         alt="uptime_slash_command"
         placeholder="blur"
@@ -1520,8 +1474,6 @@ const DiscordSlashCommandsSection = ({ imageUrls }: { imageUrls: ImageUrl }) => 
       </Table>
       <Image
         className={styles.documentimg}
-        // width={629}
-        // height={244}
         src={imageUrls.VoiceSlashCommand}
         alt="voice_slash_command"
         placeholder="blur"
