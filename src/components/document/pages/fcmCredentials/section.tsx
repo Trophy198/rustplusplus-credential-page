@@ -49,43 +49,18 @@ const FcmCredentialsSection = ({ imageUrls }: { imageUrls: ImageUrl }) => {
           rustPlusPlus-Credentials Firefox Extension
         </a>
       </Blockquote>
-      <Image
-        className={styles.documentimg}
-        src={imageUrls.ClickInstallExtension}
-        alt="click-install-extension"
-        placeholder="blur"
-      />
-      <Image
-        className={styles.documentimg}
-        src={imageUrls.AtferClickInstallExtension}
-        alt="after-click-install-extension"
-        placeholder="blur"
-      />
+      <Image src={imageUrls.ClickInstallExtension} alt="click-install-extension" placeholder="blur" />
+      <Image src={imageUrls.AtferClickInstallExtension} alt="after-click-install-extension" placeholder="blur" />
       <UnorderedList items={data.getWebSteamLoginStep()} />
-      <Image className={styles.documentimg} src={imageUrls.SteamLoginWeb} alt="steam-login-web" placeholder="blur" />
+      <Image src={imageUrls.SteamLoginWeb} alt="steam-login-web" placeholder="blur" />
       <UnorderedList items={data.getRedirectedStep()} />
-      <Image
-        className={styles.documentimg}
-        src={imageUrls.RustplusplusDisplay}
-        alt="rustplusplus-display-page"
-        placeholder="blur"
-      />
+      <Image src={imageUrls.RustplusplusDisplay} alt="rustplusplus-display-page" placeholder="blur" />
       <UnorderedList items={data.getCopyCredentialsInWebStep()} />
-      <Image
-        className={styles.documentimg}
-        src={imageUrls.ClickCopyToClipboard}
-        alt="click-copy-to-clipboard"
-        placeholder="blur"
-      />
+      <Image src={imageUrls.ClickCopyToClipboard} alt="click-copy-to-clipboard" placeholder="blur" />
       <UnorderedList items={data.getPasteCredentialsStep()} />
-      <Image
-        className={styles.documentimg}
-        src={imageUrls.CredentialsDiscord}
-        alt="credentials-discord"
-        placeholder="blur"
-      />
+      <Image src={imageUrls.CredentialsDiscord} alt="credentials-discord" placeholder="blur" />
       <UnorderedList items={data.getTeammateRegistrationSteps()} />
-      <Image className={styles.documentimg} src={imageUrls.TeammatesPaired} alt="teammates-paired" placeholder="blur" />
+      <Image src={imageUrls.TeammatesPaired} alt="teammates-paired" placeholder="blur" />
       <Heading2 id="exe-version">Retrieving FCM Credentials EXE Version</Heading2>
       <Blockquote>
         To be able to use an instance of the bot properly, you want to setup your FCM Credentials. Adding these
@@ -93,24 +68,18 @@ const FcmCredentialsSection = ({ imageUrls }: { imageUrls: ImageUrl }) => {
       </Blockquote>
       <UnorderedList items={data.getDownloadAndInstallSteps()} />
       <Image
-        className={styles.documentimg}
         src={imageUrls.FcmCredentialApplicationConnect}
         alt="fcm-credential-application-connect"
         placeholder="blur"
       />
       <UnorderedList items={data.getSteamLoginStep()} />
-      <Image className={styles.documentimg} src={imageUrls.SteamLogin} alt="steam-login" placeholder="blur" />
+      <Image src={imageUrls.SteamLogin} alt="steam-login" placeholder="blur" />
       <UnorderedList items={data.getCopyCredentialsSteps()} />
-      <Image className={styles.documentimg} src={imageUrls.CredentialsCopy} alt="credentials-copy" placeholder="blur" />
+      <Image src={imageUrls.CredentialsCopy} alt="credentials-copy" placeholder="blur" />
       <UnorderedList items={data.getPasteCredentialsStep()} />
-      <Image
-        className={styles.documentimg}
-        src={imageUrls.CredentialsDiscord}
-        alt="credentials-discord"
-        placeholder="blur"
-      />
+      <Image src={imageUrls.CredentialsDiscord} alt="credentials-discord" placeholder="blur" />
       <UnorderedList items={data.getTeammateRegistrationSteps()} />
-      <Image className={styles.documentimg} src={imageUrls.TeammatesPaired} alt="teammates-paired" placeholder="blur" />
+      <Image src={imageUrls.TeammatesPaired} alt="teammates-paired" placeholder="blur" />
       <Heading2>Why are FCM Credentials necessary?</Heading2>
       <Paragraph>FCM Credentials are necessary in order to get the following:</Paragraph>
       <UnorderedList items={data.getFcmUsageBenefits()} />

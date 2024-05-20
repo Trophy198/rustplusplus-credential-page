@@ -52,7 +52,7 @@ const DiscordTextChannelsSection = ({
           </div>
         ))}
     {images?.map((image, index) => (
-      <Image className={styles.documentimg} key={index} src={image.src} alt={image.alt} placeholder="blur" />
+      <Image key={index} src={image.src} alt={image.alt} placeholder="blur" />
     ))}
   </>
 );

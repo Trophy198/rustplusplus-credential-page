@@ -10,9 +10,9 @@ const PairAndConnectToServerSection = ({ imageUrls }: { imageUrls: ImageUrl }) =
     <section className={styles.container}>
       <Heading>Pair and Connect to a Server</Heading>
       <OrderedList items={data.getSetupSteps()} />
-      <Image className={styles.documentimg} src={imageUrls.PairingServer} alt="pairing-server" placeholder="blur" />
+      <Image src={imageUrls.PairingServer} alt="pairing-server" placeholder="blur" />
       <OrderedList start={5} items={data.getServerAppearanceStep()} />
-      <Image className={styles.documentimg} src={imageUrls.ServersChannel} alt="servers-channel" placeholder="blur" />
+      <Image src={imageUrls.ServersChannel} alt="servers-channel" placeholder="blur" />
       <OrderedList start={6} items={data.getConnectStep()} />
     </section>
   );
