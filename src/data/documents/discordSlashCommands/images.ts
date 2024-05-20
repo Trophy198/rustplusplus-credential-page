@@ -10,8 +10,8 @@ import ItemSlashCommand from '@/public/images/discordSlashCommands/item.png';
 import LeaderSlashCommand from '@/public/images/discordSlashCommands/leader.png';
 import MapSlashCommand from '@/public/images/discordSlashCommands/map.png';
 import MarketSlashCommand from '@/public/images/discordSlashCommands/market.png';
-import Players_all_players from '@/public/images/discordSlashCommands/players_all_players.png';
-import Players_specific_user from '@/public/images/discordSlashCommands/players_specific_user.png';
+import PlayersAllPlayers from '@/public/images/discordSlashCommands/players_all_players.png';
+import PlayersSpecificUser from '@/public/images/discordSlashCommands/players_specific_user.png';
 import PlayersSlashCommand from '@/public/images/discordSlashCommands/players.png';
 import RecycleSlashCommand from '@/public/images/discordSlashCommands/recycle.png';
 import ResearchSlashCommand from '@/public/images/discordSlashCommands/research.png';
@@ -37,8 +37,8 @@ export const ImageUrls = {
   MapSlashCommand,
   MarketSlashCommand,
   PlayersSlashCommand,
-  Players_all_players,
-  Players_specific_user,
+  PlayersAllPlayers,
+  PlayersSpecificUser,
   RecycleSlashCommand,
   ResearchSlashCommand,
   ResetSlashCommand,
