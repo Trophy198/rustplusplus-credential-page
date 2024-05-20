@@ -1,4 +1,5 @@
 import DocumentLayout from '@/components/document/layout';
+import CommandsSection from '@/components/document/pages/commands/section';
 import Pagination from '@/components/pagination/pagination';
 import menuItems from '@/config/menuItems';
 import usePagination from '@/hooks/usePagination';
@@ -10,7 +11,7 @@ const CommandsPage = ({ menuItems }: MenuRender) => {
 
   return (
     <DocumentLayout menuItems={menuItems}>
-      <h1>Commands Page</h1>
+      <CommandsSection />
       <Pagination previousHref={previousHref} previousLabel={previousLabel} nextHref={nextHref} nextLabel={nextLabel} />
     </DocumentLayout>
   );
