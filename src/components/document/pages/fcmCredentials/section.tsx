@@ -17,12 +17,12 @@ const FcmCredentialsSection = ({ imageUrls }: { imageUrls: ImageUrl }) => {
       <nav className={styles.nav}>
         <ul>
           <li>
-            <Link activeClass="active" to="extension-version" smooth={true} duration={500} offset={-89}>
+            <Link activeClass="active" to="extension-version" smooth={true} duration={500} offset={-105}>
               Extension Version
             </Link>
           </li>
           <li>
-            <Link to="exe-version" smooth={true} duration={1000} offset={-89}>
+            <Link to="exe-version" smooth={true} duration={1000} offset={-105}>
               EXE Version
             </Link>
           </li>
@@ -52,64 +52,40 @@ const FcmCredentialsSection = ({ imageUrls }: { imageUrls: ImageUrl }) => {
       <Image
         className={styles.documentimg}
         src={imageUrls.ClickInstallExtension}
-        alt="click_install_extension"
-        width={877}
-        height={456}
+        alt="click-install-extension"
         placeholder="blur"
       />
       <Image
         className={styles.documentimg}
         src={imageUrls.AtferClickInstallExtension}
-        alt="after_click_install_extension"
-        width={877}
-        height={456}
+        alt="after-click-install-extension"
         placeholder="blur"
       />
       <UnorderedList items={data.getWebSteamLoginStep()} />
-      <Image
-        className={styles.documentimg}
-        src={imageUrls.SteamLoginWeb}
-        alt="steam_login_web"
-        width={877}
-        height={219}
-        placeholder="blur"
-      />
+      <Image className={styles.documentimg} src={imageUrls.SteamLoginWeb} alt="steam-login-web" placeholder="blur" />
       <UnorderedList items={data.getRedirectedStep()} />
       <Image
         className={styles.documentimg}
         src={imageUrls.RustplusplusDisplay}
-        alt="rustplusplus_display_page"
-        width={877}
-        height={456}
+        alt="rustplusplus-display-page"
         placeholder="blur"
       />
       <UnorderedList items={data.getCopyCredentialsInWebStep()} />
       <Image
         className={styles.documentimg}
         src={imageUrls.ClickCopyToClipboard}
-        alt="click_copy_to_clipboard"
-        width={877}
-        height={456}
+        alt="click-copy-to-clipboard"
         placeholder="blur"
       />
       <UnorderedList items={data.getPasteCredentialsStep()} />
       <Image
         className={styles.documentimg}
         src={imageUrls.CredentialsDiscord}
-        alt="credentials_discord"
-        width={877}
-        height={96}
+        alt="credentials-discord"
         placeholder="blur"
       />
       <UnorderedList items={data.getTeammateRegistrationSteps()} />
-      <Image
-        className={styles.documentimg}
-        src={imageUrls.TeammatesPaired}
-        alt="teammates_paired"
-        width={455}
-        height={320}
-        placeholder="blur"
-      />
+      <Image className={styles.documentimg} src={imageUrls.TeammatesPaired} alt="teammates-paired" placeholder="blur" />
       <Heading2 id="exe-version">Retrieving FCM Credentials EXE Version</Heading2>
       <Blockquote>
         To be able to use an instance of the bot properly, you want to setup your FCM Credentials. Adding these
@@ -119,47 +95,22 @@ const FcmCredentialsSection = ({ imageUrls }: { imageUrls: ImageUrl }) => {
       <Image
         className={styles.documentimg}
         src={imageUrls.FcmCredentialApplicationConnect}
-        alt="fcm_credential_application_connect"
-        width={657}
-        height={850}
+        alt="fcm-credential-application-connect"
         placeholder="blur"
       />
       <UnorderedList items={data.getSteamLoginStep()} />
-      <Image
-        className={styles.documentimg}
-        src={imageUrls.SteamLogin}
-        alt="steam_login"
-        width={877}
-        height={850}
-        placeholder="blur"
-      />
+      <Image className={styles.documentimg} src={imageUrls.SteamLogin} alt="steam-login" placeholder="blur" />
       <UnorderedList items={data.getCopyCredentialsSteps()} />
-      <Image
-        className={styles.documentimg}
-        src={imageUrls.CredentialsCopy}
-        alt="credentials_copy"
-        width={657}
-        height={850}
-        placeholder="blur"
-      />
+      <Image className={styles.documentimg} src={imageUrls.CredentialsCopy} alt="credentials-copy" placeholder="blur" />
       <UnorderedList items={data.getPasteCredentialsStep()} />
       <Image
         className={styles.documentimg}
         src={imageUrls.CredentialsDiscord}
-        alt="credentials_discord"
-        width={877}
-        height={850}
+        alt="credentials-discord"
         placeholder="blur"
       />
       <UnorderedList items={data.getTeammateRegistrationSteps()} />
-      <Image
-        className={styles.documentimg}
-        src={imageUrls.TeammatesPaired}
-        alt="teammates_paired"
-        width={455}
-        height={320}
-        placeholder="blur"
-      />
+      <Image className={styles.documentimg} src={imageUrls.TeammatesPaired} alt="teammates-paired" placeholder="blur" />
       <Heading2>Why are FCM Credentials necessary?</Heading2>
       <Paragraph>FCM Credentials are necessary in order to get the following:</Paragraph>
       <UnorderedList items={data.getFcmUsageBenefits()} />
