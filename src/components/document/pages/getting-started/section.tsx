@@ -24,7 +24,7 @@ const GettingStartedSection = () => {
         />
         <Card
           href="/documents/getting-started/pair-and-connect-to-a-server"
-          title="Commands"
+          title="Pair and Conect to a server"
           description="Pair with the server to retrieve server information!"
         />
       </div>
