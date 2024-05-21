@@ -1,4 +1,5 @@
 import { create } from 'zustand';
+import Router from 'next/router';
 
 interface SidebarState {
   isSidebarOpen: boolean;
@@ -6,10 +7,17 @@ interface SidebarState {
   setSidebarClosed: () => void;
 }
 
-const useSidebarStore = create<SidebarState>((set) => ({
-  isSidebarOpen: false,
-  toggleSidebar: () => set((state) => ({ isSidebarOpen: !state.isSidebarOpen })),
-  setSidebarClosed: () => set({ isSidebarOpen: false }),
-}));
+const useSidebarStore = create<SidebarState>((set) => {
+  const handleRouteChange = () => {
+    set({ isSidebarOpen: false });
+  };
+
+  Router.events.on('routeChangeStart', handleRouteChange);
+  return {
+    isSidebarOpen: false,
+    toggleSidebar: () => set((state) => ({ isSidebarOpen: !state.isSidebarOpen })),
+    setSidebarClosed: () => set({ isSidebarOpen: false }),
+  };
+});
 
 export default useSidebarStore;
