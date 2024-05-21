@@ -2,7 +2,7 @@ import Sidebar from '@/components/sidebar/sidebar';
 import styles from './layout.module.css';
 import { MenuRender } from '@/types/sidebarTypes';
 import { ReactNode } from 'react';
-import SidebarMenu from '../sidebarMenu/sidebarMenu';
+import ModalBackground from '@/components/modalBackground/modalBackground';
 
 interface LayoutProps {
   children: ReactNode;
@@ -12,7 +12,7 @@ interface LayoutProps {
 const DocumentLayout = ({ children, menuItems }: LayoutProps) => {
   return (
     <div className={styles.container}>
-      <SidebarMenu />
+      <ModalBackground />
       <Sidebar menuItems={menuItems} />
       <section>{children}</section>
     </div>

@@ -1,22 +1,17 @@
 import Image from 'next/image';
 import styles from './sidebarMenu.module.css';
-import ArrowRightIcon from '@/public/icons/arrow_right.png';
 import useSidebarStore from '@/store/useSidebarStore';
+import SidebarMenuIcon from '@/public/icons/barsSolid.svg';
 
 const SidebarMenu = () => {
-  const { isSidebarOpen, toggleSidebar } = useSidebarStore();
+  const { toggleSidebar } = useSidebarStore();
 
   return (
-    <div className={styles.container}>
-      <button onClick={toggleSidebar}>
-        <span>Menu</span>
-        <Image
-          src={ArrowRightIcon}
-          alt="sidebarIcon"
-          className={isSidebarOpen ? styles.menuOpen : styles.menuClose}
-        ></Image>
+    <>
+      <button onClick={toggleSidebar} className={styles.sidebarButton}>
+        <Image src={SidebarMenuIcon} alt="sidebarIcon" aria-label="sidebarIcon" width={32} height={32} />
       </button>
-    </div>
+    </>
   );
 };
 
