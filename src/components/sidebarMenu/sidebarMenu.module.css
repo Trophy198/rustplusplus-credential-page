@@ -1,53 +1,14 @@
-.container {
+.sidebarButton {
   display: none;
 }
 
 @media (max-width: 768px) {
-  .container {
-    z-index: 101;
-    position: sticky;
-    top: 89px;
-    left: 0px;
+  .sidebarButton {
     display: flex;
-    flex-direction: row;
-    border-bottom: 1px solid #4f4d4d;
-    padding: 12px 16px;
-    width: 100%;
-    background-color: #1b1b1b;
-  }
-
-  .container:hover span {
-    color: var(--color-link-hover);
-    transition: color 0.1s ease 0.1s;
-  }
-
-  .container button {
-    display: flex;
-    justify-content: flex-start;
+    justify-content: center;
     align-items: center;
-    border: none;
+    border: 0;
     background-color: transparent;
-    width: 100%;
     cursor: pointer;
-  }
-
-  .container button span {
-    padding-right: 0.3125rem;
-    padding-left: 5px;
-    font-size: 1rem;
-    color: white;
-  }
-
-  .menuOpen {
-    width: 1rem;
-    height: auto;
-    transition: 0.1s ease 0.1s;
-  }
-
-  .menuClose {
-    width: 1rem;
-    height: auto;
-    transform: rotate(90deg);
-    transition: 0.1s ease 0.1s;
   }
 }
