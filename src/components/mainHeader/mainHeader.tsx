@@ -3,11 +3,14 @@ import styles from './mainHeader.module.css';
 import Link from 'next/link';
 import axios from 'axios';
 import useAuthStore from '@/store/useAuthStore';
-import Dot from '../loadingCollection/dot';
+import Dot from '@/components/loadingCollection/dot';
+import SidebarMenu from '@/components/sidebarMenu/sidebarMenu';
+import { useRouter } from 'next/router';
 
 const MainHeader = () => {
   const { isLoggedIn, setIsLoggedIn } = useAuthStore();
   const { browserType, isExtensionInstalled, isLoading } = useExtensionDetection();
+  const router = useRouter();
 
   const handleLogout = async () => {
     try {
@@ -23,6 +26,7 @@ const MainHeader = () => {
 
   return (
     <header className={styles.container}>
+      {router.pathname !== '/' ? <SidebarMenu /> : undefined}
       <h1>
         <Link className={styles.title} href="/">
           RUST++
