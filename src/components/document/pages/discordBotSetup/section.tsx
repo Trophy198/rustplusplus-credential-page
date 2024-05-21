@@ -12,7 +12,7 @@ const DiscordBotSetupSection = ({ imageUrls }: { imageUrls: ImageUrl }) => {
     <section className={styles.container}>
       <Heading>Discord Bot Setup Documentation</Heading>
       <Heading2>Create a Discord Bot</Heading2>
-      <OrderedList items={data.getApplicationIdSetupStep()} />
+      <OrderedList items={data.getApplicationSetupSteps()} />
       <Image src={imageUrls.NewApplicationBotSetup} alt="new-application-bot-setup" placeholder="blur" />
       <OrderedList start={3} items={data.getBotCreationStep()} />
       <Image src={imageUrls.CreateAnApplicationBotSetup} alt="create-an-application-bot-setup" placeholder="blur" />
