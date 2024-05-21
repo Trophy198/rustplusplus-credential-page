@@ -1,22 +1,28 @@
-import Layout from "@/components/document/layout";
-import menuItems from "@/config/menuItems";
-import { MenuRender } from "@/types/sidebarTypes";
-import { GetServerSideProps } from "next";
+import DocumentLayout from '@/components/document/layout';
+import CommandsSection from '@/components/document/pages/commands/section';
+import Pagination from '@/components/pagination/pagination';
+import menuItems from '@/config/menuItems';
+import usePagination from '@/hooks/usePagination';
+import { MenuRender } from '@/types/sidebarTypes';
+import { GetStaticProps } from 'next';
 
-export const getServerSideProps: GetServerSideProps<MenuRender> = async () => {
-    return {
-      props: {
-        menuItems,
-      },
-    };
-  };
+const CommandsPage = ({ menuItems }: MenuRender) => {
+  const { previousHref, previousLabel, nextHref, nextLabel } = usePagination();
 
-const CommandPage = ({ menuItems }: MenuRender) => {
   return (
-    <Layout menuItems={menuItems}>
-      command Page !!!
-    </Layout>
+    <DocumentLayout menuItems={menuItems}>
+      <CommandsSection />
+      <Pagination previousHref={previousHref} previousLabel={previousLabel} nextHref={nextHref} nextLabel={nextLabel} />
+    </DocumentLayout>
   );
 };
 
-export default CommandPage;
+export const getStaticProps: GetStaticProps = async () => {
+  return {
+    props: {
+      menuItems,
+    },
+  };
+};
+
+export default CommandsPage;

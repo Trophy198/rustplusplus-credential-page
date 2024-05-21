@@ -22,9 +22,9 @@ const HeroSection = () => {
           A NodeJS Discord Bot that uses the rustplus.js library to utilize the power of the Rust+ Companion App with
           additional Quality-of-Life features.
         </p>
-        <button onClick={() => alert('documents page will be updated soon!')} className={styles.startButton}>
+        <Link href="/documents" className={styles.startButton}>
           Getting Start
-        </button>
+        </Link>
       </div>
       <div className={styles.features}>
         <div className={styles.feature}>

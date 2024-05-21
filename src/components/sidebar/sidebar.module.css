@@ -6,24 +6,47 @@
   height: 100%;
   background-color: var(--color-background);
   transition: transform 0.3s ease-in-out;
+  overflow-y: auto;
 }
 
 @media (max-width: 768px) {
   .sidebar {
-    position: absolute;
-    top: 141px;
+    position: fixed;
+    top: 89px;
+    right: 0;
+    bottom: 0;
+    left: 0;
     z-index: 100;
     padding: 20px;
-    width: 100%;
-    height: calc(100vh - 141px);
-    transform: translateX(-100%);
+    width: 80%;
+    min-width: 100px;
+    max-width: 284px;
+    height: calc(100vh - 89px);
   }
 
   .open {
     transform: translateX(0%);
+    -webkit-transform: translateX(0%);
+    -moz-transform: translateX(0%);
+    -ms-transform: translateX(0%);
+    -o-transform: translateX(0%);
+    transition: transform 1.5s ease-out 0;
+    -webkit-transition: transform 1.5s ease-out 0;
+    -moz-transition: transform 1.5s ease-out 0;
+    -ms-transition: transform 1.5s ease-out 0;
+    -o-transition: transform 1.5s ease-out 0;
   }
 
   .close {
     transform: translateX(-100%);
+    -webkit-transform: translateX(-100%);
+    -moz-transform: translateX(-100%);
+    -ms-transform: translateX(-100%);
+    -o-transform: translateX(-100%);
+    transition: transform 1.5s ease-in 0;
+    -webkit-transition: transform 1.5s ease-in 0;
+    -moz-transition: transform 1.5s ease-in 0;
+    -ms-transition: transform 1.5s ease-in 0;
+    -o-transition: transform 1.5s ease-in 0;
   }
 }

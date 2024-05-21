@@ -1,0 +1,8 @@
+.tablerow {
+  font-size: 1rem;
+  line-height: 1.5;
+  word-wrap: break-word;
+  font-weight: 600;
+  padding: 6px 13px;
+  border: 1px solid #30363d;
+}

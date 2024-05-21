@@ -1,0 +1,11 @@
+.tablerow {
+  border-top: #30363db3;
+}
+
+.tablerow:nth-child(odd) {
+  background-color: #0d1117;
+}
+
+.tablerow:nth-child(even) {
+  background-color: #1e293b;
+}

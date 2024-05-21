@@ -23,12 +23,15 @@ export default function App({ Component, pageProps }: AppProps) {
       <Head>
         <title>rustplusplus</title>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <meta name="description" content="rustPlusPlus Page" />
+        <meta
+          name="description"
+          content="Enhance your Rust experience with rustPlusPlus discord bot. Get maps, server information, event details, and more."
+        />
 
         <meta property="og:title" content="rustPlusPlus" />
         <meta
           property="og:description"
-          content="Enhance your Rust experience with rustPlusPlus. Get maps, server information, event details, and more."
+          content="Enhance your Rust experience with rustPlusPlus discord bot. Get maps, server information, event details, and more."
         />
         <meta property="og:image" content={logoUrl} />
         <meta property="og:url" content={siteUrl} />
@@ -38,7 +41,7 @@ export default function App({ Component, pageProps }: AppProps) {
         <meta name="twitter:title" content="rustPlusPlus" />
         <meta
           name="twitter:description"
-          content="Enhance your Rust experience with rustPlusPlus. Get maps, server information, event details, and more."
+          content="Enhance your Rust experience with rustPlusPlus discord bot. Get maps, server information, event details, and more."
         />
         <meta name="twitter:image" content={logoUrl} />
       </Head>

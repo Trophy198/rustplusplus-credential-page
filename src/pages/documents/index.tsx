@@ -1,23 +1,30 @@
-import styles from './documents.module.css';
-import { GetServerSideProps } from 'next';
+import { GetStaticProps } from 'next';
 import { MenuRender } from '@/types/sidebarTypes';
 import menuItems from '@/config/menuItems';
-import Layout from '@/components/document/layout';
+import DocumentLayout from '@/components/document/layout';
+import Pagination from '@/components/pagination/pagination';
+import DocumentsSection from '@/components/document/pages/documents/section';
 
-export const getServerSideProps: GetServerSideProps<MenuRender> = async () => {
+const Documents = ({ menuItems }: MenuRender) => {
+  return (
+    <DocumentLayout menuItems={menuItems}>
+      <DocumentsSection />
+      <Pagination
+        previousHref={null}
+        previousLabel={null}
+        nextHref={'/documents/getting-started'}
+        nextLabel={'Getting Started'}
+      />
+    </DocumentLayout>
+  );
+};
+
+export const getStaticProps: GetStaticProps = async () => {
   return {
     props: {
       menuItems,
     },
   };
-};
-
-const Documents = ({ menuItems }: MenuRender) => {
-  return (
-    <Layout menuItems={menuItems}>
-      <p>Document Page</p>
-    </Layout>
-  );
 };
 
 export default Documents;

@@ -1,18 +1,28 @@
-import Layout from '@/components/document/layout';
+import DocumentLayout from '@/components/document/layout';
+import GettingStartedSection from '@/components/document/pages/getting-started/section';
+import Pagination from '@/components/pagination/pagination';
 import menuItems from '@/config/menuItems';
+import usePagination from '@/hooks/usePagination';
 import { MenuRender } from '@/types/sidebarTypes';
-import { GetServerSideProps } from 'next';
+import { GetStaticProps } from 'next';
 
-export const getServerSideProps: GetServerSideProps<MenuRender> = async () => {
+const GettingStartedPage = ({ menuItems }: MenuRender) => {
+  const { nextHref, nextLabel } = usePagination();
+
+  return (
+    <DocumentLayout menuItems={menuItems}>
+      <GettingStartedSection />
+      <Pagination previousHref={'/documents'} previousLabel={'Documents'} nextHref={nextHref} nextLabel={nextLabel} />
+    </DocumentLayout>
+  );
+};
+
+export const getStaticProps: GetStaticProps = async () => {
   return {
     props: {
       menuItems,
     },
   };
-};
-
-const GettingStartedPage = ({ menuItems }: MenuRender) => {
-  return <Layout menuItems={menuItems}>GettingStartedPage !</Layout>;
 };
 
 export default GettingStartedPage;

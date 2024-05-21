@@ -25,10 +25,19 @@ button,
 input,
 textarea,
 select,
-pre {
+pre,
+strong,
+code {
   font-family: 'Pretendard Variable', Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, 'Helvetica Neue',
     'Segoe UI', 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', 'Apple Color Emoji', 'Segoe UI Emoji',
     'Segoe UI Symbol', sans-serif;
+}
+
+a {
+  text-decoration: underline;
+  text-underline-offset: 0.22rem;
+  color: #4493f8;
+  cursor: pointer;
 }
 
 body {

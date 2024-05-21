@@ -79,7 +79,7 @@ const FeatureSection = () => {
       </section>
       <section ref={sectionRefs[4]} className={styles.section}>
         <div className={styles.sectionImg}>
-          <Image height={309} src={Activity} alt="Activity" />
+          <Image width={475} height={309} src={Activity} alt="Activity" />
         </div>
         <div className={styles.sectionText}>
           <h2>Activity</h2>
