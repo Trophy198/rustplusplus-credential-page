@@ -1,8 +1,13 @@
 interface Credentials {
   fcm_credentials: {
     fcm: {
+      name: string;
       token: string;
-      pushSet: string;
+      web: {
+        endpoint: string;
+        p256dh: string;
+        auth: string;
+      };
     };
     gcm: {
       token: string;
@@ -33,8 +38,11 @@ export function formatCredentialsData(credentials: Credentials): FormattedCreden
     `keys_private_key:${keys.privateKey} ` +
     `keys_public_key:${keys.publicKey} ` +
     `keys_auth_secret:${keys.authSecret} ` +
+    `fcm_name:${fcm.name} ` +
     `fcm_token:${fcm.token} ` +
-    `fcm_push_set:${fcm.pushSet} ` +
+    `fcm_web_endpoint:${fcm.web.endpoint} ` +
+    `fcm_web_p256dh:${fcm.web.p256dh} ` +
+    `fcm_web_auth:${fcm.web.auth} ` +
     `gcm_token:${gcm.token} ` +
     `gcm_android_id:${gcm.androidId} ` +
     `gcm_security_token:${gcm.securityToken} ` +
