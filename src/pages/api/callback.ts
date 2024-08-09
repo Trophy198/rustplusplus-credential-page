@@ -39,7 +39,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     const config = {
       fcm_credentials: fcmCredentials,
       steamId: steamId,
-      expire: header.exp,
+      expire_date: header.exp,
+      issued_date: header.iss,
     };
 
     res.setHeader('Set-Cookie', [
