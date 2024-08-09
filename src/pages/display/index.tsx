@@ -6,14 +6,14 @@ import { formatTimeRemaining } from '@/utils/formatTimeRemaining';
 
 interface DisplayProps {
   formattedCredentials?: string;
-  expire?: string;
+  expire_date?: string;
   error?: string;
 }
 
 /**
  * todo : add expire in credentials
  */
-const Display: NextPage<DisplayProps> = ({ formattedCredentials, expire, error }) => {
+const Display: NextPage<DisplayProps> = ({ formattedCredentials, expire_date, error }) => {
   const copyToClipboard = async () => {
     try {
       await navigator.clipboard.writeText(formattedCredentials || '');
@@ -24,7 +24,7 @@ const Display: NextPage<DisplayProps> = ({ formattedCredentials, expire, error }
     }
   };
 
-  const timeRemaining = expire ? formatTimeRemaining(parseInt(expire)) : null;
+  const timeRemaining = expire_date ? formatTimeRemaining(parseInt(expire_date)) : null;
 
   return (
     <div className={styles.container}>
@@ -70,9 +70,9 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
   try {
     const credentials = JSON.parse(decodeURIComponent(config));
-    const { formattedData, expire } = formatCredentialsData(credentials);
+    const { formattedData, expire_date } = formatCredentialsData(credentials);
     return {
-      props: { formattedCredentials: formattedData, expire, error: null },
+      props: { formattedCredentials: formattedData, expire_date, error: null },
     };
   } catch (error) {
     console.error('Error parsing credentials:', error);
