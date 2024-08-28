@@ -10,9 +10,6 @@ interface DisplayProps {
   error?: string;
 }
 
-/**
- * todo : add expire in credentials
- */
 const Display: NextPage<DisplayProps> = ({ formattedCredentials, expire_date, error }) => {
   const copyToClipboard = async () => {
     try {
@@ -27,32 +24,43 @@ const Display: NextPage<DisplayProps> = ({ formattedCredentials, expire_date, er
   const timeRemaining = expire_date ? formatTimeRemaining(parseInt(expire_date)) : null;
 
   return (
-    <div className={styles.container}>
+    <article className={styles.container}>
       {error ? (
-        <div className={styles.errorContainer}>
+        <section className={styles.errorContainer}>
           <h3>Error: {error}</h3>
-        </div>
+        </section>
       ) : (
         <>
-          <h1 className={styles.pageTitle}>Credential Info</h1>
-          <div className={styles.credentialsContainer}>
+          <header>
+            <h1 className={styles.pageTitle}>Credential Info</h1>
+          </header>
+          <section className={styles.credentialsContainer}>
             <pre className={styles.credentialsPre}>{formattedCredentials}</pre>
             <button className={styles.copyButton} onClick={copyToClipboard}>
               Copy to Clipboard
             </button>
-          </div>
+          </section>
           {timeRemaining && (
-            <div className={styles.statusContainer}>
+            <section className={styles.statusContainer}>
               <h2 className={styles.statusTitle}>
                 Status: <span className={styles.statusIndicatorText}>Active</span>
                 <span className={`${styles.statusIndicator} ${styles.active}`}></span>
               </h2>
-              <p className={styles.expireText}>Expires in: {timeRemaining}</p>
-            </div>
+              <div className={styles.expireContainer}>
+                <p className={styles.expireText}>Expires in: {timeRemaining}</p>
+                <div className={styles.popoverContainer}>
+                  <span className={styles.questionIcon}>?</span>
+                  <div className={styles.popover}>
+                    According to the flow of Rust+, the credentials are used for 2 weeks and then discarded. Therefore,
+                    an expiration date is set accordingly.
+                  </div>
+                </div>
+              </div>
+            </section>
           )}
         </>
       )}
-    </div>
+    </article>
   );
 };
 
