@@ -50,8 +50,60 @@
   gap: 1rem;
 }
 
+.expireContainer {
+  display: flex;
+  align-items: center;
+}
+
 .expireText {
+  margin-right: 8px;
   color: var(--color-text);
+}
+
+.popoverContainer {
+  position: relative;
+  display: inline-block;
+}
+
+.questionIcon {
+  cursor: pointer;
+  font-size: 20px;
+  border: 1px solid #444444;
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #333333;
+  color: #f5f5f5;
+}
+
+.popover {
+  visibility: hidden;
+  position: absolute;
+  top: 40px;
+  left: 50%;
+  transform: translateX(-50%) translateY(-10px);
+  width: 250px;
+  padding: 15px;
+  background-color: #2a2a2a;
+  border: 1px solid #444444;
+  border-radius: 10px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+  z-index: 10;
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out, visibility 0.3s;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  color: #f5f5f5;
+}
+
+.popoverContainer:hover .popover,
+.popoverContainer .popover:hover {
+  visibility: visible;
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
 }
 
 .statusTitle {
