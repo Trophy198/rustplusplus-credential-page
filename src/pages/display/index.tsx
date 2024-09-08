@@ -32,7 +32,7 @@ const Display: NextPage<DisplayProps> = ({ formattedCredentials, expire_date, er
       ) : (
         <>
           <header>
-            <h1 className={styles.pageTitle}>Credential Info</h1>
+            <h1 className={styles.pageTitle}>Auth Info</h1>
           </header>
           <section className={styles.credentialsContainer}>
             <pre className={styles.credentialsPre}>{formattedCredentials}</pre>
