@@ -37,7 +37,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     const expiryDate = new Date(header.exp * 1000);
 
     const config = {
-      fcm_credentials: fcmCredentials,
+      // fcm_credentials: fcmCredentials,
+      authToken: token,
       steamId: steamId,
       expire_date: header.exp,
       issued_date: header.iss,

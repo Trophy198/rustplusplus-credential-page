@@ -1,8 +1,8 @@
 import { GetServerSideProps, NextPage } from 'next';
 import { parseCookies, destroyCookie } from 'nookies';
-import { formatCredentialsData } from '@/utils/formatCredentialsData';
 import styles from './display.module.css';
 import { formatTimeRemaining } from '@/utils/formatTimeRemaining';
+import { formatAuthTokenData } from '@/utils/formatAuthTokenData';
 
 interface DisplayProps {
   formattedCredentials?: string;
@@ -78,7 +78,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
   try {
     const credentials = JSON.parse(decodeURIComponent(config));
-    const { formattedData, expire_date } = formatCredentialsData(credentials);
+    const { formattedData, expire_date } = formatAuthTokenData(credentials);
     return {
       props: { formattedCredentials: formattedData, expire_date, error: null },
     };
