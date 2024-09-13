@@ -25,7 +25,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     const fcmToken = fcmCredentials.fcm.token;
     const expoPushToken = await getExpoPushToken(deviceId, fcmToken);
     const { token, steamId } = req.query;
-    console.log(fcmCredentials);
+
     if (!token || typeof token !== 'string') {
       console.log('Token missing from request!');
       res.status(400).send('Token missing from request!');
