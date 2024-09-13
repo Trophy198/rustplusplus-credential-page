@@ -2,25 +2,26 @@ import type { NextApiRequest, NextApiResponse } from 'next';
 import axios from 'axios';
 import { v4 as uuidv4 } from 'uuid';
 
-const { register }: { register: any } = require('push-receiver-v2');
+const { AndroidFCM } = require('@liamcottle/push-receiver');
 
-interface FCMCredentials {
-  fcm: {
-    token: string;
-  };
-}
+const apiKey = process.env.API_KEY;
+const projectId = process.env.PROJECT_ID;
+const gcmSenderId = process.env.GCM_SENDER_ID;
+const gmsAppId = process.env.GMS_APP_ID;
+const androidPackageName = process.env.ANDROID_PACKAGE_NAME;
+const androidPackageCert = process.env.ANDROID_PACKAGE_CERT;
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-  const firebaseConfig = {
-    firebase: {
-      apiKey: process.env.API_KEY,
-      appID: process.env.APP_ID,
-      projectID: process.env.PROJECT_ID,
-    },
-  };
   try {
     const deviceId = uuidv4();
-    const fcmCredentials: FCMCredentials = await register(firebaseConfig);
+    const fcmCredentials = await AndroidFCM.register(
+      apiKey,
+      projectId,
+      gcmSenderId,
+      gmsAppId,
+      androidPackageName,
+      androidPackageCert,
+    );
     const fcmToken = fcmCredentials.fcm.token;
     const expoPushToken = await getExpoPushToken(deviceId, fcmToken);
     const { token, steamId } = req.query;
@@ -37,8 +38,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     const expiryDate = new Date(header.exp * 1000);
 
     const config = {
-      // fcm_credentials: fcmCredentials,
-      authToken: token,
+      fcm_credentials: fcmCredentials,
       steamId: steamId,
       expire_date: header.exp,
       issued_date: header.iss,
@@ -56,21 +56,21 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
 async function getExpoPushToken(deviceId: string, fcmToken: string): Promise<string> {
   const response = await axios.post('https://exp.host/--/api/v2/push/getExpoPushToken', {
+    type: 'fcm',
     deviceId,
-    experienceId: '@facepunch/RustCompanion',
+    development: false,
     appId: 'com.facepunch.rust.companion',
     deviceToken: fcmToken,
-    type: 'fcm',
-    development: false,
+    projectId: '49451aca-a822-41e6-ad59-955718d0ff9c',
   });
   return response.data.data.expoPushToken;
 }
 
 async function registerWithRustPlus(authToken: string, deviceId: string, expoPushToken: string) {
-  const response = await axios.post('https://companion-rust.facepunch.com/api/push/register', {
+  const response = await axios.post('https://companion-rust.facepunch.com:443/api/push/register', {
     AuthToken: authToken,
     DeviceId: deviceId,
-    PushKind: 0,
+    PushKind: 3,
     PushToken: expoPushToken,
   });
   return response.data;

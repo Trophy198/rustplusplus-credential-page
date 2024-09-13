@@ -6,4 +6,7 @@
   package = "@netlify/plugin-nextjs"
 
 [functions]
-  included_files = ["node_modules/push-receiver-v2/src/gcm/*.proto"]
+  included_files = [
+    "node_modules/@liamcottle/push-receiver/src/gcm/checkin.proto",
+    "node_modules/@liamcottle/push-receiver/src/gcm/android_checkin.proto"
+  ]
