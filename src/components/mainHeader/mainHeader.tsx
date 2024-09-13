@@ -40,7 +40,7 @@ const MainHeader = () => {
                 {isLoggedIn ? (
                   <>
                     <Link className={styles.rustplusplusActionButton} href="/display">
-                      Auth Info
+                      Credential Info
                     </Link>
                     <button className={styles.rustplusplusActionButton} onClick={handleLogout}>
                       Log Out
