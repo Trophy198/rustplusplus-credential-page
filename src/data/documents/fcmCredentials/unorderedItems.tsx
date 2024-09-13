@@ -28,7 +28,7 @@ export const getCopyCredentialsInWebStep = () => [
 export const getDownloadAndInstallSteps = () => [
   <ListItem key="download-install-app">
     Download and install the{' '}
-    <a href="https://github.com/alexemanuelol/rustplusplus-credential-application/releases/download/v1.2.0/rustplusplus-1.2.0-win-x64.exe">
+    <a href="https://github.com/alexemanuelol/rustplusplus-Credential-Application/releases/v1.4.0">
       rustplusplus FCM Credential Application
     </a>
   </ListItem>,
