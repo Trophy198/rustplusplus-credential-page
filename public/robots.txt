@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+Disallow: /callback
+Disallow: /display
+Disallow: /api/
+
+Sitemap: https://rustplusplus-credentials.netlify.app/sitemap.xml

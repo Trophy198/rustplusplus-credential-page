@@ -1,6 +1,8 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import axios from 'axios';
 import { v4 as uuidv4 } from 'uuid';
+import { recordCredentialEvent } from '@/lib/credentialStats';
+import { CONFIG_COOKIE, buildLoginFlagCookie } from '@/lib/authCookie';
 
 const { AndroidFCM } = require('@liamcottle/push-receiver');
 
@@ -12,7 +14,18 @@ const androidPackageName = process.env.ANDROID_PACKAGE_NAME;
 const androidPackageCert = process.env.ANDROID_PACKAGE_CERT;
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+  res.setHeader('Cache-Control', 'no-store');
+  const startedAt = Date.now();
+
   try {
+    const { token, steamId } = req.query;
+
+    if (!token || typeof token !== 'string') {
+      console.log('Token missing from request!');
+      res.status(400).send('Token missing from request!');
+      return;
+    }
+
     const deviceId = uuidv4();
     const fcmCredentials = await AndroidFCM.register(
       apiKey,
@@ -24,13 +37,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     );
     const fcmToken = fcmCredentials.fcm.token;
     const expoPushToken = await getExpoPushToken(deviceId, fcmToken);
-    const { token, steamId } = req.query;
-
-    if (!token || typeof token !== 'string') {
-      console.log('Token missing from request!');
-      res.status(400).send('Token missing from request!');
-      return;
-    }
 
     const registrationData = await registerWithRustPlus(token, deviceId, expoPushToken);
     const rustplusToken = registrationData.token;
@@ -45,11 +51,18 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     };
 
     res.setHeader('Set-Cookie', [
-      `config=${encodeURIComponent(JSON.stringify(config))}; Path=/; HttpOnly; Expires=${expiryDate.toUTCString()}`,
+      `${CONFIG_COOKIE}=${encodeURIComponent(JSON.stringify(config))}; Path=/; HttpOnly; SameSite=Lax; Secure; Expires=${expiryDate.toUTCString()}`,
+      buildLoginFlagCookie(expiryDate),
     ]);
+
+    console.log(JSON.stringify({ event: 'credential_issued', durationMs: Date.now() - startedAt }));
+    await recordCredentialEvent('issued');
+
     res.status(200).json({ success: true, message: 'Registration successsful' });
   } catch (error) {
     console.error('Error in processing request:', error);
+    console.log(JSON.stringify({ event: 'credential_failed', durationMs: Date.now() - startedAt }));
+    await recordCredentialEvent('failed');
     res.status(500).send('An error occurred while processing your request');
   }
 }
