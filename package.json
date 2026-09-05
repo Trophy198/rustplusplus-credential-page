@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@liamcottle/push-receiver": "^0.0.4",
+    "@netlify/blobs": "^10.7.13",
     "@netlify/plugin-nextjs": "^5.0.0",
     "axios": "^1.6.8",
     "next": "14.2.0",

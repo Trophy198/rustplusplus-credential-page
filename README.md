@@ -23,6 +23,12 @@ The rustPlusPlus Discord Bot leverages the Rust+ companion app's functionality, 
 ![rustplusplus web image](/public/images/fcmCredentials/rustplusplus_display_page.png)
 According to the [**Rust Pairing Flow**](https://github.com/liamcottle/rustplus.js/blob/master/docs/PairingFlow.md), the Rust Companion API returns a refreshed Steam Auth Token which expires after 2 weeks. This is the primary reason for the 2-week expiry period of the credentials.
 
+## Analytics & Credential Statistics
+
+- **Google Analytics 4**: set `NEXT_PUBLIC_GA_ID` (e.g. `G-XXXXXXXXXX`) in the Netlify environment variables. The tag is only rendered when the variable is set. A `credential_copied` event is sent when a user copies the slash command on `/display`.
+- **Credential issuance counters**: `/api/callback` records every success/failure in Netlify Blobs (store `credential-stats`, keys `total` and `daily/YYYY-MM-DD`). View them in the Netlify UI under *Project → Blobs*, or run `netlify blobs:get credential-stats total`.
+- Login state in the header is read from the non-HttpOnly `rpp_logged_in` cookie, so no API call is made on page load.
+
 # **How-to build for development**
 
 ## Download and Install Dependencies

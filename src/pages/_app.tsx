@@ -2,9 +2,11 @@ import useAuthStore from '@/store/useAuthStore';
 import '@/styles/globals.css';
 import type { AppProps } from 'next/app';
 import Head from 'next/head';
+import Script from 'next/script';
 import { useEffect } from 'react';
 import { useRouter } from 'next/router';
 import MainLayout from '@/components/mainLayout/mainLayout';
+import { GA_ID } from '@/lib/gtag';
 
 export default function App({ Component, pageProps }: AppProps) {
   const router = useRouter();
@@ -45,6 +47,17 @@ export default function App({ Component, pageProps }: AppProps) {
         />
         <meta name="twitter:image" content={logoUrl} />
       </Head>
+      {GA_ID && (
+        <>
+          <Script src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`} strategy="afterInteractive" />
+          <Script id="ga4-init" strategy="afterInteractive">
+            {`window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', '${GA_ID}');`}
+          </Script>
+        </>
+      )}
       {noHeader ? (
         <Component {...pageProps} />
       ) : (

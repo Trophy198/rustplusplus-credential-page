@@ -1,8 +1,10 @@
 import { GetServerSideProps, NextPage } from 'next';
-import { parseCookies, destroyCookie } from 'nookies';
+import { parseCookies, destroyCookie, setCookie } from 'nookies';
 import styles from './display.module.css';
 import { formatTimeRemaining } from '@/utils/formatTimeRemaining';
 import { formatCredentialsData } from '@/utils/formatCredentialsData';
+import { trackEvent } from '@/lib/gtag';
+import { CONFIG_COOKIE, LOGIN_FLAG_COOKIE } from '@/lib/authCookie';
 
 interface DisplayProps {
   formattedCredentials?: string;
@@ -14,6 +16,7 @@ const Display: NextPage<DisplayProps> = ({ formattedCredentials, expire_date, er
   const copyToClipboard = async () => {
     try {
       await navigator.clipboard.writeText(formattedCredentials || '');
+      trackEvent('credential_copied');
       alert('Credentials copied to clipboard!');
     } catch (err) {
       console.error('Failed to copy credentials:', err);
@@ -68,7 +71,7 @@ export default Display;
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const cookies = parseCookies(context);
-  const config = cookies.config;
+  const config = cookies[CONFIG_COOKIE];
 
   if (!config) {
     return {
@@ -79,12 +82,25 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   try {
     const credentials = JSON.parse(decodeURIComponent(config));
     const { formattedData, expire_date } = formatCredentialsData(credentials);
+
+    // Credentials issued before the login-flag cookie existed: backfill it so the
+    // header shows the logged-in state without an extra API call.
+    if (!cookies[LOGIN_FLAG_COOKIE] && expire_date) {
+      setCookie(context, LOGIN_FLAG_COOKIE, '1', {
+        path: '/',
+        sameSite: 'lax',
+        secure: true,
+        expires: new Date(expire_date * 1000),
+      });
+    }
+
     return {
       props: { formattedCredentials: formattedData, expire_date, error: null },
     };
   } catch (error) {
     console.error('Error parsing credentials:', error);
-    destroyCookie(context, 'config');
+    destroyCookie(context, CONFIG_COOKIE, { path: '/' });
+    destroyCookie(context, LOGIN_FLAG_COOKIE, { path: '/' });
     return {
       props: { error: 'Failed to parse configuration data.' },
     };
