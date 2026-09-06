@@ -13,6 +13,8 @@ const gmsAppId = process.env.GMS_APP_ID;
 const androidPackageName = process.env.ANDROID_PACKAGE_NAME;
 const androidPackageCert = process.env.ANDROID_PACKAGE_CERT;
 
+const TWO_WEEKS_SECONDS = 14 * 24 * 60 * 60;
+
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   res.setHeader('Cache-Control', 'no-store');
   const startedAt = Date.now();
@@ -41,12 +43,20 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     const registrationData = await registerWithRustPlus(token, deviceId, expoPushToken);
     const rustplusToken = registrationData.token;
     const header = decodeJWTHeader(rustplusToken);
-    const expiryDate = new Date(header.exp * 1000);
+
+    // The cookie lifetime follows the token's `exp`. If the token carries no
+    // usable expiry (missing, malformed, or already in the past) the browser
+    // would drop the cookie immediately, so fall back to the documented 2-week
+    // lifetime and record which source was used.
+    const tokenExp = Number(header.exp);
+    const tokenExpIsUsable = Number.isFinite(tokenExp) && tokenExp * 1000 > Date.now();
+    const expireDateSeconds = tokenExpIsUsable ? tokenExp : Math.floor(Date.now() / 1000) + TWO_WEEKS_SECONDS;
+    const expiryDate = new Date(expireDateSeconds * 1000);
 
     const config = {
       fcm_credentials: fcmCredentials,
       steamId: steamId,
-      expire_date: header.exp,
+      expire_date: expireDateSeconds,
       issued_date: header.iss,
     };
 
@@ -55,7 +65,15 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       buildLoginFlagCookie(expiryDate),
     ]);
 
-    console.log(JSON.stringify({ event: 'credential_issued', durationMs: Date.now() - startedAt }));
+    console.log(
+      JSON.stringify({
+        event: 'credential_issued',
+        durationMs: Date.now() - startedAt,
+        expiresInDays: Math.round(((expireDateSeconds * 1000 - Date.now()) / 86_400_000) * 10) / 10,
+        expSource: tokenExpIsUsable ? 'token' : 'fallback',
+        tokenExpRaw: header.exp ?? null,
+      }),
+    );
     await recordCredentialEvent('issued');
 
     res.status(200).json({ success: true, message: 'Registration successsful' });

@@ -181,3 +181,32 @@
     margin-top: 1rem;
   }
 }
+
+.emptyState {
+  max-width: 720px;
+  line-height: 1.6;
+}
+
+.emptySteps {
+  padding-left: 24px;
+  line-height: 1.9;
+}
+
+.emptyActions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 16px;
+  margin-top: 16px;
+}
+
+.secondaryLink {
+  color: inherit;
+  text-decoration: underline;
+}
+
+.emptyActions .copyButton {
+  margin-top: 0;
+  text-decoration: none;
+  display: inline-block;
+}
