@@ -1,0 +1,64 @@
+---
+title: "Rust+ on PC"
+pageTitle: "Rust+ on PC: Desktop Apps vs Discord Bots vs the Phone, Compared Honestly"
+description: "There is no official Rust+ for Windows. Three kinds of tool fill the gap: desktop apps, Discord bots you host, and hosted bot services. What each gives you, what it costs, and who holds your credentials."
+order: 17
+updated: "2026-09-24"
+ads: true
+---
+
+Facepunch ships Rust+ for phones only. On a PC you have three ways to get the same information, and they differ less in features than in **who runs the software and who holds your account's pairing credentials**. Decide that first, then pick a tool.
+
+## The three approaches
+
+| | Desktop app | Self-hosted Discord bot | Hosted Discord bot service |
+|---|---|---|---|
+| Runs on | Your Windows PC | A machine you control (PC, VPS, Pi) | The provider's servers |
+| Who sees your data | You; some apps offer optional cloud sync | You and your Discord | The provider |
+| Cost | Free, some with paid tiers | Free (your electricity or VPS) | Subscription |
+| Team access | One PC, unless cloud sharing | Everyone in the Discord | Everyone in the Discord |
+| Works when your PC is off | No | If hosted elsewhere, yes | Yes |
+| Setup effort | Install and sign in | Node.js, Discord application, credentials | Invite the bot, sign in |
+| Examples | Rust+ Desktop (Pronwan), MapMonster | rustplusplus | RustPlusBot, RustLink |
+
+All of them use the same public companion API the phone app uses, and all of them need the same thing to start: a registration of your Steam account with Facepunch's push service, created by signing in through Facepunch's Rust+ login page. Where that registration lives is the real difference.
+
+## Desktop apps
+
+A desktop app shows the map, team positions, events and smart devices in a window or as an overlay on a second monitor. It signs you in through the Rust+ login inside the app and keeps the credentials on your PC.
+
+**Rust+ Desktop** by Pronwan is the established one: Windows, open source under the GPL-3.0 so the code can be audited, free for local use, with optional cloud accounts and a supporter tier for team sharing. It covers pairing, dynamic map, smart devices, cameras, vending machine analytics, team chat and overlays.
+
+**MapMonster** and similar minimap overlays focus on an in-game overlay of team positions and vending listings, often with a paid tier for extras.
+
+**Good for:** a player who mostly wants a big map while playing. **Weak at:** alerts when you are away, and sharing with a team, since the app runs only while your PC does.
+
+## Self-hosted Discord bot
+
+The bot runs as a program on a machine you control and posts everything into channels in your Discord: server status, map, team chat mirrored both ways, switches with buttons, alarms, storage monitors, trackers. Because it is in Discord, the entire team reads and controls it, on phone or PC, whether or not anyone is in game.
+
+**rustplusplus** is the free, open-source (GPL-3.0) bot this site supports. You need a machine that stays on, Node.js, a Discord application, and credentials for each teammate who wants to pair things. Credentials come from the **Log In** button on this site and are stored only in your bot. The full path is in the [setup guide](/guides/rustplusplus-setup-guide).
+
+**Good for:** teams, and anyone who wants alerts while away without trusting a third party with their pairings. **Weak at:** the initial setup, and it needs a host; a sleeping laptop means an offline bot.
+
+## Hosted Discord bot services
+
+Same Discord experience, but the provider runs the bot. You invite it, sign in through their site, and your pairing credentials are stored on their infrastructure.
+
+**RustPlusBot** is the best known. It is hosted, priced at a monthly subscription (its site states US$5 a month, described as 720 hours of bot operation), and adds features beyond the basics: BattleMetrics player tracking, camera and drone viewing in Discord, voice alerts, an interactive web map, an AI assistant for game questions, Stream Deck integration and plugins. Its author also runs the rustrician.io electricity simulator.
+
+**RustLink** markets itself as a Rust+ team-chat bot; its site is an application that requires JavaScript, so check it directly for current features and pricing.
+
+**Good for:** teams that want zero hosting and do not mind paying. **Weak at:** privacy, since the provider holds credentials that can read your team's map and flip your switches, and at longevity, since the bot disappears if the service does.
+
+## The credential question, plainly
+
+Whatever you choose, the registration that lets software receive your Steam account's pairings is sensitive: anyone holding it can see your team's positions and control your paired switches. It cannot log in to Steam or the game as you. With a desktop app or a self-hosted bot, it stays with you. With a hosted service, you are trusting the operator. [What is in a credential and what it can do](/guides/rustplusplus-credentials-explained) covers the details.
+
+## Recommendation
+
+- Solo, playing at the PC, wants a map: a desktop app.
+- Duo or team, wants alerts and shared control, has any machine that can stay on: self-hosted rustplusplus.
+- Team, nobody wants to run anything, comfortable paying and trusting a provider: a hosted bot.
+
+They are not exclusive. Many teams run rustplusplus for the shared Discord and a desktop overlay for the player who is on.

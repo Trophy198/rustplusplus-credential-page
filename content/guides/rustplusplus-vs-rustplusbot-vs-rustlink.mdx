@@ -1,0 +1,56 @@
+---
+title: "rustplusplus vs RustPlusBot vs RustLink"
+pageTitle: "rustplusplus vs RustPlusBot vs RustLink: Which Rust+ Discord Bot?"
+description: "The three Rust+ Discord bots people compare, side by side: hosting, price, features, and who holds your credentials. Written by the people who maintain the rustplusplus credential tool, with that bias stated up front."
+order: 18
+updated: "2026-09-24"
+ads: true
+---
+
+Disclosure first: this site exists to make **rustplusplus** easier to set up, so we are not neutral. We have tried to be fair anyway, because the bots genuinely suit different people, and recommending the wrong one to you helps nobody.
+
+## At a glance
+
+| | rustplusplus | RustPlusBot | RustLink |
+|---|---|---|---|
+| Model | Self-hosted, open source (GPL-3.0) | Hosted service | Hosted service |
+| Price | Free | Subscription; site states US$5/month (720 bot-hours) | See their site |
+| Setup | Node.js + Discord application + credentials | Invite bot, sign in | Invite bot, sign in |
+| Credentials stored | On your machine | On their servers | On their servers |
+| Team chat in Discord | Yes, both directions | Yes | Yes (its headline feature) |
+| Smart switches / alarms / monitors | Yes, with automation modes and groups | Yes | Check |
+| Player tracking (BattleMetrics) | Yes, trackers channel | Yes | Check |
+| Cameras in Discord | Yes (`/cctv` codes, camera frames) | Yes, plus drones | Check |
+| Voice alerts | Text-to-speech to a channel | Discord voice client | Check |
+| Extras | In-game commands, translations, vending subscriptions, custom timers, markers | Web map, AI assistant, Stream Deck, plugins, turret interference calculator | Check |
+| Runs when your PC is off | Only if hosted elsewhere | Yes | Yes |
+
+"Check" means we could not verify from public material at the time of writing; RustLink's site requires JavaScript and we did not want to guess.
+
+## rustplusplus
+
+A Node.js bot you run yourself. You create a Discord application, run the bot on any machine that stays on, and register credentials for each teammate through this site's **Log In** button. The bot then creates a set of channels and fills them: server info and map, team chat mirrored in both directions, switches with buttons and automation (night only, any teammate online, proximity), alarms, storage monitors with upkeep, BattleMetrics trackers, events, and a large set of in-game team-chat commands ([cheat sheet](/guides/rustplusplus-in-game-commands-cheat-sheet)).
+
+**Strengths:** free, auditable, your data stays with you, deep in-game command set, active community fork ecosystem.
+**Costs:** you host it. A home PC that sleeps means an offline bot; most teams use a small VPS or a spare machine. Credentials expire every 14 days and must be regenerated ([why](/guides/rustplusplus-credentials-explained)). Setup takes an evening the first time: [setup guide](/guides/rustplusplus-setup-guide).
+
+## RustPlusBot
+
+A hosted bot from the developer behind Rustangelo and rustrician.io. You invite it and sign in; they run everything. Its feature list goes beyond the basics: an interactive web map, camera and drone viewing from Discord, a voice client that speaks alerts into a voice channel, an AI assistant for game questions, Stream Deck integration, TC upkeep trackers and custom plugins. Pricing on its site is a monthly subscription, with a free trial tied to their other Steam products.
+
+**Strengths:** nothing to host, broadest feature set, polished.
+**Costs:** the subscription, and trust: the provider holds the credentials that receive your team's pairings and can control paired switches. If the service closes, so does your bot.
+
+## RustLink
+
+A hosted bot positioned around Rust+ team chat in Discord. We could not verify its current feature list or pricing from public material, so we will not characterise it further; if team chat is all you want, it is worth a look alongside the other two.
+
+## Which one
+
+- **You have any machine that stays on and a teammate who can follow a setup guide:** rustplusplus. It is free and yours.
+- **Nobody on the team wants to run anything, and you are fine paying and trusting a provider:** RustPlusBot.
+- **You only want team chat in Discord and want it in two minutes:** RustLink or RustPlusBot; compare current pricing.
+
+## The one thing to check whichever you pick
+
+Where do your credentials live, and how do you revoke them? With rustplusplus you regenerate on this site and the old registration is replaced. With a hosted service, look for a sign-out or revoke option before you sign up, and remember that a new registration from any client replaces the previous one for your Steam account.
