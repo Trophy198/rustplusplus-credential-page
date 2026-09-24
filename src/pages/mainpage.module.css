@@ -12,7 +12,8 @@
   justify-content: center;
   align-items: center;
   min-height: calc(100vh - 89px);
-  background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(27, 27, 27, 0.75) 76.18%, #1b1b1b 95.22%),
+  background:
+    linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(27, 27, 27, 0.75) 76.18%, #1b1b1b 95.22%),
     url('/images/background.webp') #d3d3d3 0px 0px / 100% 100% no-repeat;
   margin-bottom: 2rem;
   padding: 2rem;
@@ -75,7 +76,10 @@
   text-align: center;
   font-size: 1.25rem;
   cursor: pointer;
-  transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease,
+    transform 0.3s ease;
 }
 
 .getStartedLink {
@@ -129,7 +133,9 @@
   margin-bottom: 5rem;
   overflow: hidden;
   opacity: 0;
-  transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+  transition:
+    opacity 0.5s ease-out,
+    transform 0.5s ease-out;
 }
 
 .section.visible {

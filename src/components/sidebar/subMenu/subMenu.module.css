@@ -23,7 +23,9 @@
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  transition: opacity 0.15s ease 0s, height 0.2s ease-in-out 0s;
+  transition:
+    opacity 0.15s ease 0s,
+    height 0.2s ease-in-out 0s;
 }
 
 .subMenuItem {
@@ -63,7 +65,9 @@
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  transition: opacity 0.15s ease, height 0.2s ease-in-out;
+  transition:
+    opacity 0.15s ease,
+    height 0.2s ease-in-out;
 }
 
 .nestedSubItem {

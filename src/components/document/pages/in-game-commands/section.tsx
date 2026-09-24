@@ -1,4 +1,3 @@
-import { Link } from 'react-scroll';
 import Heading from '../../heading/heading';
 import Table from '../../table/table';
 import TableHeader from '../../tableHeader/tableHeader';
@@ -25,9 +24,9 @@ const InGameCommandsSection = ({ imageUrls }: { imageUrls: ImageUrl }) => {
           {Object.entries(InGameCommandList).map(([command, description]) => (
             <TableRow key={command}>
               <TableColumn>
-                <Link to={command} smooth={true} duration={500} offset={-105}>
+                <a href={`#${command}`}>
                   <Strong>{command}</Strong>
-                </Link>
+                </a>
               </TableColumn>
               <TableColumn>{description}</TableColumn>
             </TableRow>

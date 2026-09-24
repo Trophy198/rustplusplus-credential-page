@@ -19,14 +19,14 @@ const buildPaginationMap = (): Record<string, PaginationResult> => {
           i === 0
             ? null
             : menuItems[i - 1].subItems.length > 0
-            ? menuItems[i - 1].subItems[menuItems[i - 1].subItems.length - 1].href
-            : menuItems[i - 1].href,
+              ? menuItems[i - 1].subItems[menuItems[i - 1].subItems.length - 1].href
+              : menuItems[i - 1].href,
         previousLabel:
           i === 0
             ? null
             : menuItems[i - 1].subItems.length > 0
-            ? menuItems[i - 1].subItems[menuItems[i - 1].subItems.length - 1].label
-            : menuItems[i - 1].label,
+              ? menuItems[i - 1].subItems[menuItems[i - 1].subItems.length - 1].label
+              : menuItems[i - 1].label,
         nextHref: item.subItems[0].href,
         nextLabel: item.subItems[0].label,
       };
@@ -39,14 +39,14 @@ const buildPaginationMap = (): Record<string, PaginationResult> => {
             j < item.subItems.length - 1
               ? item.subItems[j + 1].href
               : i < menuItems.length - 1
-              ? menuItems[i + 1].href
-              : null,
+                ? menuItems[i + 1].href
+                : null,
           nextLabel:
             j < item.subItems.length - 1
               ? item.subItems[j + 1].label
               : i < menuItems.length - 1
-              ? menuItems[i + 1].label
-              : null,
+                ? menuItems[i + 1].label
+                : null,
         };
       }
     } else {
@@ -55,14 +55,14 @@ const buildPaginationMap = (): Record<string, PaginationResult> => {
           i === 0
             ? null
             : menuItems[i - 1].subItems.length > 0
-            ? menuItems[i - 1].subItems[menuItems[i - 1].subItems.length - 1].href
-            : menuItems[i - 1].href,
+              ? menuItems[i - 1].subItems[menuItems[i - 1].subItems.length - 1].href
+              : menuItems[i - 1].href,
         previousLabel:
           i === 0
             ? null
             : menuItems[i - 1].subItems.length > 0
-            ? menuItems[i - 1].subItems[menuItems[i - 1].subItems.length - 1].label
-            : menuItems[i - 1].label,
+              ? menuItems[i - 1].subItems[menuItems[i - 1].subItems.length - 1].label
+              : menuItems[i - 1].label,
         nextHref: i < menuItems.length - 1 ? menuItems[i + 1].href : null,
         nextLabel: i < menuItems.length - 1 ? menuItems[i + 1].label : null,
       };
