@@ -1,0 +1,36 @@
+---
+title: "Rust+ on console"
+pageTitle: "Is Rust+ Available on Console? What Xbox and PS5 Players Get Instead"
+description: "Rust+ does not work with Rust Console Edition on Xbox or PlayStation. Why the companion app is PC-only, what console players actually have, and what to watch for."
+order: 11
+updated: "2026-09-24"
+ads: true
+---
+
+**No.** Rust+ works only with the PC version of Rust. If you play Rust Console Edition on Xbox One, Xbox Series, PlayStation 4 or PlayStation 5, the companion app will install and let you sign in with Steam, but there is nothing for it to pair with: your console account is not a Steam account, and console servers do not run the companion service the app talks to.
+
+## Why it is PC-only
+
+Rust Console Edition is a separate game. It is developed by Double Eleven, runs its own servers with its own codebase, and has a different update cadence from the PC game made by Facepunch. Rust+ is built into the **PC server**: each PC server runs a small companion service on a network port that the phone app connects to, and the server pushes pairing and alarm notifications through Facepunch's backend. Console servers have neither piece. There is no port to connect to and no pairing button in the console menus.
+
+Signing in to Rust+ with your Steam account and seeing an empty server list on console is expected; the list only fills when a PC server you are playing on sends a pairing to that Steam account.
+
+## What console players have
+
+- **Console Edition's own companion features.** Double Eleven has shipped some out-of-game features for Console Edition over time. Check the official Rust Console Edition site and their announcements for what currently exists; do not rely on PC-focused guides, including this one, for console specifics.
+- **Server community Discords.** Many console servers post wipe schedules and events in Discord. That covers the "when does it wipe" part of what PC players use Rust+ for.
+- **Nothing for smart devices or remote alarms.** Smart switches, alarms and storage monitors cannot notify a phone on console. There is no third-party workaround because there is no API to build one on.
+
+## Things that will not help
+
+- Installing Rust+ from the app store and signing in with a Steam account. Works, but shows nothing.
+- Discord bots such as rustplusplus, RustPlusBot or RustLink. They all use the PC companion API and cannot see console servers.
+- Linking a Steam account that also owns PC Rust. Pairings come from the PC server you are connected to, so you would only see PC servers.
+
+## If you also play on PC
+
+Everything on this site applies: install the [rustplusplus](/docs) Discord bot, generate credentials with the **Log In** button above, and pair PC servers from the in-game Rust+ menu. The [troubleshooting hub](/guides/rust-plus-not-working) covers the common failures.
+
+## Will this change?
+
+Facepunch and Double Eleven have not announced Rust+ support for Console Edition. If it ever ships it will come from Double Eleven as a console feature, not as an update to the existing PC app. Until then, any site or video claiming Rust+ works on Xbox or PS5 is wrong, and any "Rust+ for console" app outside the official stores should be treated as a scam.

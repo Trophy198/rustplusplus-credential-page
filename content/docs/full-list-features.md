@@ -1,12 +1,12 @@
 ---
 title: "Full List of Features"
 pageTitle: "Full list of Features"
-description: "Discord Slash Commands - /alarm - Change image of paired Smart Alarms. - /alias - Create an alias for a command/sequence of characters. - /blacklist - Blac"
+description: "Pair Smart Devices such as Smart Switches, Smart Alarms, Storage Monitors and control them from Discord or In-Game teamchat."
 order: 10
 upstream: "https://github.com/alexemanuelol/rustplusplus/blob/8f7300e4e3dd68392f2b01ead5d711697f63ac63/docs/full_list_features.md"
 upstreamPath: "docs/full_list_features.md"
 upstreamSha: "8f7300e4e3dd68392f2b01ead5d711697f63ac63"
-syncedAt: "2026-09-24T02:27:31.680Z"
+syncedAt: "2026-09-24T03:01:15.169Z"
 license: GPL-3.0
 ads: false
 ---

@@ -1,0 +1,66 @@
+---
+title: "rustplusplus setup, start to finish"
+pageTitle: "rustplusplus Setup Guide: From Zero to a Working Rust+ Discord Bot"
+description: "The whole rustplusplus setup in one sitting: what you need, installing the bot, creating the Discord application, generating credentials, pairing a server, and the five mistakes that account for most failed setups."
+order: 13
+updated: "2026-09-24"
+ads: true
+---
+
+The official documentation covers each step in detail; this page is the path through it in order, with the decisions and pitfalls the docs leave to you. Follow it top to bottom and you will have a bot posting your server's status in Discord in under an hour. Links go to the [synced documentation](/docs) for exact commands and screenshots.
+
+## Before you start: how the pieces fit
+
+rustplusplus is a program **you** run. It signs in to Discord as a bot you create, and it talks to Rust servers through the same companion API the Rust+ phone app uses. Three things have to exist:
+
+1. A machine that stays on: your PC while you play, a spare computer, a small VPS, or a Raspberry Pi. If it sleeps, the bot goes offline.
+2. A Discord application with a bot token, invited to your server.
+3. Credentials for your Steam account so the bot receives your in-game pairings. That is what this site generates.
+
+## 1. Install
+
+You need **Node.js 22.12 or newer** and Git. Clone the repository and install dependencies exactly as in [Installation](/docs/installation). On Windows use Git Bash or PowerShell; on Linux any shell. If `npm install` fails with native-build errors, your Node is too old or too new for the bot's dependencies; match the version in the docs.
+
+Optional: GraphicsMagick, only if you want the step-trace map images for Cargo Ship and Patrol Helicopter.
+
+## 2. Create the Discord bot
+
+In the Discord Developer Portal, create an application, add a bot, and copy two values into the bot's config: the **Application ID** and the **Bot Token**. Enable the privileged gateway intents the docs list; the bot cannot read messages or members without them. Then generate an invite URL with the `bot` and `applications.commands` scopes and the permissions the docs specify, open it, and add the bot to your Discord server. [Discord Bot Setup](/docs/discord-bot-setup) has each screen.
+
+Two mistakes here cause most "bot does nothing" reports: forgetting the intents, and inviting the bot without `applications.commands`, which leaves you with no slash commands.
+
+## 3. Start the bot once
+
+Run `npm start` (or the start command in the docs) and let it create its channels in your Discord server: `information`, `servers`, `settings`, `commands`, `events`, `teamchat`, `switches`, `alarms`, `storagemonitors`, `activity`, `trackers` and so on. If nothing appears, the token is wrong or the bot lacks permission to create channels. Fix that before going further.
+
+## 4. Generate credentials
+
+Click **Log In** at the top of this site (install the extension first if the button says Install Extension), sign in with the Steam account you play on, and copy the `/credentials add …` command from the page you land on. Run it in any channel the bot can read. [Credentials (Web)](/docs/credentials-web-version) shows the flow; [credentials explained](/guides/rustplusplus-credentials-explained) covers what you just did and why it expires in 14 days.
+
+Every teammate who wants to pair things, or use the `leader` command, repeats this step with their own Steam account.
+
+## 5. Pair a server
+
+Join your Rust server. Press **ESC → Rust+ → Pair with server**. Within a few seconds the server appears in the bot's `servers` channel with a **Connect** button. Press it. The `information` channel fills with the map, server info, events and your team. [Pair and Connect](/docs/pair-and-connect-to-server) covers the buttons.
+
+If the server never appears: the Rust+ menu in game may say Rust+ is disabled on that server ([pair button missing](/guides/rust-plus-pair-button-not-showing)), or your credentials are not registered for the account that pressed Pair.
+
+## 6. Pair smart devices
+
+Look at a Smart Switch, Smart Alarm or Storage Monitor with a wiring tool and choose pair. Each appears in its channel in Discord with controls. Storage Monitors on your Tool Cupboard give you the in-game `upkeep` command and TC alerts. [Smart Devices](/docs/smart-devices) lists what each device offers.
+
+## 7. Try the commands
+
+In team chat type `!pop`, `!time`, `!wipe`. In Discord try `/map`, `/players`, `/craft`. The full list is in [Commands](/docs/commands) and the compact version in the [in-game commands cheat sheet](/guides/rustplusplus-in-game-commands-cheat-sheet). The command prefix and most behaviour are adjustable in the `settings` channel.
+
+## The five mistakes that account for most failed setups
+
+1. **Credentials registered on the wrong Steam account.** The account that presses Pair in game must be the one that generated the credentials.
+2. **Expired credentials.** After 14 days pairings and alarms stop silently. Regenerate; the `/credentials` command shows the expiry.
+3. **Bot machine cannot reach the server's companion port.** A home PC behind a strict router or a VPS that blocks non-standard outbound ports shows the server offline while your phone shows it online. Test from the bot's machine.
+4. **Missing intents or scopes** on the Discord application. No slash commands, or the bot ignores messages.
+5. **Running two bot instances** with the same token, for example an old one still running on another machine. Discord disconnects them in turn and the bot flickers.
+
+## Keeping it running
+
+Run the bot under a process manager (`pm2`, `systemd`, a Docker container; the repository ships a Dockerfile) so it restarts after crashes and reboots. Update by pulling the repository and running `npm install` again; the bot's database is kept between updates. Watch the `activity` channel: it is the quickest indicator that the bot is alive and receiving pushes.

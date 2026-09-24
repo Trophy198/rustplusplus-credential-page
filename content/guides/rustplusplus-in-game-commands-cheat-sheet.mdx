@@ -1,0 +1,79 @@
+---
+title: "In-game commands cheat sheet"
+pageTitle: "rustplusplus In-Game Commands Cheat Sheet"
+description: "Every rustplusplus team-chat command grouped by what you are trying to do, with the one-line situation each is for. Default prefix is !, changeable in the settings channel."
+order: 14
+updated: "2026-09-24"
+ads: true
+---
+
+rustplusplus reads your **team chat** and answers there. Type the prefix (default `!`) and the command. Commands only work from team chat, not global chat, and only for members of the bot host's in-game team. Everything here is also available from the bot's `commands` channel in Discord. Arguments are shown in angle brackets; the full reference with every option is in the [Commands documentation](/docs/commands).
+
+## Is anything happening on the map?
+
+| Command | Use it when |
+|---|---|
+| `!events` | You just logged in and want the last few events at a glance. |
+| `!cargo` | Deciding whether to run Cargo Ship: shows where it is and time until it leaves. |
+| `!heli` | Patrol Helicopter is up or was recently downed; shows location and timing. |
+| `!small` / `!large` | Planning an Oil Rig: time until the locked crate opens, time since last triggered. |
+| `!chinook` | Checking whether a Chinook 47 is dropping a crate. |
+| `!vendor` | Locating the Travelling Vendor and how long since it last appeared. |
+
+## Server and time
+
+| Command | Use it when |
+|---|---|
+| `!pop` | Deciding whether to log in: players online, queue, max population. |
+| `!time` | Timing a night raid or a farm run: in-game time and time until day or night. |
+| `!wipe` | Working out how established the server is: time since wipe. |
+| `!uptime` | Suspecting the bot or the server restarted. |
+| `!connection` | Checking which server the bot is connected to. |
+
+## Team
+
+| Command | Use it when |
+|---|---|
+| `!team` | Confirming who is in the team right now. |
+| `!online` / `!offline` | Seeing who is actually on. |
+| `!afk` | Finding out who has gone quiet, and for how long. |
+| `!alive` | Bragging rights: who has survived longest. |
+| `!prox` | You are lost: distance to your three closest teammates. |
+| `!player <name>` / `!players` | Looking up someone on the server via Battlemetrics tracking. |
+| `!steamid <teammate>` | Getting a teammate's Steam ID without leaving the game. |
+| `!leader <teammate>` | Passing team leadership so someone else can invite. Requires the setting enabled and credentials registered for the target. |
+| `!death` | Checking where you or a teammate last died. |
+
+## Base and resources
+
+| Command | Use it when |
+|---|---|
+| `!upkeep` | Deciding whether to farm before logging off: time left on every Tool Cupboard that has a Storage Monitor. |
+| `!decay <item>` | Working out how long a wall, door or deployable lasts without upkeep. |
+| `!craft <item>` | Checking the cost of something before crafting. |
+| `!recycle <item>` | Deciding whether a component is worth recycling. |
+| `!research <item>` | Checking scrap cost before the research table. |
+| `!market <item>` | Finding a vending machine selling something, or subscribing to be told when one appears. |
+
+## Utilities
+
+| Command | Use it when |
+|---|---|
+| `!timer <time> <message>` | Setting a reminder: crate, furnace, meeting time. |
+| `!marker <name>` / `!marker` | Dropping a named marker at your position and getting distances to it later. |
+| `!note <text>` / `!notes` | Leaving a note for the team that survives the session. |
+| `!send <discord user> <message>` | Pinging someone on Discord from in game. |
+| `!tts <message>` | Making the bot read your message aloud in the Discord team-chat channel. |
+| `!tr <language> <text>` / `!trf <from> <to> <text>` | Talking to a teammate in another language. |
+| `!mute` / `!unmute` | Silencing the bot in team chat during a fight, then bringing it back. |
+
+## Things that trip people up
+
+- **Wrong chat.** Global chat is ignored on purpose. Use team chat.
+- **Not in the host's team.** The bot answers the host's team only. Make sure you are in the same in-game team as the person running the bot.
+- **Prefix changed.** Someone changed it in the `settings` channel. Check there if `!` does nothing.
+- **In-game commands disabled.** There is a setting for that too, plus per-command permissions on the Discord side.
+- **`!leader` refuses.** It needs the leader setting enabled and the target teammate to have registered their own [credentials](/guides/rustplusplus-credentials-explained).
+- **Command delay.** A configurable delay between commands exists to avoid spam; rapid-fire commands get dropped.
+
+For Discord slash commands (`/alarm`, `/switch`, `/storagemonitor`, `/map`, `/players` and the rest) see the [Commands documentation](/docs/commands#discord-slash-commands).

@@ -1,12 +1,12 @@
 ---
 title: "Installation"
 pageTitle: "Installation Documentation"
-description: "Program | Version | Download | Note ------- | ------- | -------- | ---- NodeJS | >= 22.12.0 | here | Since discordjs v14 is used, the version needs to be a"
+description: "To enable step-trace for cargoship and patrol helicopter, GraphicsMagick needs to be downloaded."
 order: 1
 upstream: "https://github.com/alexemanuelol/rustplusplus/blob/8f7300e4e3dd68392f2b01ead5d711697f63ac63/docs/installation.md"
 upstreamPath: "docs/installation.md"
 upstreamSha: "8f7300e4e3dd68392f2b01ead5d711697f63ac63"
-syncedAt: "2026-09-24T02:27:31.680Z"
+syncedAt: "2026-09-24T03:01:15.169Z"
 license: GPL-3.0
 ads: false
 ---

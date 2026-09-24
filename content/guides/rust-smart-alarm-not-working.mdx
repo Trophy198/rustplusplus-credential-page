@@ -1,0 +1,54 @@
+---
+title: "Smart alarm not working"
+pageTitle: "Rust Smart Alarm Not Working, Showing Inactive, or Always Triggered"
+description: "Why a Smart Alarm shows inactive in Rust+, never notifies, or fires once and then goes quiet forever. Power, pairing, wiring order and the cooldown, in the order to check them."
+order: 8
+updated: "2026-09-24"
+ads: true
+---
+
+A Smart Alarm does one thing: when its **Power In** receives power, it sends a notification to everyone who paired it. That single rule explains every way it misbehaves. "Inactive" means it is not receiving power or is not paired to you. "Never fires" means the thing feeding it never sends power. "Always triggered" means it is receiving power constantly, so it fired once and has nothing new to report.
+
+## How the alarm is meant to be wired
+
+The alarm sits **after** a sensor, not after a power source:
+
+```
+Battery ──► Sensor (HBHF / Laser Detector / Pressure Pad) ──► Smart Alarm (Power In)
+```
+
+The sensor passes power through only while it detects something. The alarm sees power appear, sends the notification, and goes back to waiting when the sensor stops. Wire a battery straight into the alarm and it is "detecting" forever.
+
+## Inactive in the app
+
+The app shows an alarm as inactive when it is not currently receiving power **or** when your account is not paired to it.
+
+- **Power.** The alarm needs 1 rW at its input to be active. Since it should only be powered while a sensor trips, "inactive" while nothing is happening is **normal**. It only means "not triggered right now".
+- **Pairing.** Pairing is per player. Look at the alarm with a wiring tool, choose pair, and accept the notification on your phone. A teammate pairing it does not pair it for you. If the alarm never appears in your app, this is why.
+- **Powered but still inactive.** Check that the wire is on **Power In**, not the passthrough output, and that the source actually delivers 1 rW after everything upstream took its share. A turret farm on a small battery can starve the alarm at the end of the chain.
+
+## Never notifies
+
+- **The sensor never trips.** HBHF sensors have an "include authorized" setting; turned off, they ignore anyone authorised on the TC, so your own tests do nothing. Laser detectors need line of sight. Pressure pads need the weight on the pad.
+- **The alarm is paired to someone else.** See pairing above. Have each teammate pair separately.
+- **Push delivery is broken on the phone.** Test with a pairing notification on any server; if that does not arrive either, fix the phone first: [no notifications](/guides/rust-plus-notifications-not-working).
+- **The server cannot send notifications at all.** Everyone on the server loses alarm notifications together when the server's outbound access to Facepunch is blocked or its `companion.id` is broken. Ask a teammate.
+
+## Always triggered, or fired once and never again
+
+The alarm notifies on the **transition** from unpowered to powered. Once it is powered continuously it has nothing further to say, and the app shows it permanently active.
+
+- **Wired to a constant source.** The classic mistake: battery → alarm. Move the alarm behind a sensor.
+- **Sensor stuck on.** An HBHF sensor that counts authorised players fires whenever you are at home. A pressure pad under a deployable is pressed forever. Fix the sensor's settings or placement.
+- **Cooldown.** After sending a notification, the alarm will not send another for roughly three minutes even if it drops and re-triggers. Rapid test triggers make a working alarm look dead. Wait, then test once.
+
+## Test procedure that isolates the cause
+
+1. In the app, confirm the alarm is listed (pairing). If not, pair it.
+2. Wire a **switch** temporarily between the power source and the alarm's Power In. Flip it on. The app should show active and you should get one notification.
+3. Flip it off, wait three minutes, flip it on again. A second notification confirms the alarm and push path work end to end.
+4. Restore the real sensor. If the alarm now never fires, the sensor is the problem, not the alarm.
+
+## Using alarms through rustplusplus
+
+The bot receives the same alarm notifications through the credentials you generate here and posts them to the `smartalarms` channel, with a setting to also announce them in team chat. Alarms paired before your credentials were renewed keep working; alarms paired under expired credentials do not, so if the bot went quiet, regenerate credentials with **Log In** first, then re-pair the alarm.
