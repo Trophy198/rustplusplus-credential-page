@@ -1,0 +1,50 @@
+---
+title: "What Rust+ is"
+pageTitle: "What Rust+ Is, What It Costs (Nothing), and What It Can Actually Do"
+description: "Rust+ is Facepunch's free companion app for Rust on PC. What it shows, how pairing works, what it cannot do, what it reveals to your team, and how people run it on a PC or in Discord."
+order: 15
+updated: "2026-09-24"
+ads: true
+---
+
+Rust+ is the official companion app for Rust, made by Facepunch and released alongside the game's companion update in 2020. It runs on iOS and Android, costs nothing, has no premium tier, and connects to any PC Rust server that has it enabled. Its job is to let you keep an eye on your server and your base while you are not at the keyboard.
+
+## What it shows
+
+Once you pair a server (more on that below), the app gives you, live:
+
+- **The map**, with your teammates' positions, active events (Cargo Ship, Patrol Helicopter, Chinook, Oil Rig crates), vending machines and monuments.
+- **Server information**: players online, in-game time, wipe time, connection details.
+- **Team chat**, readable and writable from the phone.
+- **Smart devices** you have paired: turn Smart Switches on and off, see Storage Monitor contents (including your Tool Cupboard's upkeep), and receive Smart Alarm triggers.
+- **Cameras**: view CCTV and PTZ cameras you are authorised on, as a low-resolution sketch rather than video ([why it looks the way it does](/guides/rust-plus-camera-quality-no-signal)).
+- **Notifications**: server pairing, device pairing, alarms, offline deaths, teammate logins, and Facepunch news, each toggleable in the in-game Rust+ menu.
+
+## What it costs
+
+Nothing. There are no in-app purchases and no subscription. Facepunch pays for the notification backend as part of running the game. The only cost is to the server owner, who has to expose one extra network port so the app can connect.
+
+## How it connects, briefly
+
+Two separate channels are involved, and understanding them saves hours when something breaks.
+
+1. **Pairing and alerts** are push notifications. When you press **Pair with server** in the game's ESC menu, the server asks Facepunch to notify the phones signed in with your Steam account. Alarms and other alerts take the same route.
+2. **Live data** is a direct connection from your phone to the server's companion port (by default the game port + 67 or the RCON port + 67, whichever is larger). The map, team positions and switches all flow over it.
+
+That is why an app can pair a server and still show it offline, or show the map and never send an alert: different channel, different failure. The [troubleshooting hub](/guides/rust-plus-not-working) sorts every symptom by channel.
+
+## What it cannot do
+
+- **Play for you.** There is no remote looting, building, shooting or moving. Smart switches are the only thing you can change in the world, and only ones you paired.
+- **Work on console.** Rust Console Edition is a separate game without a companion service. [Details](/guides/rust-plus-on-console).
+- **Work on servers that turned it off.** Rust+ is opt-in per server; some hardcore and roleplay servers disable it. The in-game menu tells you.
+- **Show other teams.** You see your own team and public map events, not other players, unless a camera happens to catch them.
+- **Sound a siren.** Alerts are ordinary phone notifications; they respect your phone's sound and Do Not Disturb settings. [What you can customise](/guides/rust-plus-notification-sounds-raid-alerts).
+
+## What it reveals
+
+Your team leader and teammates see your position on the map whenever you are online and paired, exactly as they would in game. Anyone who obtains your pairing (for example by running your bot credentials) sees the same. Nothing about your Steam account beyond your ID is exposed, and Rust+ never has your Steam password: sign-in goes through Steam's own page.
+
+## Rust+ on a PC
+
+The official app is phone-only, but its API is public enough that three kinds of PC tools have grown around it: desktop apps that show the map and events on a second monitor, Discord bots that post everything into a server your whole team reads, and web tools. Each has trade-offs in cost, hosting and privacy; the comparison is in [Rust+ on PC](/guides/rust-plus-on-pc). The bot this site supports, [rustplusplus](/docs), is free and open source and runs on your own machine.

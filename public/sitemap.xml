@@ -12,13 +12,17 @@
   <url><loc>https://rustplusplus-credentials.netlify.app/docs/installation</loc><lastmod>2026-09-24</lastmod><priority>0.7</priority></url>
   <url><loc>https://rustplusplus-credentials.netlify.app/docs/pair-and-connect-to-server</loc><lastmod>2026-09-24</lastmod><priority>0.7</priority></url>
   <url><loc>https://rustplusplus-credentials.netlify.app/docs/smart-devices</loc><lastmod>2026-09-24</lastmod><priority>0.7</priority></url>
+  <url><loc>https://rustplusplus-credentials.netlify.app/guides/how-rust-plus-pairing-works</loc><lastmod>2026-09-24</lastmod><priority>0.8</priority></url>
+  <url><loc>https://rustplusplus-credentials.netlify.app/guides/pairing-smart-devices-with-rust-plus</loc><lastmod>2026-09-24</lastmod><priority>0.8</priority></url>
   <url><loc>https://rustplusplus-credentials.netlify.app/guides/rust-plus-camera-quality-no-signal</loc><lastmod>2026-09-24</lastmod><priority>0.8</priority></url>
   <url><loc>https://rustplusplus-credentials.netlify.app/guides/rust-plus-failed-to-set-up-notifications</loc><lastmod>2026-09-24</lastmod><priority>0.8</priority></url>
   <url><loc>https://rustplusplus-credentials.netlify.app/guides/rust-plus-no-servers-available</loc><lastmod>2026-09-24</lastmod><priority>0.8</priority></url>
   <url><loc>https://rustplusplus-credentials.netlify.app/guides/rust-plus-not-pairing</loc><lastmod>2026-09-24</lastmod><priority>0.8</priority></url>
   <url><loc>https://rustplusplus-credentials.netlify.app/guides/rust-plus-not-working</loc><lastmod>2026-09-24</lastmod><priority>0.8</priority></url>
+  <url><loc>https://rustplusplus-credentials.netlify.app/guides/rust-plus-notification-sounds-raid-alerts</loc><lastmod>2026-09-24</lastmod><priority>0.8</priority></url>
   <url><loc>https://rustplusplus-credentials.netlify.app/guides/rust-plus-notifications-not-working</loc><lastmod>2026-09-24</lastmod><priority>0.8</priority></url>
   <url><loc>https://rustplusplus-credentials.netlify.app/guides/rust-plus-on-console</loc><lastmod>2026-09-24</lastmod><priority>0.8</priority></url>
+  <url><loc>https://rustplusplus-credentials.netlify.app/guides/rust-plus-on-pc</loc><lastmod>2026-09-24</lastmod><priority>0.8</priority></url>
   <url><loc>https://rustplusplus-credentials.netlify.app/guides/rust-plus-pair-button-not-showing</loc><lastmod>2026-09-24</lastmod><priority>0.8</priority></url>
   <url><loc>https://rustplusplus-credentials.netlify.app/guides/rust-plus-please-sign-in</loc><lastmod>2026-09-24</lastmod><priority>0.8</priority></url>
   <url><loc>https://rustplusplus-credentials.netlify.app/guides/rust-plus-server-offline</loc><lastmod>2026-09-24</lastmod><priority>0.8</priority></url>
@@ -26,6 +30,8 @@
   <url><loc>https://rustplusplus-credentials.netlify.app/guides/rustplusplus-credentials-explained</loc><lastmod>2026-09-24</lastmod><priority>0.8</priority></url>
   <url><loc>https://rustplusplus-credentials.netlify.app/guides/rustplusplus-in-game-commands-cheat-sheet</loc><lastmod>2026-09-24</lastmod><priority>0.8</priority></url>
   <url><loc>https://rustplusplus-credentials.netlify.app/guides/rustplusplus-setup-guide</loc><lastmod>2026-09-24</lastmod><priority>0.8</priority></url>
+  <url><loc>https://rustplusplus-credentials.netlify.app/guides/rustplusplus-vs-rustplusbot-vs-rustlink</loc><lastmod>2026-09-24</lastmod><priority>0.8</priority></url>
+  <url><loc>https://rustplusplus-credentials.netlify.app/guides/what-is-rust-plus</loc><lastmod>2026-09-24</lastmod><priority>0.8</priority></url>
   <url><loc>https://rustplusplus-credentials.netlify.app/about</loc><lastmod>2026-09-24</lastmod><priority>0.3</priority></url>
   <url><loc>https://rustplusplus-credentials.netlify.app/privacy</loc><lastmod>2026-09-24</lastmod><priority>0.3</priority></url>
   <url><loc>https://rustplusplus-credentials.netlify.app/terms</loc><lastmod>2026-09-24</lastmod><priority>0.3</priority></url>

@@ -1,0 +1,69 @@
+---
+title: "Pairing smart devices"
+pageTitle: "Pairing Smart Switches, Smart Alarms and Storage Monitors With Rust+"
+description: "How to pair each smart device with the Rust+ app or the rustplusplus bot, what each one gives you once paired, what breaks pairings, and the wiring that makes alarms and monitors actually useful."
+order: 16
+updated: "2026-09-24"
+ads: true
+---
+
+Smart devices are the reason to bother with Rust+ at all. A paired Smart Switch turns your turrets on from the bus. A Storage Monitor on the Tool Cupboard tells you the upkeep is about to run out before it does. A Smart Alarm wakes you when someone is at the door. Pairing them is quick once you know the three rules.
+
+## The three rules
+
+1. **Pair the server first.** Devices belong to a paired server. If the server is not in your app (or your bot), device pairings have nowhere to go. See [pairing a server](/guides/rust-plus-not-pairing) if that step fails.
+2. **Pairing is per player.** Your pairing is yours. A teammate who wants to control the same switch pairs it separately with their own account. This is also true for the bot: the device is paired under whichever Steam account the bot has credentials for.
+3. **Wipes remove devices.** When the map wipes, the entities are gone and so are the pairings. Expect to pair again after every wipe.
+
+## How to pair any smart device
+
+1. Hold a **Wire Tool** (or the Hose Tool for fluid devices) and look at the device.
+2. Hold the interact key to open the device's menu and choose **Pair**.
+3. On your phone (or in the bot's Discord channel) accept the pairing notification within a few seconds; it expires like a server pairing.
+4. The device appears in the app under the server, with a default name you can change.
+
+If nothing arrives on the phone, the same push-delivery problems as server pairing apply: [notifications](/guides/rust-plus-notifications-not-working).
+
+## Smart Switch
+
+**What you get:** an on/off toggle in the app, and the device's current state. Wire it between a power source and whatever you want to control, or use it as a signal into logic components.
+
+**Practical wiring:** put the switch between the battery and your turret circuit, not between the source and the battery; you want the battery charging regardless of whether the turrets are on. Switches consume nothing themselves.
+
+**In rustplusplus** each switch gets a Discord embed with a toggle, a custom in-game command (for example `!turrets`), and automation modes such as on only at night, on when any teammate is online, or on when a teammate is nearby. Several switches can be grouped and toggled together. The [Smart Devices documentation](/docs/smart-devices) lists every mode.
+
+## Smart Alarm
+
+**What you get:** a notification when the alarm's input receives power. It reports the transition to powered, so it must sit **behind a sensor**, not directly on a battery. The full behaviour, including the cooldown between notifications, is in [smart alarm not working](/guides/rust-smart-alarm-not-working).
+
+**Practical wiring:** battery → HBHF sensor (set to exclude authorised players) → Smart Alarm. For doors, a Laser Detector across the doorway works the same way. One alarm per zone; name them by location so the notification tells you where to look.
+
+**In rustplusplus** alarms post to the `alarms` channel and can also be announced in team chat.
+
+## Storage Monitor
+
+**What you get:** the contents of the container it is attached to, live. On a **Tool Cupboard** that means every upkeep resource and how long it lasts, which is the single most useful thing a Rust+ device can tell you. On a large box it means checking whether the sulfur is still there without walking to it.
+
+**Placement:** attach it to the container (it snaps to the TC, boxes and vending machines), then power it. It consumes 1 rW. Pair it like any device.
+
+**In rustplusplus** monitors post to the `storagemonitors` channel and feed the in-game `!upkeep` command, which reports remaining time for every monitored TC at once. Power it from the same protected circuit as your alarms so it survives the night.
+
+## Cameras
+
+CCTV and PTZ cameras are not "paired". You view them by entering the identifier set on the camera in game, provided you are authorised on it (or it is a public monument camera). They need power. [How the feed works](/guides/rust-plus-camera-quality-no-signal).
+
+## Things that break device pairings
+
+- **Wipe.** Everything is gone; pair again.
+- **The device was picked up and placed again.** It is a new entity; pair again.
+- **Server re-paired after an IP change.** Devices stay listed but may need re-pairing if the server's identity changed.
+- **Expired bot credentials.** Devices paired under credentials that have since expired stop reporting to the bot; regenerate credentials and pair again ([why credentials expire](/guides/rustplusplus-credentials-explained)).
+
+## A minimal setup that covers a solo or duo base
+
+- One Storage Monitor on the TC.
+- One Smart Switch controlling turrets.
+- One Smart Alarm behind an HBHF sensor at the main entrance.
+- A battery sized so the alarm and monitor survive the night; a power planner is coming to this site; until then budget 1 rW each for alarm and monitor plus 10 rW per turret.
+
+Pair all three, name them, and you have the base covered from the phone or from Discord.
