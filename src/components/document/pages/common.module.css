@@ -52,6 +52,12 @@
   padding-bottom: 0.5rem;
 }
 
+.updated {
+  margin: -0.5rem 0 1.25rem;
+  color: var(--color-link-text);
+  font-size: 0.85rem;
+}
+
 .gridcontainer {
   display: grid;
   gap: 1.5rem;

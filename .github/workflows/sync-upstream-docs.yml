@@ -1,0 +1,34 @@
+name: Sync upstream docs
+
+on:
+  schedule:
+    - cron: '17 3 * * 1' # Mondays 03:17 UTC
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Sync docs and images from alexemanuelol/rustplusplus
+        run: node scripts/sync-upstream-docs.mjs
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Open pull request if anything changed
+        uses: peter-evans/create-pull-request@v7
+        with:
+          branch: chore/sync-upstream-docs
+          title: 'chore: sync upstream docs'
+          commit-message: 'chore: sync upstream docs from alexemanuelol/rustplusplus'
+          body: |
+            Automated weekly sync of `docs/*.md` and `docs/images/**` from
+            https://github.com/alexemanuelol/rustplusplus (GPL-3.0). Review the diff,
+            check the Deploy Preview, merge.
+          labels: documentation

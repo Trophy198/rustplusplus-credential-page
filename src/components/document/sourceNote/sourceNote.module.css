@@ -1,0 +1,14 @@
+.note {
+  margin: 0 0 1.5rem;
+  padding: 0.6rem 0.9rem;
+  border-left: 3px solid var(--color-primary);
+  background-color: rgba(205, 65, 43, 0.08);
+  color: var(--color-link-text);
+  font-size: 0.85rem;
+  line-height: 1.5;
+}
+
+.note a {
+  color: var(--color-text);
+  text-decoration: underline;
+}

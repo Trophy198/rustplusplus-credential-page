@@ -1,0 +1,176 @@
+/* Typography for rendered markdown/MDX, scoped under .prose. */
+.prose {
+  color: var(--color-text);
+  font-size: 1rem;
+  line-height: 1.6;
+  word-wrap: break-word;
+}
+
+.prose > :first-child {
+  margin-top: 0;
+}
+
+.prose h1,
+.prose h2,
+.prose h3,
+.prose h4 {
+  font-weight: 600;
+  line-height: 1.25;
+  margin: 1.75rem 0 0.75rem;
+  scroll-margin-top: 105px;
+}
+
+.prose h1 {
+  font-size: 2rem;
+  padding-bottom: 0.3em;
+  border-bottom: 1px solid #4f4d4d;
+}
+
+.prose h2 {
+  font-size: 1.5rem;
+  padding-bottom: 0.3em;
+  border-bottom: 1px solid #4f4d4d;
+}
+
+.prose h3 {
+  font-size: 1.25rem;
+}
+
+.prose h4 {
+  font-size: 1.05rem;
+}
+
+.prose p,
+.prose ul,
+.prose ol,
+.prose table,
+.prose blockquote,
+.prose pre,
+.prose details {
+  margin: 0 0 1rem;
+}
+
+.prose ul,
+.prose ol {
+  padding-left: 1.5rem;
+}
+
+.prose li + li {
+  margin-top: 0.25rem;
+}
+
+.prose a {
+  color: #7cc4ff;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.prose a:hover {
+  color: #b3dcff;
+}
+
+.prose code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 0.9em;
+  background-color: #3c3c3c;
+  border-radius: 6px;
+  padding: 0.15em 0.4em;
+}
+
+.prose pre {
+  background-color: #1e293b;
+  border-radius: 6px;
+  padding: 1rem;
+  overflow-x: auto;
+  line-height: 1.45;
+}
+
+.prose pre code {
+  background: none;
+  padding: 0;
+  font-size: 0.9rem;
+}
+
+.prose blockquote {
+  padding: 0 1rem;
+  color: #a7b0ba;
+  border-left: 0.25rem solid #30363d;
+}
+
+.prose blockquote p:last-child {
+  margin-bottom: 0;
+}
+
+.prose img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin: 0.5rem 0 1rem;
+  border-radius: 4px;
+}
+
+.prose table {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: auto;
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+.prose th,
+.prose td {
+  padding: 0.5rem 0.75rem;
+  border: 1px solid #4f4d4d;
+  text-align: left;
+  vertical-align: top;
+}
+
+.prose th {
+  background-color: #262626;
+  font-weight: 600;
+}
+
+.prose tr:nth-child(even) td {
+  background-color: #202020;
+}
+
+.prose hr {
+  border: 0;
+  border-top: 1px solid #4f4d4d;
+  margin: 2rem 0;
+}
+
+.prose details {
+  border: 1px solid #4f4d4d;
+  border-radius: 6px;
+  padding: 0.5rem 1rem;
+}
+
+.prose summary {
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.prose kbd {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 0.85em;
+  border: 1px solid #4f4d4d;
+  border-bottom-width: 2px;
+  border-radius: 4px;
+  padding: 0.1em 0.4em;
+}
+
+@media (max-width: 600px) {
+  .prose {
+    font-size: 0.95rem;
+  }
+
+  .prose h1 {
+    font-size: 1.6rem;
+  }
+
+  .prose h2 {
+    font-size: 1.3rem;
+  }
+}

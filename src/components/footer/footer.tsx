@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import Link from 'next/link';
 import styles from './footer.module.css';
 import GitHubIcon from '@/public/icons/github.png';
 import DiscordIcon from '@/public/icons/discord.png';
@@ -6,7 +7,6 @@ import DiscordIcon from '@/public/icons/discord.png';
 const Footer = () => {
   const gitHubURL: string = 'https://github.com/alexemanuelol/rustplusplus';
   const discordURL: string = 'https://discord.com/invite/vcrKbKVAbc';
-  const privacyPolicyURL: string = 'https://sites.google.com/view/rustplusplus-privacy-policy/%ED%99%88';
 
   return (
     <footer className={styles.footer}>
@@ -25,9 +25,12 @@ const Footer = () => {
         </ul>
       </nav>
       <section className={styles.footerSection}>
-        <a href={privacyPolicyURL} target="_blank" rel="noopener noreferrer">
-          Privacy Policy
-        </a>
+        <nav className={styles.legalLinks} aria-label="Site">
+          <Link href="/about">About</Link>
+          <Link href="/privacy">Privacy</Link>
+          <Link href="/terms">Terms</Link>
+          <Link href="/docs">Docs</Link>
+        </nav>
         <p className={styles.legal}>
           Unofficial credential helper and documentation for{' '}
           <a href={gitHubURL} target="_blank" rel="noopener noreferrer">

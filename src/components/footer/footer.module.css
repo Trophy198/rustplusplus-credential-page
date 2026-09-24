@@ -58,6 +58,17 @@
   color: var(--color-text);
 }
 
+.legalLinks {
+  display: flex;
+  gap: 1.25rem;
+  margin-bottom: 0.25rem;
+}
+
+.legalLinks a {
+  margin: 0;
+  color: var(--color-text);
+}
+
 .legal {
   margin: 0;
   max-width: 60ch;
