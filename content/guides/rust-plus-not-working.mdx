@@ -1,0 +1,46 @@
+---
+title: "Rust+ not working: start here"
+pageTitle: "Rust+ Not Working? Every Fix, Sorted by Symptom"
+description: "Rust+ won't pair, says server offline, sends no notifications, or keeps asking you to sign in? Find your exact symptom and jump to the fix that matches it."
+order: 1
+updated: "2026-09-24"
+ads: true
+---
+
+"Rust+ isn't working" is five different problems that look alike from the phone. The fastest way through is to name the exact symptom first, because each one has a different cause and most fixes for one do nothing for the others.
+
+## Find your symptom
+
+| What you see | Where the problem usually is | Fix |
+|---|---|---|
+| No **Rust+** button in the in-game ESC menu, or no **Pair with server** button | The server has Rust+ turned off | [Pair button missing](/guides/rust-plus-pair-button-not-showing) |
+| You press Pair, nothing arrives on the phone, or it sits on "Pairing…" forever | Pairing notification never reached the phone, or the server can't reach Facepunch | [Won't pair or stuck on pairing](/guides/rust-plus-not-pairing) |
+| Server is paired but shows **Offline** while you are playing on it | Your phone can't open a direct connection to the server's companion port | [Server offline](/guides/rust-plus-server-offline) |
+| Pairing works, but smart alarms, deaths or team logins never notify you | Push delivery on the phone, or notification opt-ins in game | [No notifications](/guides/rust-plus-notifications-not-working) |
+| The app keeps saying **Please sign in to the Rust+ app** | Steam sign-in state on the phone, not the server | [Sign-in loop](/guides/rust-plus-please-sign-in) |
+
+If two rows match, fix them top to bottom: pairing has to work before anything below it can.
+
+## How Rust+ actually connects (60-second version)
+
+Knowing this turns guessing into diagnosis.
+
+1. **Pairing is a push notification.** When you press *Pair with server* in game, the *server* asks Facepunch's companion service to send a notification to every phone signed in with your Steam account. It rides Google's push system (FCM) to your phone. If the server can't reach Facepunch, or your phone can't receive pushes, pairing fails even though the game itself is fine.
+2. **Live data is a direct connection.** Once paired, the app talks straight to your Rust server over TCP on the server's *companion port* (by default the game port + 67, which is 28082 on a stock setup). Map, team positions, server info, smart switches: all of it flows over that socket. "Server offline" in the app means that socket didn't open.
+3. **Alerts are pushes again.** Smart alarm triggers, offline deaths, teammate logins and so on go server → Facepunch → FCM → phone.
+
+So there are three independent links: server ↔ Facepunch, Facepunch ↔ phone, and phone ↔ server. Each symptom above breaks a different one.
+
+## Two checks that settle most cases in under a minute
+
+**Check 1: try an official Facepunch server.** Official servers always have Rust+ enabled and correctly configured. Join one, press ESC → Rust+ → Pair. If pairing works there, your phone and account are fine and the problem is the community server you came from. If it fails there too, the problem is on your phone or account.
+
+**Check 2: make sure you are actually connected to the server when you press Pair.** Rust+ pairs the server you are *currently playing on*, not one from the history list. Pressing the button from the main menu after disconnecting sends nothing.
+
+## What server admins control and you can't
+
+Rust+ is opt-in per server. The owner decides whether it is enabled (`app.port` set to a reachable port instead of `-1`), whether that port is open through their firewall and host, and whether the machine can reach `companion-rust.facepunch.com`. If the official-server test passes and the community server still fails, there is nothing left on your side; send the admin to Facepunch's [Rust+ Server](https://wiki.facepunch.com/rust/rust-companion-server) page. Most hosting panels have a Rust+ toggle.
+
+## Running Rust+ through a Discord bot instead?
+
+If you use [rustplusplus](/docs) rather than the phone app, the same three links apply, with your bot standing in for the phone. The pairing notification is delivered to the bot through the FCM credentials you generated on this site, so a bot that never receives pairings almost always has expired or missing credentials (they last 14 days). Generate a fresh set with the **Log In** button, run the `/credentials add` command it gives you, and pair again.

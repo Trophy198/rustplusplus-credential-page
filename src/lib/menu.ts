@@ -12,3 +12,15 @@ export function docsMenu(docs: ContentMeta[]): MenuItem[] {
     },
   ];
 }
+
+/** Sidebar for original guides. */
+export function guidesMenu(guides: ContentMeta[]): MenuItem[] {
+  return [
+    {
+      id: 'guides',
+      label: 'Rust+ Guides',
+      href: '/guides',
+      subItems: guides.map((g) => ({ id: g.slug, label: g.title, href: `/guides/${g.slug}` })),
+    },
+  ];
+}

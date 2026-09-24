@@ -1,0 +1,73 @@
+---
+title: "Won't pair or stuck on pairing"
+pageTitle: "Rust+ Won't Pair With Your Server (or Gets Stuck on Pairing)"
+description: "You press Pair with server and nothing shows up on your phone, or the app sits on Pairing forever. The seven causes, in the order that finds yours fastest."
+order: 2
+updated: "2026-09-24"
+ads: true
+---
+
+Pairing is the one step in Rust+ that involves every party at once: your game client, the Rust server, Facepunch's companion service, Google's push network and your phone. That is why it fails in so many different-looking ways. Work through the list in order; each step rules out one party.
+
+## What "pairing" does
+
+When you press **ESC → Rust+ → Pair with server**, your game tells the server "this Steam account wants to pair". The *server* then asks `companion-rust.facepunch.com` to push a pairing notification to every device signed in to Rust+ with that Steam account. Your phone receives the push, shows the notification, and when you accept it the app stores the server's address, companion port and a per-player token. Nothing about pairing goes from your game client to your phone directly.
+
+Two consequences follow. First, if the server cannot reach Facepunch, pairing is impossible for everyone on that server. Second, if your phone cannot receive push notifications, pairing is impossible for you on every server.
+
+## 1. Are you connected to the server right now?
+
+Rust+ pairs the server you are currently playing on. If you disconnected and pressed Pair from the menu, or you are looking at the server in your history list, nothing is sent. Join, wait until you are fully in the world, then ESC → Rust+ → Pair.
+
+## 2. Does the server even have Rust+ enabled?
+
+If the ESC menu has no **Rust+** entry, or the entry has no **Pair with server** button, the server has it off. Nothing you do on the phone will change that. See [the pair button is missing](/guides/rust-plus-pair-button-not-showing) for how to confirm and what to tell the admin.
+
+## 3. Is the app signed in with the same Steam account?
+
+Open Rust+ on the phone and check the account shown in settings. Pairing notifications are addressed to a Steam account, so a phone signed in as your alt, or signed out, receives nothing. If the app shows a sign-in prompt instead, that is a different problem: [sign-in loop](/guides/rust-plus-please-sign-in).
+
+## 4. Can your phone receive the notification at all?
+
+The pairing request arrives as an ordinary push notification, and it **expires after a short window**. Everything that blocks or delays pushes blocks pairing:
+
+- Notifications for Rust+ disabled in the phone's settings.
+- Battery optimisation or "sleep" modes that suspend the app (common on Samsung, Xiaomi, Huawei; check the app's battery settings and exclude Rust+).
+- Do Not Disturb or Focus modes.
+- A phone with no internet at that moment, or one on a network that blocks Google push services (some school and corporate Wi-Fi does; switch to mobile data to test).
+- The app force-closed. Open it before you press Pair.
+
+If you missed the notification, just press Pair again in game. There is no penalty for repeating it.
+
+## 5. Test on an official server
+
+This is the single most useful check. Official Facepunch servers always have Rust+ configured correctly. Join one, press Pair.
+
+- **Works on official, fails on your server:** the fault is the server (steps 6 and 7). Your phone and account are fine.
+- **Fails on official too:** the fault is your phone or account (steps 3, 4 and 8).
+
+## 6. The server can't reach Facepunch
+
+For the server to send pairing notifications it must be able to open outbound connections to `companion-rust.facepunch.com`. A host firewall that blocks outbound traffic, a broken DNS setup, or a Facepunch outage all stop pairing for every player at once. Only the admin can check this; the server console shows companion-service errors on startup and when a pairing fails.
+
+## 7. The server's Rust+ identity is broken
+
+Each server has a `companion.id` file in its save folder that identifies it to Facepunch. If an admin copies a server from a template, restores a backup from another machine, or runs two servers with the same file, Facepunch sees a duplicate identity and pairings become unreliable or fail outright. The fix is the admin's: give each server its own `companion.id` and never reuse one.
+
+## 8. You already paired, but after a wipe it stopped
+
+A map wipe or server restart with a new IP or port invalidates old pairings. The server still shows in your app, but pressing it fails or hangs. Remove the server from the app and pair again from in game. On servers that wipe weekly this is routine.
+
+## Still stuck?
+
+If official servers pair and a community server does not, send the admin these three lines and stop debugging on your side:
+
+```
+1. app.info in the server console shows the companion port and whether it is listening
+2. that TCP port must be reachable from the internet (forwarded and allowed through the firewall)
+3. the server must be able to reach companion-rust.facepunch.com outbound
+```
+
+## Pairing through rustplusplus
+
+If you run the [rustplusplus](/docs) Discord bot, the pairing notification is delivered to the bot instead of a phone, using the FCM credentials you generated on this site. Pairings never arriving in the bot almost always means the credentials are missing, were registered for a different Steam account, or have expired (they last 14 days). Click **Log In** above to generate a new set, run the `/credentials add …` command in your Discord, then pair again in game. The bot's `servers` channel should show the new server within seconds.

@@ -17,6 +17,11 @@ export const PAGE_META: Record<string, { title: string; description: string }> =
     description:
       'Official rustplusplus documentation, mirrored and kept in sync: installation, Discord bot setup, credentials, server pairing, channels, smart devices and commands.',
   },
+  '/guides': {
+    title: 'Rust+ Troubleshooting Guides: Pairing, Notifications, Server Offline',
+    description:
+      'Fixes for the Rust+ companion app sorted by symptom, written for players: pairing, server offline, notifications, sign-in loops, smart alarms.',
+  },
   '/display': {
     title: 'Your Rust+ Credentials',
     description: 'Copy the /credentials add command for the rustplusplus bot.',

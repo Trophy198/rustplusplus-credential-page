@@ -66,6 +66,9 @@ const MainHeader = () => {
                 Install Extension
               </a>
             )}
+            <Link href="/guides" className={styles.rustplusplusActionButton}>
+              Guides
+            </Link>
             <Link href="/docs" className={styles.rustplusplusActionButton}>
               Docs
             </Link>

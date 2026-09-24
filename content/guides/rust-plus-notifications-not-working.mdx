@@ -1,0 +1,54 @@
+---
+title: "No notifications on your phone"
+pageTitle: "Rust+ Isn't Sending Notifications to Your Phone: Smart Alarms, Deaths and Team Logins"
+description: "Paired and online, but smart alarm triggers, offline deaths and teammate logins never notify you. Notifications take a different path from live data. Check it in this order."
+order: 5
+updated: "2026-09-24"
+ads: true
+---
+
+Live data in Rust+ (map, team, switches) travels directly between your phone and the server. **Notifications do not.** A smart alarm trigger goes from the server to Facepunch, from Facepunch to Google's push service, and from there to your phone. Any one of those legs can drop it while the app itself looks perfectly connected. That is why "the app works but I get no alerts" is so common.
+
+## 1. Did the alert type ever get turned on?
+
+Notifications are opt-in and are configured **in the game**, not in the app. On the server you are paired to, open **ESC → Rust+** and look at the notification toggles: server events, team member logins, offline deaths, and so on. They are per server and default to a limited set. Smart alarms have their own setting on the alarm itself.
+
+## 2. Is the smart alarm actually powered and paired?
+
+A smart alarm that shows **inactive** in the app, or never fires, is usually one of:
+
+- **No power.** Smart alarms need 1 rW. A dead battery at night takes the alarm with it.
+- **Not paired to your account.** Pairing a smart device is per player: look at the device with a wire tool and press the pair option; accept the notification on your phone. A teammate's alarm does not notify you unless you paired it yourself.
+- **The three-minute cooldown.** After an alarm sends a notification it will not send another for about three minutes, regardless of how many times it is triggered. Repeated test triggers make it look broken when it is not.
+- **Wired to a sensor that never trips.** An HBHF sensor set to ignore authorised players will not fire for you or your team by design.
+
+## 3. Can the phone receive pushes at all?
+
+The same conditions that break pairing break every other notification, because they use the same push path:
+
+- Notifications disabled for Rust+ in the phone's app settings, or the notification category for alarms muted.
+- Battery optimisation, sleep or "adaptive" modes suspending the app. Samsung, Xiaomi, OnePlus and Huawei are known for this; exclude Rust+ from battery management.
+- Do Not Disturb / Focus mode.
+- No internet on the phone at that moment. Pushes are not retried forever; a phone that was offline when a raid started shows nothing later.
+
+Test: press **Pair with server** in game on any server you are already paired with. The pairing notification uses the same delivery path. If it arrives, pushes work and the problem is steps 1, 2 or 5. If it does not, fix push delivery first.
+
+## 4. Are you paired with a fresh token?
+
+Every pairing stores a token that the server uses to address notifications to you. Wipes, restarts and some plugin updates invalidate it. The app keeps showing the server, live data may even work after reconnecting, but notifications go to a token the server no longer recognises. Remove the server from the app and pair again from in game. This is the number one "it worked yesterday" fix.
+
+## 5. The server cannot reach Facepunch
+
+Notifications originate on the server and go out to `companion-rust.facepunch.com`. If the server's host blocks outbound traffic, or Facepunch's service is degraded, alerts stop for **everyone** on the server while the direct connection keeps working. Ask a teammate whether they get alerts. If nobody does, it is the server or Facepunch; check the [Rust status page](https://status.facepunch.com/).
+
+## 6. Too many devices, too many alerts
+
+If you have paired the same account on several phones and tablets, each receives a copy; that is expected. What is not expected is one device receiving and another not, which almost always points back to step 3 on the silent device.
+
+## What "failed to set up notifications" means
+
+Seeing **Failed to set up notifications** or **Failed to get information from server** in the app usually means the server accepted the pairing but the follow-up registration of your device with Facepunch did not complete. Sign out of the app, sign back in, and pair again. If it repeats on one server only, that server's outbound connection to Facepunch is unreliable (step 5).
+
+## For rustplusplus users
+
+The bot receives exactly these pushes through the FCM credentials you generated here. If the bot connects to the server but never posts alarm, death or pairing messages, its credentials have expired or were replaced: they last **14 days**, and after that the bot silently stops receiving anything. Regenerate with **Log In**, run the new `/credentials add …` command, and re-pair devices that were paired under the old credentials. The bot's `activity` channel is a quick way to see whether any pushes are arriving at all.
