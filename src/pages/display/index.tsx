@@ -48,7 +48,7 @@ const Display: NextPage<DisplayProps> = ({ formattedCredentials, expire_date, er
             <Link className={styles.copyButton} href="/">
               Go to home
             </Link>
-            <Link className={styles.secondaryLink} href="/documents/getting-started/fcm-credentials">
+            <Link className={styles.secondaryLink} href="/docs/credentials-web-version">
               Read the credential guide
             </Link>
           </div>

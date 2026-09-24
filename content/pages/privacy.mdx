@@ -1,0 +1,59 @@
+---
+title: "Privacy Policy"
+pageTitle: "Privacy Policy"
+description: "What data rustplusplus-credentials handles when you generate Rust+ credentials, what is stored where and for how long, and the analytics we use."
+order: 2
+updated: "2026-09-24"
+ads: false
+---
+
+This policy describes what happens to your data when you use rustplusplus-credentials.netlify.app (the "site") and the rustplusplus Credential browser extension (the "extension"). We keep this short because we handle very little.
+
+## Generating credentials
+
+When you click **Log In**, the extension opens Facepunch's Rust+ login page, where you sign in with Steam. Facepunch returns a short-lived **Rust+ auth token** and your **Steam ID** to the extension, which forwards them to this site.
+
+Our server then, once, on your behalf:
+
+1. registers a push-notification identity with Google Firebase Cloud Messaging and Expo (the same services the Rust+ mobile app uses), and
+2. registers that identity with Facepunch's Rust+ companion API using your auth token.
+
+The result is the credential set the bot needs. It is placed in a cookie **in your own browser**, marked `HttpOnly` and valid for 14 days (the token's own lifetime), and shown to you on the credential page so you can copy it into Discord.
+
+**We do not store your auth token, Steam ID or credentials on our servers.** They exist only in the request that generates them and in your browser's cookie. Logging out deletes the cookie. Nothing needs to be deleted on our side because nothing is kept.
+
+## What our server does keep
+
+- **Aggregate counters.** For each day we count how many credential requests succeeded and how many failed. These are two numbers per day with no identifiers attached.
+- **Function logs.** Our hosting provider (Netlify) keeps function logs for 24 hours. Our log lines record that a request succeeded or failed and how long it took; they do not include tokens, Steam IDs or IP addresses that we write.
+- **Hosting access logs.** Netlify processes IP addresses and request metadata to deliver the site and protect it from abuse, under [Netlify's privacy policy](https://www.netlify.com/privacy/).
+
+## Analytics
+
+We use **Google Analytics 4** to understand which pages are read and where visitors come from. It sets cookies and processes your IP address (truncated by Google) and browser information. We use it in aggregate only. You can opt out with a content blocker or Google's [opt-out add-on](https://tools.google.com/dlpage/gaoptout). We have not enabled Google Signals or advertising features in Analytics.
+
+## Advertising
+
+The site does not currently display advertising. If we add it, this policy will be updated first with the provider, the cookies involved and your choices, and consent will be requested where the law requires it.
+
+## Third parties involved in the credential flow
+
+| Party | Role | Their policy |
+|---|---|---|
+| Facepunch Studios | Rust+ login and companion API | [facepunch.com/legal/privacy](https://facepunch.com/legal/privacy) |
+| Valve (Steam) | Sign-in on Facepunch's login page | [store.steampowered.com/privacy_agreement](https://store.steampowered.com/privacy_agreement/) |
+| Google (Firebase Cloud Messaging) | Push-notification identity | [policies.google.com/privacy](https://policies.google.com/privacy) |
+| Expo | Push-token exchange used by the Rust+ app | [expo.dev/privacy](https://expo.dev/privacy) |
+| Netlify | Hosting, functions, logs | [netlify.com/privacy](https://www.netlify.com/privacy/) |
+
+## The extension
+
+The extension runs only on `companion-rust.facepunch.com` and on this site. On Facepunch's login page it captures the login result and redirects it here; on this site it marks itself as installed. It does not read other pages, does not track browsing and sends data nowhere except to this site.
+
+## Your rights and contact
+
+Because we do not store personal data about you, there is nothing for us to export or erase; clearing this site's cookies in your browser removes everything on your side. For questions, open an issue on [GitHub](https://github.com/Trophy198/rustplusplus-credential-page/issues).
+
+## Changes
+
+We will note material changes here with a new "last updated" date.

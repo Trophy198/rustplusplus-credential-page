@@ -5,6 +5,8 @@ import { DEFAULT_DESCRIPTION, NOINDEX_PATHS, OG_IMAGE, PAGE_META, SITE_NAME, SIT
 interface SeoProps {
   title?: string;
   description?: string;
+  /** Override the canonical URL (e.g. mirrored docs point at their upstream source). */
+  canonical?: string;
 }
 
 /**
@@ -12,31 +14,33 @@ interface SeoProps {
  * override. Rendered once from _app so every page gets a unique title,
  * description, canonical URL and Open Graph tags.
  */
-const Seo = ({ title, description }: SeoProps) => {
-  const { pathname } = useRouter();
+const Seo = ({ title, description, canonical: canonicalOverride }: SeoProps) => {
+  const { pathname, asPath } = useRouter();
+  // asPath resolves dynamic segments; strip query and hash for the canonical.
+  const cleanPath = asPath.split(/[?#]/)[0];
   const meta = PAGE_META[pathname];
   const finalTitle = title ?? meta?.title ?? SITE_NAME;
   const finalDescription = description ?? meta?.description ?? DEFAULT_DESCRIPTION;
-  const canonical = `${SITE_URL}${pathname === '/' ? '' : pathname}`;
+  const canonical = canonicalOverride ?? `${SITE_URL}${cleanPath === '/' ? '' : cleanPath}`;
   const noindex = NOINDEX_PATHS.has(pathname);
 
   return (
     <Head>
-      <title>{finalTitle}</title>
-      <meta name="viewport" content="width=device-width, initial-scale=1" />
-      <meta name="description" content={finalDescription} />
-      <link rel="canonical" href={canonical} />
-      {noindex && <meta name="robots" content="noindex, nofollow" />}
-      <meta property="og:site_name" content={SITE_NAME} />
-      <meta property="og:type" content="website" />
-      <meta property="og:title" content={finalTitle} />
-      <meta property="og:description" content={finalDescription} />
-      <meta property="og:url" content={canonical} />
-      <meta property="og:image" content={OG_IMAGE} />
-      <meta name="twitter:card" content="summary" />
-      <meta name="twitter:title" content={finalTitle} />
-      <meta name="twitter:description" content={finalDescription} />
-      <meta name="twitter:image" content={OG_IMAGE} />
+      <title key="title">{finalTitle}</title>
+      <meta key="viewport" name="viewport" content="width=device-width, initial-scale=1" />
+      <meta key="description" name="description" content={finalDescription} />
+      <link key="canonical" rel="canonical" href={canonical} />
+      {noindex && <meta key="robots" name="robots" content="noindex, nofollow" />}
+      <meta key="og:site_name" property="og:site_name" content={SITE_NAME} />
+      <meta key="og:type" property="og:type" content="website" />
+      <meta key="og:title" property="og:title" content={finalTitle} />
+      <meta key="og:description" property="og:description" content={finalDescription} />
+      <meta key="og:url" property="og:url" content={canonical} />
+      <meta key="og:image" property="og:image" content={OG_IMAGE} />
+      <meta key="twitter:card" name="twitter:card" content="summary" />
+      <meta key="twitter:title" name="twitter:title" content={finalTitle} />
+      <meta key="twitter:description" name="twitter:description" content={finalDescription} />
+      <meta key="twitter:image" name="twitter:image" content={OG_IMAGE} />
     </Head>
   );
 };
