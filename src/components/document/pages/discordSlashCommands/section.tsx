@@ -1,4 +1,3 @@
-import { Link } from 'react-scroll';
 import Heading from '../../heading/heading';
 import Table from '../../table/table';
 import TableColumn from '../../tableColumn/tableColumn';
@@ -25,9 +24,9 @@ const DiscordSlashCommandsSection = ({ imageUrls }: { imageUrls: ImageUrl }) => 
           {Object.entries(discordSlashCommandList).map(([command, description]) => (
             <TableRow key={command}>
               <TableColumn>
-                <Link to={command} smooth={true} duration={500} offset={-105}>
+                <a href={`#${command}`}>
                   <Strong>/{command}</Strong>
-                </Link>
+                </a>
               </TableColumn>
               <TableColumn>{description}</TableColumn>
             </TableRow>

@@ -3,7 +3,6 @@ import Blockquote from '@/components/blockquote/blockquote';
 import ListItem from '@/components/document/listItem/listItem';
 import Strong from '@/components/document/strong/strong';
 import Image from 'next/image';
-import { Link } from 'react-scroll';
 import Paragraph from '@/components/document/paragraph/paragraph';
 import UnorderedList from '@/components/document/unorderedList/unorderedList';
 import styles from '@/components/document/pages/common.module.css';
@@ -31,9 +30,7 @@ const DiscordTextChannelsSection = ({
             <UnorderedList
               items={list.data.map((item, itemIndex) => (
                 <ListItem key={itemIndex}>
-                  <Link to={`${item}`} smooth={true} duration={1000} offset={-105}>
-                    {item}
-                  </Link>
+                  <a href={`#${item}`}>{item}</a>
                 </ListItem>
               ))}
             />

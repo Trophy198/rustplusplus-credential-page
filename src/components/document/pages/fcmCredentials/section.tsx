@@ -1,4 +1,3 @@
-import { Link } from 'react-scroll';
 import Blockquote from '@/components/blockquote/blockquote';
 import Heading from '../../heading/heading';
 import Heading2 from '../../heading2/heading2';
@@ -17,14 +16,10 @@ const FcmCredentialsSection = ({ imageUrls }: { imageUrls: ImageUrl }) => {
       <nav className={styles.nav}>
         <ul>
           <li>
-            <Link activeClass="active" to="extension-version" smooth={true} duration={500} offset={-105}>
-              Extension Version
-            </Link>
+            <a href="#extension-version">Extension Version</a>
           </li>
           <li>
-            <Link to="exe-version" smooth={true} duration={1000} offset={-105}>
-              EXE Version
-            </Link>
+            <a href="#exe-version">EXE Version</a>
           </li>
         </ul>
       </nav>
