@@ -29,7 +29,7 @@ The same conditions that break pairing break every other notification, because t
 - Notifications disabled for Rust+ in the phone's app settings, or the notification category for alarms muted.
 - Battery optimisation, sleep or "adaptive" modes suspending the app. Samsung, Xiaomi, OnePlus and Huawei are known for this; exclude Rust+ from battery management.
 - Do Not Disturb / Focus mode.
-- No internet on the phone at that moment. Pushes are not retried forever; a phone that was offline when a raid started shows nothing later.
+- No internet on the phone at that moment. A phone that was offline when a raid started may only get the alert much later, or not at all.
 
 Test: press **Pair with server** in game on any server you are already paired with. The pairing notification uses the same delivery path. If it arrives, pushes work and the problem is steps 1, 2 or 5. If it does not, fix push delivery first.
 
@@ -39,7 +39,7 @@ Every pairing stores a token that the server uses to address notifications to yo
 
 ## 5. The server cannot reach Facepunch
 
-Notifications originate on the server and go out to `companion-rust.facepunch.com`. If the server's host blocks outbound traffic, or Facepunch's service is degraded, alerts stop for **everyone** on the server while the direct connection keeps working. Ask a teammate whether they get alerts. If nobody does, it is the server or Facepunch; check the [Rust status page](https://status.facepunch.com/).
+Notifications originate on the server and go out to `companion-rust.facepunch.com`. If the server's host blocks outbound traffic, or Facepunch's service is degraded, alerts stop for **everyone** on the server while the direct connection keeps working. Ask a teammate whether they get alerts. If nobody does, it is the server or Facepunch: Facepunch's wiki says exactly that "if push notifications aren't working then make sure your server can access companion-rust.facepunch.com." A broken or shared `companion.id` file on the server has the same effect and, per Facepunch, "disables notification permission for all your players."
 
 ## 6. Too many devices, too many alerts
 
@@ -47,7 +47,7 @@ If you have paired the same account on several phones and tablets, each receives
 
 ## What "failed to set up notifications" means
 
-Seeing **Failed to set up notifications** or **Failed to get information from server** in the app usually means the server accepted the pairing but the follow-up registration of your device with Facepunch did not complete. Sign out of the app, sign back in, and pair again. If it repeats on one server only, that server's outbound connection to Facepunch is unreliable (step 5).
+Seeing **Failed to set up notifications** or **Failed to get information from server** in the app points at the handshake right after pairing, when the app registers for that server's notifications and pulls its details. In practice the reliable fix is: remove the server from the app, sign out and back in, and pair again from in game. If it repeats on one server only and other servers are fine, that server's side (outbound access to Facepunch, or its `companion.id`) is the likely cause, and only the admin can check it.
 
 ## For rustplusplus users
 

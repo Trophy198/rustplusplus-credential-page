@@ -21,7 +21,7 @@ Rust+ pairs the server you are currently playing on. If you disconnected and pre
 
 ## 2. Does the server even have Rust+ enabled?
 
-If the ESC menu has no **Rust+** entry, or the entry has no **Pair with server** button, the server has it off. Nothing you do on the phone will change that. See [the pair button is missing](/guides/rust-plus-pair-button-not-showing) for how to confirm and what to tell the admin.
+If the in-game **Rust+** panel says Rust+ is disabled, or has no **Pair with server** button, the server has it off, either by choice or because it failed Facepunch's connectivity test and disabled itself. Nothing you do on the phone will change that. See [the pair button is missing](/guides/rust-plus-pair-button-not-showing) for how to confirm and what to tell the admin.
 
 ## 3. Is the app signed in with the same Steam account?
 
@@ -41,7 +41,7 @@ If you missed the notification, just press Pair again in game. There is no penal
 
 ## 5. Test on an official server
 
-This is the single most useful check. Official Facepunch servers always have Rust+ configured correctly. Join one, press Pair.
+This is the single most useful check. Official Facepunch servers have Rust+ configured correctly. Join one, press Pair.
 
 - **Works on official, fails on your server:** the fault is the server (steps 6 and 7). Your phone and account are fine.
 - **Fails on official too:** the fault is your phone or account (steps 3, 4 and 8).
@@ -52,7 +52,7 @@ For the server to send pairing notifications it must be able to open outbound co
 
 ## 7. The server's Rust+ identity is broken
 
-Each server has a `companion.id` file in its save folder that identifies it to Facepunch. If an admin copies a server from a template, restores a backup from another machine, or runs two servers with the same file, Facepunch sees a duplicate identity and pairings become unreliable or fail outright. The fix is the admin's: give each server its own `companion.id` and never reuse one.
+Each server has a `companion.id` file in its save folder that identifies it to Facepunch. Facepunch's rules for it are strict: never share it, never use someone else's, never run two servers with the same file, never delete it, never change `app.id`. Breaking any of them, in Facepunch's own words, makes the server "behave weirdly in Rust+", disables notification permission for every player and usually forces everyone to re-pair. Admins hit this by cloning a server from a template or restoring another machine's backup. The fix is theirs: give each server its own `companion.id`.
 
 ## 8. You already paired, but after a wipe it stopped
 
@@ -63,9 +63,11 @@ A map wipe or server restart with a new IP or port invalidates old pairings. The
 If official servers pair and a community server does not, send the admin these three lines and stop debugging on your side:
 
 ```
-1. app.info in the server console shows the companion port and whether it is listening
-2. that TCP port must be reachable from the internet (forwarded and allowed through the firewall)
+1. app.info in the server console shows the companion port and IP the app will connect to
+2. that TCP port (10000 or higher) must be reachable from the internet: forwarded and allowed through the firewall.
+   Quick test from any PC: open a WebSocket to ws://<server ip>:<companion port> (Postman can do this)
 3. the server must be able to reach companion-rust.facepunch.com outbound
+4. check the server log for "Rust+ companion server connectivity test failed" - if present, Rust+ has disabled itself
 ```
 
 ## Pairing through rustplusplus

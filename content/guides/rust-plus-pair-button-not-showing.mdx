@@ -1,37 +1,37 @@
 ---
 title: "Pair button missing"
-pageTitle: "The Rust+ Pair Button Isn't Showing: How to Tell in 30 Seconds Whether the Server Has Rust+ Off"
-description: "No Rust+ entry in the ESC menu, or no Pair with server button? That is a server setting, not your app. Here is how to confirm it, what the admin must change, and the one case where it is your side."
+pageTitle: "The Rust+ Pair Button Isn't Showing: The Server Has Rust+ Off, and Why"
+description: "The in-game Rust+ menu says disabled, or there is no Pair with server button? That is the server, not your app: either the admin turned Rust+ off or the server failed Facepunch's connectivity test and switched it off itself. How to confirm, and what the admin must change."
 order: 3
 updated: "2026-09-24"
 ads: true
 ---
 
-Rust+ is not a feature of your game client. It is a feature the **server** exposes, and every server owner decides whether to turn it on. When the ESC menu has no Rust+ entry, or the entry is there but the **Pair with server** button is not, the server has Rust+ disabled or misconfigured. There is no phone setting, reinstall or account fix that changes this.
+Rust+ is not a feature of your game client. It is a feature the **server** exposes. When the in-game Rust+ panel says Rust+ is disabled, or the **Pair with server** button is missing, the server has Rust+ off. That happens in two ways: the owner disabled it, or the server's companion port is not reachable from the internet and Facepunch's automatic connectivity test disabled it. There is no phone setting, reinstall or account fix that changes either.
 
 ## Confirm it in 30 seconds
 
-1. Stay connected to the server in question. Press **ESC**. If there is no **Rust+** item in the menu at all, the server has the companion app disabled. Stop here; go to "What the admin has to do".
-2. If the **Rust+** item exists, click it. You should see a **Pair with server** button. If the panel shows text but no button, or a message about Rust+ being unavailable, same conclusion.
-3. To prove it is the server and not you, join any **official Facepunch server** and repeat. Official servers always show the button. If you see it there and not on the community server, you have your answer.
+1. Stay connected to the server in question. Press **ESC** and open **Rust+**. A working server shows a **Pair with server** button. A server with Rust+ off shows a notice that Rust+ is disabled instead; Facepunch made this visible on purpose so players stop blaming the app.
+2. To prove it is the server and not you, join any **official Facepunch server** and repeat. Official servers show the button. If you see it there and not on the community server, you have your answer.
 
-## Why servers turn it off
+## Why servers end up with it off
 
-Some admins disable Rust+ on purpose: it lets players see team positions and control smart devices remotely, which certain hardcore and roleplay servers consider unfair. Others turn it off unintentionally, by running a server behind a host that does not forward the companion port, by setting `app.port -1` in an old config, or by restoring a config from a server that had it disabled. Modded servers occasionally lose it after a plugin update changes convars.
+**On purpose.** Rust+ lets players see team positions and control smart devices remotely, which some hardcore and roleplay servers consider unfair. The proper way to disable it is `app.port -1`, and the in-game panel then says so.
+
+**By the connectivity test.** This is the common accidental case. When the server starts, it checks that its own companion port can be reached from the internet. If the check fails, the server logs `Rust+ companion server connectivity test failed! Disabling Rust+ features.` and turns Rust+ off until the next restart. Typical triggers: the host never opened the companion port, the port is below 10000 (Facepunch's backend refuses those), the server sits behind NAT without `app.publicip` set, or a firewall change after an update. The admin often does not know it happened.
 
 ## What the admin has to do
 
-The server needs three things, all on the server side. If you know the admin, send them this list.
+The server needs four things, all on the server side. If you know the admin, send them this list.
 
-1. **Enable the companion port.** The convar is `app.port`. It defaults to the game port plus 67 (28082 on a stock 28015 game-port setup). A value of `-1` disables Rust+ entirely. `app.info` in the server console prints the current port and whether the companion server is listening.
-2. **Make that TCP port reachable from the internet.** Forward it on the router or open it in the host's firewall, exactly like the game port. The phone app connects to it directly. Some panels expose this as a "Rust+" or "Companion port" toggle; others require a support ticket.
-3. **Let the server reach `companion-rust.facepunch.com`.** Outbound access is needed to register the server and send pairing notifications. A locked-down host firewall can block it.
-
-After changing the port the server must restart. Then ESC → Rust+ should show the button.
+1. **Set the companion port.** The convar is `app.port`. It defaults to the game port + 67 or the RCON port + 67, whichever is larger (28082 on a stock setup), and must be **10000 or higher**. `-1` disables Rust+ entirely. `app.info` in the console prints the port and the IP the app will be told to connect to; if that IP is wrong (NAT, multiple interfaces), set `app.publicip`, and `app.listenip` if the server must bind a specific interface.
+2. **Make that TCP port reachable from the internet.** Forward it on the router or open it in the host's firewall, exactly like the game port. The phone app connects to it directly, and the server's own connectivity test does too. Some panels expose this as a "Rust+" or "Companion port" toggle; others need a support ticket. To test from anywhere: open a WebSocket to `ws://<server ip>:<companion port>` (Postman can); if it connects, the port is open.
+3. **Let the server reach `companion-rust.facepunch.com`.** Outbound access is needed to register the server and send pairing notifications.
+4. **Restart and read the log.** Port changes need a restart. If the log still shows the connectivity-test failure, step 2 is not done yet.
 
 ## The one case where it is your side
 
-If the button **appears on some servers and not others for you, while your friend sees it on the same server**, you may be looking at a stale menu: the Rust+ panel is populated when you join. Disconnect, reconnect, and open ESC again. If it still differs between you and a teammate on the same server at the same time, report it as a client bug; the panel should be identical for everyone connected.
+If a teammate on the same server sees the **Pair with server** button and you do not, at the same moment, the difference is on your client, not the server: disconnect, reconnect and open the Rust+ panel again. The panel reflects the server's state at the time you joined, so a server that re-enabled Rust+ after a restart shows correctly only after you rejoin.
 
 ## Not the same as "Pair does nothing"
 
