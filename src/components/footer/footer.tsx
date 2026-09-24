@@ -28,7 +28,15 @@ const Footer = () => {
         <a href={privacyPolicyURL} target="_blank" rel="noopener noreferrer">
           Privacy Policy
         </a>
-        <p>Copyright ©2024 RUSTPLUSPLUS Inc. All Rights Reserved</p>
+        <p className={styles.legal}>
+          Unofficial credential helper and documentation for{' '}
+          <a href={gitHubURL} target="_blank" rel="noopener noreferrer">
+            rustplusplus
+          </a>{' '}
+          by alexemanuelol (GPL-3.0). Not affiliated with Facepunch Studios. Rust and Rust+ are trademarks of Facepunch
+          Studios.
+        </p>
+        <p className={styles.legal}>© {new Date().getFullYear()} rustplusplus-credentials</p>
       </section>
     </footer>
   );

@@ -30,6 +30,8 @@ export const getStaticProps: GetStaticProps = async () => {
     props: {
       menuItems,
     },
+    // Serve from the CDN for a day; the content only changes on deploy.
+    revalidate: 86400,
   };
 };
 

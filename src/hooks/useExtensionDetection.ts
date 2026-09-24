@@ -8,8 +8,7 @@ type ExtensionDetectionType = {
 
 const useExtensionDetection = (): ExtensionDetectionType => {
   const [browserType, setBrowserType] = useState<string>('');
-  const [isExtensionInstalled, setExtensionInstalled] =
-    useState<boolean>(false);
+  const [isExtensionInstalled, setExtensionInstalled] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
   useEffect(() => {
@@ -33,10 +32,7 @@ const useExtensionDetection = (): ExtensionDetectionType => {
     const extensionCheckInterval = setInterval(() => {
       const chromeAddon = document.getElementById('chromeAddon');
       const mozAddon = document.getElementById('mozAddon');
-      if (
-        (browser === 'Chrome' && chromeAddon) ||
-        (browser === 'Firefox' && mozAddon)
-      ) {
+      if ((browser === 'Chrome' && chromeAddon) || (browser === 'Firefox' && mozAddon)) {
         setExtensionInstalled(true);
         setIsLoading(false);
         clearInterval(extensionCheckInterval);
