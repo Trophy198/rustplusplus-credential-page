@@ -1,0 +1,42 @@
+---
+title: "Please sign in loop"
+pageTitle: "\"Please Sign In to the Rust+ App\" Loop: Fixing Rust+ Sign-In After the Steam Mobile Changes"
+description: "The app tells you to sign in even though you already did, or the Steam login page reloads without finishing. What the sign-in actually does, and the fixes that work."
+order: 6
+updated: "2026-09-24"
+ads: true
+---
+
+Signing in to Rust+ is a Steam login. The app opens Facepunch's login page at `companion-rust.facepunch.com`, which hands you to Steam, and Steam hands back a signed proof of your account. Facepunch turns that into a **Rust+ auth token** that the app keeps and refreshes. When the app says *Please sign in to the Rust+ app* while you believe you are signed in, that token is missing, expired, or belongs to a different account than the one the server is looking for.
+
+## 1. Sign out completely, then back in
+
+Not "close the app". Open Rust+ → settings → sign out. Force-close the app. Open it and sign in again through the Steam page, approving the Steam Guard prompt on your Steam mobile app or entering the code. A surprising number of loops end here because the stored token was stale but the app still showed a name.
+
+## 2. Check which Steam account you are signing in with
+
+Steam's login page may remember the last account used on the phone. If you have an alt account, or a family member signed in on the same phone, you can end up signing in to the wrong one without noticing. The name at the top of the Steam login page is the account Rust+ will use. Sign out of Steam in the browser page if needed and enter the right credentials.
+
+## 3. Steam Guard has to complete
+
+Since Steam's mobile authentication changes, the login page waits for approval in the Steam app or a code. If you dismiss the approval, or the Steam app on the same phone is signed out, the Rust+ page reloads and the loop begins. Approve the sign-in in the Steam mobile app when it appears, then return to Rust+. If the Steam app never prompts, open it, make sure it is signed in to the same account, and try again.
+
+## 4. Time and date on the phone
+
+Signed tokens are time-sensitive. A phone with automatic time disabled and a clock several minutes off can be rejected on every attempt without a clear error. Enable automatic date and time and retry.
+
+## 5. Clear the app's data, or reinstall
+
+If a fresh sign-in still loops, the stored state is corrupt. On Android, clear the app's storage (this removes paired servers; you will re-pair). On iOS, delete and reinstall. Then sign in once, pair one server, and confirm it works before adding the rest.
+
+## 6. Rule out Facepunch
+
+Open `https://companion-rust.facepunch.com/login` in a normal browser on your PC and sign in. If Facepunch's page itself fails or shows an error, the service is having a problem and no fix on your phone will help; check [Facepunch's Rust news](https://rust.facepunch.com/news) or the @playrust account for outage notes and try later.
+
+## Why pairing complains about sign-in even when you are signed in
+
+The server addresses pairing notifications to the Steam account **that is playing on it**. If the game is running on account A and the phone is signed in to account B, the phone receives nothing and the in-game panel may tell you to sign in to the app. Same account on both, always.
+
+## rustplusplus users: this is where your credentials come from
+
+The **Log In** button on this site runs the same Facepunch login in your desktop browser. The browser extension captures the resulting token and this site uses it once to register the push identity your bot needs. Everything above applies: use the Steam account that will be playing, complete Steam Guard, and if the Facepunch page loops in the browser, sign out of Steam in that browser and start over. The credentials you receive expire after 14 days; regenerate them and run the new `/credentials add …` command when the bot stops receiving pairings.

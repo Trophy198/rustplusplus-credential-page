@@ -1,0 +1,60 @@
+---
+title: "Server shows offline"
+pageTitle: "Rust+ Says \"Server Offline\" While You're Playing on It"
+description: "The server is up, you are on it, and Rust+ still shows it offline. That message means your phone could not open a direct connection to the server's companion port. Here is why, and what fixes it."
+order: 4
+updated: "2026-09-24"
+ads: true
+---
+
+"Server offline" is the most misleading message in Rust+. It does not mean the game server is down. It means the app tried to open its own connection to the server and could not. The game client and the companion app connect to **different ports**, so one can work while the other fails.
+
+## What the app is doing when it says this
+
+After pairing, Rust+ does not go through Facepunch for live data. It connects **directly** from your phone to the Rust server's *companion port* (convar `app.port`, default game port + 67 or RCON port + 67, whichever is larger, so 28082 on a stock setup) over TCP, and keeps a websocket open for map, team, server info and smart devices. If that connection fails, the app has no other way to reach the server and labels it offline.
+
+Pairing, on the other hand, went server → Facepunch → your phone. So a server can pair perfectly and still show offline: pairing proves the server can reach Facepunch, offline proves your phone cannot reach the server's companion port. Facepunch describes exactly this on its server wiki: when the companion server is broken, players "see it loading for a while before it says the server is offline."
+
+One thing has improved. Servers now run an automatic connectivity test at startup and **disable Rust+ entirely** if their companion port is unreachable, showing that in the in-game menu instead of letting you pair with a server that would only ever show offline. So on a current server, "offline" usually means something changed *after* startup, or the fault is between your phone and the server rather than at the server itself.
+
+## 1. Pull to refresh, then wait 30 seconds
+
+The app caches the last known state. After a server restart or wipe it can take a moment to reconnect. Refresh the server list and give it half a minute before assuming anything is broken.
+
+## 2. Switch the phone between Wi-Fi and mobile data
+
+If the server comes online when you change networks, the network you were on is blocking the connection. Home routers do not usually do this, but school, office and some public Wi-Fi block non-standard ports; a VPN on the phone often does too. Nothing is wrong with the server.
+
+## 3. Is it every server or just one?
+
+Add or pair a second server (an official one is fine) and compare.
+
+- **All servers offline:** the phone side. Check step 2, then whether you are signed in ([sign-in loop](/guides/rust-plus-please-sign-in)), then reinstall the app as a last resort.
+- **One server offline, others fine:** that server's companion port is unreachable from the internet. Continue below.
+
+## 4. The server's companion port is not reachable
+
+This is the usual cause and it is entirely on the admin's side. The game port is open (you are playing on it) but the companion port is not:
+
+- A firewall or host rule that changed after the server started (the startup test passed, then the port closed).
+- The server announces the wrong address. Servers behind NAT need `app.publicip` set to the public IP so the app connects to the right place; `app.info` shows what is being announced.
+- A recent change to the game port without a matching change to `app.port`, so the app still connects to the old value.
+- The port is below 10000, which Facepunch's backend does not support.
+
+You cannot fix any of this from the phone. Send the admin: "`app.info` in console shows the companion port and IP; that TCP port needs to be reachable from the internet like the game port. Test it by opening a WebSocket to `ws://<ip>:<port>` from outside."
+
+## 5. It worked until the wipe or restart
+
+A wipe or restart that changes the server's IP or port leaves your app pointing at the old address. Remove the server from Rust+ and pair again from in game. Some hosts assign a new IP on every restart; on those servers re-pairing after each restart is simply the routine.
+
+## 6. Everyone on the server sees it offline at the same time
+
+Then the server's companion service itself is down: the companion port is closed, or the server is restarting. The direct connection does not depend on Facepunch, so a Facepunch outage does not cause this symptom (it breaks pairing and notifications instead). It is the admin's console to look at; the `app.info` output and any connectivity-test error in the log tell the story.
+
+## What it is not
+
+"Server offline" is **not** caused by expired pairings, notification settings, battery optimisation or app permissions. Those affect pushes, not the direct connection. If you also have notification problems, treat them separately: [no notifications](/guides/rust-plus-notifications-not-working).
+
+## rustplusplus and "offline"
+
+The bot connects to the same companion port your phone would. A server the bot shows as offline in its `servers` channel while you are playing on it has the same cause: the companion port is unreachable *from wherever the bot is hosted*. A bot running on a home PC behind a strict router, or on a VPS whose provider blocks outbound non-standard ports, can see offline while your phone sees online. Test the port from the bot's machine before blaming the server.
