@@ -1,0 +1,42 @@
+---
+title: "No servers in the app"
+pageTitle: "Rust+ Shows No Servers, or Your Server Never Appears in the App"
+description: "Rust+ opens to an empty server list, or the server you play on is missing while others are there. What populates that list and how to get your server back into it."
+order: 9
+updated: "2026-09-24"
+ads: true
+---
+
+The server list in Rust+ is not a browser. It shows only servers you have **paired** with from inside the game, on the Steam account the app is signed in with. An empty list therefore means one of three things: you have never paired anything on this account, the pairings were lost, or you are signed in to a different account than you think.
+
+## Nothing in the list at all
+
+**You have not paired yet.** Join the server, press **ESC → Rust+ → Pair with server**, accept the notification on the phone. The server appears immediately. If the button is missing, the server has Rust+ off: [pair button missing](/guides/rust-plus-pair-button-not-showing).
+
+**Wrong Steam account.** Open the app's settings and read the account name. Pairings belong to the account that pressed the in-game button; an alt on the phone sees nothing. Sign out and back in with the right account.
+
+**App data was cleared or the app reinstalled.** Pairings are stored on the phone. Clearing storage or reinstalling empties the list; pair each server again. Signing in on a new phone starts with an empty list for the same reason.
+
+**The app is still loading.** On a poor connection the list can sit empty for several seconds before servers appear. Pull to refresh once and give it a moment.
+
+## One server is missing while others are there
+
+**It was wiped or restarted with a new address.** Some hosts change IP or port on restart. The old pairing points nowhere and some app versions drop it from the list. Join the server and pair again.
+
+**The server's identity changed.** If the admin deleted or replaced the server's `companion.id` file, Facepunch treats it as a new server and every existing pairing is invalid. Facepunch's wiki warns that this will "probably require all players to re-pair." Re-pair.
+
+**You paired it on a different device.** Accepting a pairing notification on one phone pairs that phone. A second device signed in to the same account needs its own accept, which means pressing Pair again with the second device ready.
+
+**You removed it.** Swiping a server away deletes the pairing locally. Pair again from in game.
+
+## A server is listed but shows offline
+
+That is a connection problem, not a listing problem: [server shows offline](/guides/rust-plus-server-offline).
+
+## Not to be confused with the game's server browser
+
+"No servers" in the **game's** server browser (on PC, the play menu) is unrelated to Rust+. That is usually a Steam master-server or VPN issue, or the Staging Branch showing its much smaller pool. Rust+ has no influence on it.
+
+## rustplusplus
+
+The bot keeps its own list in the `servers` channel, populated by the same pairing notifications. If pairing in game never adds a server there, the bot is not receiving pushes: the credentials you generated on this site have expired (14 days) or were registered for a different Steam account than the one pressing Pair. Regenerate with **Log In**, run `/credentials add …`, and pair again. Every teammate who wants their own pairings recognised registers their own credentials the same way.

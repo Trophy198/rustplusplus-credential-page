@@ -88,6 +88,7 @@ function transform(md, file) {
     .join('');
 
   const firstPara = body
+    .replace(/^#.*$/gm, '')
     .split(/\n\s*\n/)
     .map((p) =>
       p
@@ -96,7 +97,7 @@ function transform(md, file) {
         .replace(/\([^)]*\)/g, '')
         .trim(),
     )
-    .find((p) => p.length > 40 && !p.startsWith('!') && !p.startsWith('-') && !p.startsWith('|'));
+    .find((p) => p.length > 40 && !p.startsWith('!') && !p.startsWith('-') && !p.startsWith('|') && !p.includes(' | '));
   const description = (firstPara ?? '').replace(/\s+/g, ' ').slice(0, 155);
   return { title, description, body };
 }

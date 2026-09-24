@@ -6,7 +6,7 @@ order: 3
 upstream: "https://github.com/alexemanuelol/rustplusplus/blob/8f7300e4e3dd68392f2b01ead5d711697f63ac63/docs/credentials_web_version.md"
 upstreamPath: "docs/credentials_web_version.md"
 upstreamSha: "8f7300e4e3dd68392f2b01ead5d711697f63ac63"
-syncedAt: "2026-09-24T02:27:31.680Z"
+syncedAt: "2026-09-24T03:01:15.169Z"
 license: GPL-3.0
 ads: false
 ---

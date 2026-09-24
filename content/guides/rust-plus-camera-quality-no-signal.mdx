@@ -1,0 +1,48 @@
+---
+title: "Camera looks bad or shows no signal"
+pageTitle: "Why Rust+ Camera Feeds Look Bad, and What \"No Signal\" Means"
+description: "Rust+ cameras are not video. The server sends a lightweight ray-traced sketch of what the camera sees, which is why it looks blocky and colourless. What the feed can show, what No Signal means, and how to get the most out of it."
+order: 10
+updated: "2026-09-24"
+ads: true
+---
+
+People open a CCTV feed in Rust+ expecting the image they get at a Computer Station in game, and get a grainy, mostly grey sketch with coloured blobs instead. That is not your phone, your connection or a bug. It is how the feature is built, and knowing that changes how you use it.
+
+## What the camera feed actually is
+
+The Rust server does not stream video to the app. Streaming rendered frames for every camera to every phone would be far too expensive for a game server. Instead, for each frame the server casts a grid of rays from the camera and sends the app a compact description of what each ray hit: how far away, roughly what kind of surface, and whether it is a player, an entity or terrain. The app draws that grid as an image. Third-party tools that talk to the same API reconstruct exactly the same thing, which is why every Rust+ client, official or not, shows the same style of picture.
+
+Consequences:
+
+- **Resolution is low and fixed.** The grid is small; zooming does not add detail.
+- **No textures or lighting.** Surfaces come out as shades of grey by distance. Night and day look nearly the same, which is actually useful.
+- **Players and entities are highlighted.** Anything the ray system classifies as a player, an animal or a deployable is drawn in a distinct colour, so movement is easy to spot even when the scene is unreadable.
+- **Frame rate is modest.** Expect a few frames per second, more like a security monitor than a game.
+
+So the feed is good at the one thing you want from a raid camera, spotting that someone is there, and bad at everything else.
+
+## Getting a usable picture
+
+- **Point cameras at chokepoints, not vistas.** A doorway, a compound gate or a stair core reads clearly; a hillside is grey noise.
+- **Keep subjects within a few dozen metres.** Distance compresses to the same grey. Cameras covering a base perimeter beat one camera on the roof.
+- **Use PTZ cameras where you need to look around.** In the app you can pan and zoom a PTZ camera; a fixed CCTV camera shows one framing.
+- **Name cameras clearly.** The identifier you set on the camera is what you type in the app and what teammates search for. Case matters.
+
+## "No signal"
+
+The app shows No Signal when it cannot get frames from that camera. Check in this order.
+
+1. **Power.** Cameras need electricity; a camera whose battery died at night shows no signal until morning. Check the wire and the source's remaining charge.
+2. **Identifier.** It must match exactly, including capitals. Re-read it on the camera in game.
+3. **Authorisation.** You can only view cameras you are authorised on (or public monument cameras). If a teammate placed it, they need to add you, or you need to be on the TC the camera falls under, depending on how they set it.
+4. **Server connection.** If the server itself shows offline in the app, every camera on it shows no signal. Fix [server offline](/guides/rust-plus-server-offline) first.
+5. **The camera was destroyed or picked up.** Obvious, but it happens after a raid.
+
+## Monument cameras
+
+Public monument cameras (the codes people post for Oil Rig, Launch Site, Airfield and so on) can be added by identifier and viewed by anyone connected to the server, subject to the same power and connection rules. They are the easiest way to check whether your feed problem is your camera or your connection: if a public camera renders and yours does not, it is your camera.
+
+## Cameras through rustplusplus
+
+The bot can subscribe to a camera by identifier and post frames to Discord, rendering the same ray data into an image. Everything above applies, including identifiers being case-sensitive and the camera needing power. The bot's `/cctv` command lists public monument camera codes if you need them.

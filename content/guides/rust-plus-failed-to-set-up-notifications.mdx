@@ -1,0 +1,50 @@
+---
+title: "\"Failed to set up notifications\""
+pageTitle: "\"Failed to Set Up Notifications\" and \"Failed to Get Information From Server\" in Rust+"
+description: "Two Rust+ error messages that appear right after pairing, what each one means about where the pairing broke, and the fix order that clears them."
+order: 7
+updated: "2026-09-24"
+ads: true
+---
+
+Both messages show up at the same moment: you accepted a pairing notification, the app opened the new server, and instead of the map you got an error. They look similar but point at different halves of the pairing handshake, so it helps to know which one you saw.
+
+## What happens in the seconds after you accept a pairing
+
+1. The app stores the server's address, companion port and the token the server issued for your account.
+2. It opens a direct connection to the server's companion port and asks for the server's details (name, map, player count). If that fails, the app reports **Failed to get information from server**.
+3. It registers your device with Facepunch for that server's push notifications (alarms, deaths, team events). If that fails, the app reports **Failed to set up notifications**.
+
+Step 2 is phone → server. Step 3 is phone → Facepunch, and it depends on the server having registered correctly with Facepunch first. That is the whole diagnosis.
+
+## "Failed to get information from server"
+
+The pairing itself worked (it arrived through Facepunch), but the app could not reach the server directly. This is the same condition as [Server shows offline](/guides/rust-plus-server-offline), caught a few seconds earlier.
+
+- **Switch the phone between Wi-Fi and mobile data** and open the server again. If it loads, your network blocks the companion port.
+- **Try an official Facepunch server.** If official servers load and this one does not, the server's companion port is not reachable from the internet, or it announces the wrong IP. Only the admin can fix it (`app.info`, `app.publicip`, firewall).
+- If **every** server fails, sign out and back in ([sign-in loop](/guides/rust-plus-please-sign-in)), then reinstall.
+
+## "Failed to set up notifications"
+
+The server is reachable, but registering for its notifications did not complete. In practice three things cause it.
+
+- **A stale sign-in.** The token the app holds for your Steam account is expired or was issued for a different account. Sign out of Rust+ completely, sign back in, remove the server, and pair again. This clears most cases.
+- **The server's identity is broken.** Servers identify themselves to Facepunch with a `companion.id` file. Facepunch's own wiki says that sharing, copying or deleting that file "disables notification permission for all your players." If a whole team gets this error on one server and other servers are fine, that is the cause, and only the admin can fix it (give the server a fresh, unique identity and have everyone re-pair).
+- **The server cannot reach Facepunch.** Outbound access to `companion-rust.facepunch.com` is required for the notification registration to complete on the server side. The server log shows companion-service errors.
+
+## The fix order
+
+1. Remove the server from the app.
+2. Sign out of Rust+, force-close, sign back in.
+3. Join the server in game and pair again. Accept the notification promptly; it expires.
+4. If the error repeats **only on this server**, send the admin: check `app.info`, check outbound access to `companion-rust.facepunch.com`, check the server log for `Rust+ companion server connectivity test failed`, and confirm the `companion.id` file is unique to this server.
+5. If it repeats on **every** server, reinstall the app and pair one server first.
+
+## If notifications work but arrive late or not at all
+
+That is a different problem, on the phone's side of push delivery: [Rust+ isn't sending notifications](/guides/rust-plus-notifications-not-working).
+
+## rustplusplus
+
+The bot registers for notifications using the FCM credentials you generate on this site, not through the phone flow, so it never shows these two messages. The equivalent failure is a bot that shows the server in its `servers` channel but never receives pairings or alarms: regenerate credentials with **Log In** (they expire after 14 days), run the new `/credentials add …` command, and pair again.
