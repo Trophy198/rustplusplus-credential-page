@@ -1,0 +1,52 @@
+---
+title: "Notification sounds and raid alerts"
+pageTitle: "Custom Raid Alerts and Notification Sounds in Rust+"
+description: "Rust+ alerts are ordinary phone notifications, so the sound, volume and priority are controlled by the phone, not the app. How to make a raid alarm impossible to miss on Android and iOS, and how bots add sirens the app cannot."
+order: 19
+updated: "2026-09-24"
+ads: true
+---
+
+The single most requested Rust+ feature is a raid alarm that keeps ringing until you look at it. The app does not have one, and the reason matters: Rust+ delivers alerts as **standard push notifications**, and standard notifications play once, at the volume your phone allows, and stop. Everything you can do about it happens in the phone's settings or in a Discord bot, not in Rust+.
+
+## What you can customise in Rust+
+
+- **The alarm's name and message.** Open the paired Smart Alarm in the app and edit its title and notification text. "FRONT DOOR" beats "Smart Alarm" at 3 a.m. Name every alarm by location.
+- **Which alerts you receive.** In game, **ESC → Rust+** shows per-server toggles for server pairing, device pairing, alarms, offline deaths, teammate logins and news. Turn off what you do not need so the ones that matter stand out.
+- That is the whole list. Sound, repetition and priority are not in the app.
+
+## Android
+
+Android gives Rust+ one or more notification **channels**, and each channel has its own sound and importance. Open **Settings → Apps → Rust+ → Notifications**. If the app exposes a separate channel for alarms, set that channel to the highest importance and give it a distinct, long sound. If there is only one channel, set that.
+
+Then the settings that silently defeat alerts:
+
+- **Battery optimisation.** Set Rust+ to *Unrestricted* (Samsung: not in the sleeping or deep-sleeping apps list; Xiaomi: no battery restrictions and Autostart on). Optimised apps receive pushes late or not at all.
+- **Do Not Disturb.** Add Rust+ as an exception, or your night alarms are silent by design.
+- **Volume.** Notification volume is separate from media and ring volume on most Android builds.
+
+## iOS
+
+**Settings → Notifications → Rust+**: allow notifications, use Banners with Persistent style so they stay on screen, enable Sounds, and enable Show on Lock Screen. Then:
+
+- **Focus modes** (including Sleep) silence everything not on the allowed list. Add Rust+ to your night Focus.
+- **Time Sensitive** notifications break through Focus if the app marks them as such; if Rust+ offers the option under its notification settings, turn it on.
+- **Critical Alerts** (the ones that bypass the mute switch) require special permission from Apple that the app does not have, so a muted iPhone stays quiet. Keep the switch off at night if you rely on alarms.
+
+## Making a raid alarm impossible to miss: use a bot
+
+The reliable way to get a siren is to route the alert somewhere that can make noise on its own terms.
+
+**rustplusplus** posts alarms to a Discord channel, can announce them in team chat, and its text-to-speech reads messages aloud in the Discord team-chat channel. Combine that with Discord's own per-channel notification settings on your phone (a dedicated alarm channel set to "all messages" with a loud custom sound) and you have a second, independent alert path. A Discord notification and a Rust+ notification arriving together is much harder to sleep through than either alone.
+
+**RustPlusBot** goes further with a voice client that speaks alerts into a Discord voice channel; sit in the channel at night and the alert is audible without unlocking anything.
+
+**Smart Switch as a physical alarm** is the in-game version: wire the same sensor that feeds your Smart Alarm to a Siren Light or a Boom Box inside your base. It will not reach you offline, but it does wake anyone who is online and AFK.
+
+## Reducing false alarms so you keep the real ones loud
+
+A loud alarm that fires every time you walk in gets muted within a day. Set HBHF sensors to exclude authorised players, place laser detectors where only intruders cross, and remember the alarm's cooldown of roughly three minutes between notifications, which is what stops a single raid from flooding you. Details in [smart alarm not working](/guides/rust-smart-alarm-not-working).
+
+## The honest limit
+
+Even perfectly configured, a phone push can be delayed by the network or dropped by the OS. Treat Rust+ alarms as a strong hint, not a guarantee, and if being raided offline matters enough, add the Discord path so two systems have to fail at once.

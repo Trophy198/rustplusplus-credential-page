@@ -1,0 +1,74 @@
+---
+title: "How pairing works (technical)"
+pageTitle: "How the Rust+ Pairing Flow Works: FCM, Expo Push Tokens and the Companion API"
+description: "A developer's walkthrough of what happens between clicking Log In and receiving a pairing: Facepunch's login page, Firebase Cloud Messaging registration, the Expo push token, /api/push/register, the pairing payload, and the WebSocket the app opens afterwards."
+order: 20
+updated: "2026-09-24"
+ads: true
+---
+
+This is the flow the official Rust+ app performs on first launch and that this site's credential tool, the rustplusplus bot, rustplus.js and every other third-party client reproduce. Nothing here is secret; it is what the app does, observed and documented by the community, chiefly in Liam Cottle's [rustplus.js Pairing Flow](https://github.com/liamcottle/rustplus.js/blob/master/docs/PairingFlow.md) notes. Read it if you are building a client, or if you want to understand exactly what a "credential" is before you trust one.
+
+## Actors
+
+- **Facepunch companion API** at `companion-rust.facepunch.com`: authenticates Steam accounts, registers push identities, and relays pairing and alert notifications from game servers to those identities.
+- **Firebase Cloud Messaging (FCM)**: Google's push service. The Rust+ app is a Firebase app; anything that wants to receive its pushes must register as a device of that app.
+- **Expo**: the React Native push layer the Rust+ app is built on. Facepunch's API expects an Expo push token, which wraps the FCM token.
+- **The game server**: runs the companion server on `app.port`, sends pairing and alert requests to Facepunch, and accepts direct WebSocket connections from clients that hold a valid player token.
+- **The client**: phone app, desktop app, bot, or this site acting on behalf of a bot.
+
+## Step 1: Steam login → auth token
+
+The client opens `https://companion-rust.facepunch.com/login`. The page signs you in through Steam and, on success, delivers a JSON message containing a **Token** and a **SteamId** to the embedding app through the React Native WebView bridge (`ReactNativeWebView.postMessage`). Browser-based clients, including this site's extension, provide that bridge object themselves and capture the message. The token is a short-lived credential for calling the companion API as that Steam account.
+
+## Step 2: FCM registration → device identity
+
+The client registers a new device with FCM using the Rust+ app's public Firebase parameters (API key, project ID, sender ID, app ID, Android package name and certificate hash). FCM returns a **GCM Android ID** and **security token** (the long-lived identity of this "device") and an **FCM token** (the address pushes are sent to). rustplus.js does this with `fcm-register`; this site does it server-side when you click Log In.
+
+## Step 3: Expo push token
+
+The client calls Expo's `getExpoPushToken` endpoint with the FCM token, a device ID and the Rust+ app's Expo project ID, and receives an `ExponentPushToken[...]`. Facepunch's API only accepts Expo tokens because that is what the real app sends.
+
+## Step 4: register with Facepunch
+
+`POST https://companion-rust.facepunch.com/api/push/register` with the Steam auth token, the device ID, `PushKind: 3` and the Expo push token. Facepunch links "this Steam account" to "this push identity" and returns a refreshed token. That token is a JWT whose header carries `exp` and `iss`; the expiry is roughly two weeks out, and it is the origin of the 14-day lifetime you see on this site's credential page. The mobile app refreshes silently because it stays signed in; a bot cannot, so its identity goes stale after two weeks and must be re-registered.
+
+At this point the credential exists: the GCM Android ID and security token (so the client can connect to FCM as that device), plus the Steam ID. That is exactly what `/credentials add …` carries into rustplusplus.
+
+## Step 5: listen on FCM
+
+The client opens a long-lived connection to Google's MCS endpoint using the GCM credentials and waits. rustplus.js calls this `fcm-listen`; rustplusplus does it continuously per registered Steam ID.
+
+## Step 6: the pairing notification
+
+When a player connected to a game server presses **Pair with server**, the server calls Facepunch, and Facepunch pushes a notification to every identity registered for that Steam ID. The data payload includes, for a server pairing:
+
+- `type: "server"`, the server `name`, `desc`, `img`, `logo`, `url`
+- `ip` and `port` of the companion server
+- `playerId` (the Steam ID) and `playerToken`, an integer the server issued for this player
+
+For a smart-device pairing the payload has `type: "entity"` with `entityId`, `entityType` (1 switch, 2 alarm, 3 storage monitor) and `entityName`. Alerts (alarm triggered, offline death, teammate login) arrive as further pushes with their own types. The notification also expires quickly on the Facepunch side, which is why a missed pairing must simply be repeated.
+
+## Step 7: direct WebSocket to the server
+
+With `ip`, `port`, `playerId` and `playerToken`, the client opens `ws://ip:port` and speaks the companion protocol (protobuf messages: `getInfo`, `getMap`, `getTeamInfo`, `setEntityValue`, `getEntityInfo`, camera subscription, team chat). Every request carries the player token; the server checks it against its `player.tokens.db`. Everything live in the app flows here, with no Facepunch involvement. This is also why a server can pair yet show offline: step 6 succeeded through Facepunch, step 7 failed against the server's port.
+
+## Where the failures live
+
+| Symptom | Step |
+|---|---|
+| Login page loops, "please sign in" | 1 |
+| Bot never receives anything | 2 to 5 (credentials missing or expired) |
+| Pair does nothing | 6 (server cannot reach Facepunch, phone cannot receive push, wrong account) |
+| Server offline, map never loads | 7 (companion port unreachable, wrong IP announced) |
+| Alerts stop after two weeks | 4 (token expired; re-register) |
+
+## Security properties worth knowing
+
+- The GCM identity lets its holder **receive** this Steam account's Rust+ pushes and, via the player tokens inside them, connect to paired servers as that player within the companion protocol. It cannot authenticate to Steam or the game client.
+- Registering a new identity for the same Steam account (any client, any device) replaces the previous one's role for future pairings, which is how you revoke a leaked credential.
+- Player tokens are per server and are invalidated by wipes and identity changes on the server, which is why re-pairing is routine.
+
+## Reproducing it yourself
+
+`npx @liamcottle/rustplus.js fcm-register` then `fcm-listen` performs steps 1 to 6 on a machine with Chrome installed; the printed payload is the same one described above. This site's `/api/callback` performs steps 2 to 4 server-side once the extension delivers step 1's message, and hands the result back as the bot command. The code is open: [rustplusplus-credential-page](https://github.com/Trophy198/rustplusplus-credential-page).
