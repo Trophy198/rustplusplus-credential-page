@@ -6,10 +6,11 @@ import useAuthStore from '@/store/useAuthStore';
 import Dot from '@/components/loadingCollection/dot';
 import SidebarMenu from '@/components/sidebarMenu/sidebarMenu';
 import { useRouter } from 'next/router';
+import { CHROME_STORE_URL, FIREFOX_STORE_URL, LEGACY_LOGIN_URL, RUST_PLUS_LOGIN_URL } from '@/lib/site';
 
 const MainHeader = () => {
   const { isLoggedIn, setIsLoggedIn } = useAuthStore();
-  const { browserType, isExtensionInstalled, isLoading } = useExtensionDetection();
+  const { browserType, isExtensionInstalled, isExtensionOutdated, isLoading } = useExtensionDetection();
   const router = useRouter();
 
   const handleLogout = async () => {
@@ -46,8 +47,14 @@ const MainHeader = () => {
                       Log Out
                     </button>
                   </>
+                ) : isExtensionOutdated ? (
+                  // Old extensions only understand the pre-October-2026 flow;
+                  // keep it reachable for them while the store update rolls out.
+                  <a className={styles.rustplusplusActionButton} href={LEGACY_LOGIN_URL}>
+                    Log In
+                  </a>
                 ) : (
-                  <a className={styles.rustplusplusActionButton} href="https://companion-rust.facepunch.com/login">
+                  <a className={styles.rustplusplusActionButton} href={RUST_PLUS_LOGIN_URL}>
                     Log In
                   </a>
                 )}
@@ -55,11 +62,7 @@ const MainHeader = () => {
             ) : (
               <a
                 className={styles.rustplusplusActionButton}
-                href={
-                  browserType === 'Chrome'
-                    ? 'https://chrome.google.com/webstore/detail/rustplusplus-credential-a/ooahmkklkanfgfmphpknpcgdpdcoikhe'
-                    : 'https://addons.mozilla.org/en-US/firefox/addon/rustplusplus-credential-app/'
-                }
+                href={browserType === 'Chrome' ? CHROME_STORE_URL : FIREFOX_STORE_URL}
                 target="_blank"
                 rel="noopener noreferrer"
               >

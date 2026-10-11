@@ -3,6 +3,7 @@ import styles from './mainLayout.module.css';
 import MainHeader from '../mainHeader/mainHeader';
 import Footer from '../footer/footer';
 import MobileNotice from '../mobileNotice/mobileNotice';
+import ExtensionNotice from '../extensionNotice/extensionNotice';
 
 interface MainLayoutProps {
   children: ReactNode;
@@ -14,6 +15,7 @@ const MainLayout = ({ children }: MainLayoutProps) => {
       <MainHeader />
       <main>
         <MobileNotice />
+        <ExtensionNotice />
         {children}
       </main>
       <Footer />
