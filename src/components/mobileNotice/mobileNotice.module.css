@@ -8,3 +8,8 @@
   font-size: 0.9rem;
   line-height: 1.5;
 }
+
+.notice a {
+  color: var(--color-text);
+  text-decoration: underline;
+}

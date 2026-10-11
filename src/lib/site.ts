@@ -3,6 +3,26 @@ export const SITE_URL = 'https://rustplusplus-credentials.netlify.app';
 export const SITE_NAME = 'rustplusplus';
 export const DEFAULT_DESCRIPTION =
   'Get your Rust+ credentials for the rustplusplus Discord bot in one click, plus setup guides, commands and troubleshooting for Rust+ and rustplusplus.';
+/**
+ * Facepunch's Rust+ login, entered the way the official app does since the
+ * October 2026 login rework: after Steam sign-in Facepunch redirects to
+ * /app, which redirects to rust-plus://rust-auth-session?token=…&steamId=….
+ * Extension 1.1.0+ catches that redirect and forwards it to /callback.
+ */
+export const RUST_PLUS_LOGIN_URL =
+  'https://companion-rust.facepunch.com/login?returnUrl=' +
+  encodeURIComponent('/app?returnUrl=' + encodeURIComponent('rust-plus://rust-auth-session'));
+
+/** Pre-October-2026 entry point, still used for extensions older than MIN_EXTENSION_VERSION. */
+export const LEGACY_LOGIN_URL = 'https://companion-rust.facepunch.com/login';
+
+/** Oldest extension version that understands the October 2026 login flow. */
+export const MIN_EXTENSION_VERSION = '1.1.0';
+
+export const CHROME_STORE_URL =
+  'https://chromewebstore.google.com/detail/rustplusplus-credential-a/ooahmkklkanfgfmphpknpcgdpdcoikhe';
+export const FIREFOX_STORE_URL = 'https://addons.mozilla.org/en-US/firefox/addon/rustplusplus-credential-app/';
+
 export const OG_IMAGE = `${SITE_URL}/images/rustplusplusLogo.png`;
 
 /** Per-route titles and descriptions. Keys are the page paths. */
