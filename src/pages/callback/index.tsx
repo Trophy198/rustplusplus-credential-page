@@ -8,14 +8,21 @@ import axios from 'axios';
 import { hasLoginFlagCookie } from '@/lib/authCookie';
 import { trackEvent } from '@/lib/gtag';
 
-type Phase = 'loading' | 'cookie-blocked';
+type Phase = 'loading' | 'cookie-blocked' | 'login-failed';
 
 const CallbackPage: NextPage = () => {
   const router = useRouter();
-  const { token, steamId } = router.query;
+  const { token, steamId, error } = router.query;
   const [phase, setPhase] = useState<Phase>('loading');
 
   useEffect(() => {
+    // The extension forwards Facepunch's rust-plus:// result here; on failure
+    // Facepunch sends ?error=… instead of a token.
+    if (typeof error === 'string') {
+      trackEvent('credential_login_failed', { reason: error });
+      setPhase('login-failed');
+      return;
+    }
     if (typeof token === 'string' && typeof steamId === 'string') {
       axios
         .get(`/api/callback`, {
@@ -45,7 +52,30 @@ const CallbackPage: NextPage = () => {
           window.location.href = '/';
         });
     }
-  }, [token, steamId]);
+  }, [token, steamId, error]);
+
+  if (phase === 'login-failed') {
+    return (
+      <div className={styles.center}>
+        <h1 className={styles.title}>The Rust+ login did not complete.</h1>
+        <p className={styles.description}>
+          Facepunch returned an error instead of a login token. This usually means the Steam sign-in was cancelled,
+          timed out, or Steam Guard approval was not confirmed.
+        </p>
+        <ul className={styles.steps}>
+          <li>Go back and click Log In again, then finish the Steam sign-in and Steam Guard approval.</li>
+          <li>
+            Make sure the rustplusplus extension is version 1.1.0 or newer (Facepunch changed the login in October
+            2026).
+          </li>
+          <li>If it keeps failing, sign out of Steam in this browser and start over.</li>
+        </ul>
+        <Link className={styles.homeLink} href="/">
+          Back to home
+        </Link>
+      </div>
+    );
+  }
 
   if (phase === 'cookie-blocked') {
     return (

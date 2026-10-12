@@ -19,7 +19,19 @@ This is the flow the official Rust+ app performs on first launch and that this s
 
 ## Step 1: Steam login → auth token
 
-The client opens `https://companion-rust.facepunch.com/login`. The page signs you in through Steam and, on success, delivers a JSON message containing a **Token** and a **SteamId** to the embedding app through the React Native WebView bridge (`ReactNativeWebView.postMessage`). Browser-based clients, including this site's extension, provide that bridge object themselves and capture the message. The token is a short-lived credential for calling the companion API as that Steam account.
+Since Facepunch's October 2026 login rework, the client opens
+
+```
+https://companion-rust.facepunch.com/login?returnUrl=/app?returnUrl=rust-plus://rust-auth-session
+```
+
+The login page is a small form that posts to Facepunch, which hands you to Steam's OpenID sign-in and back to `/signin-steam`. Facepunch then follows the `returnUrl` to `/app`, which issues the Rust+ auth token and redirects to the app's custom scheme:
+
+```
+rust-plus://rust-auth-session/?token=<token>&steamId=<steam id>
+```
+
+On a phone that deep link reopens the Rust+ app. `/app` only accepts the `rust-plus://` scheme, so a desktop browser cannot open the result; this site's extension watches for that redirect and forwards the two values to the credential page. Without the `returnUrl`, Facepunch ends the login on its `rust.facepunch.com/companion` page with no token. (Before October 2026 the login page instead posted the same values to a React Native WebView bridge, `ReactNativeWebView.postMessage`, which older clients patched.) The token is a short-lived credential for calling the companion API as that Steam account.
 
 ## Step 2: FCM registration → device identity
 
@@ -57,7 +69,7 @@ With `ip`, `port`, `playerId` and `playerToken`, the client opens `ws://ip:port`
 
 | Symptom | Step |
 |---|---|
-| Login page loops, "please sign in" | 1 |
+| Login page loops, "please sign in", or ends on rust.facepunch.com/companion | 1 |
 | Bot never receives anything | 2 to 5 (credentials missing or expired) |
 | Pair does nothing | 6 (server cannot reach Facepunch, phone cannot receive push, wrong account) |
 | Server offline, map never loads | 7 (companion port unreachable, wrong IP announced) |
