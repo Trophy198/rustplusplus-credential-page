@@ -1,0 +1,64 @@
+---
+title: "Force wipe schedule"
+pageTitle: "Rust Force Wipe Schedule 2026–2027, and What Wipe Day Does to Rust+"
+description: "Every Rust force wipe date from November 2026 to December 2027, with the usual time in UTC, US Eastern, Central Europe and Sydney. Plus what a wipe resets in Rust+ and in your Discord bot, and what to redo afterwards."
+order: 24
+updated: "2026-10-20"
+ads: true
+---
+
+Rust on PC force wipes on the **first Thursday of every month**. That is when Facepunch releases the monthly update. The new version can't load the old map save, so every server has to start a fresh map, official or community, and there is no opt-out. Servers also wipe on their own schedule in between, often weekly or every two weeks, but the monthly one is the same for everyone.
+
+## Dates
+
+The update usually goes live **around 19:00 UK time**. Facepunch does not give an exact minute in advance, and on big updates it can arrive an hour or two later. The other columns are that UK time converted. UTC moves by an hour when the UK changes its clocks, and the US and Europe change theirs on different dates, so the US Eastern time is not always the same.
+
+| Date | UTC | US Eastern | Central Europe | Sydney |
+|---|---|---|---|---|
+| Thu 5 Nov 2026 | 19:00 | 14:00 | 20:00 | Fri 06:00 |
+| Thu 3 Dec 2026 | 19:00 | 14:00 | 20:00 | Fri 06:00 |
+| Thu 7 Jan 2027 | 19:00 | 14:00 | 20:00 | Fri 06:00 |
+| Thu 4 Feb 2027 | 19:00 | 14:00 | 20:00 | Fri 06:00 |
+| Thu 4 Mar 2027 | 19:00 | 14:00 | 20:00 | Fri 06:00 |
+| Thu 1 Apr 2027 | 18:00 | 14:00 | 20:00 | Fri 05:00 |
+| Thu 6 May 2027 | 18:00 | 14:00 | 20:00 | Fri 04:00 |
+| Thu 3 Jun 2027 | 18:00 | 14:00 | 20:00 | Fri 04:00 |
+| Thu 1 Jul 2027 | 18:00 | 14:00 | 20:00 | Fri 04:00 |
+| Thu 5 Aug 2027 | 18:00 | 14:00 | 20:00 | Fri 04:00 |
+| Thu 2 Sep 2027 | 18:00 | 14:00 | 20:00 | Fri 04:00 |
+| Thu 7 Oct 2027 | 18:00 | 14:00 | 20:00 | Fri 05:00 |
+| Thu 4 Nov 2027 | 19:00 | **15:00** | 20:00 | Fri 06:00 |
+| Thu 2 Dec 2027 | 19:00 | 14:00 | 20:00 | Fri 06:00 |
+
+4 November 2027 falls in the few days when the UK has left summer time but the US has not, so it is 15:00 in New York that day.
+
+Facepunch occasionally moves an update for a holiday or a major release and announces it on its [news page](https://rust.facepunch.com/news). If an announcement and this table disagree, the announcement wins.
+
+Rust Console Edition is a different game build with its own update schedule. These dates are for PC.
+
+## What a force wipe resets
+
+- **The map.** Every building, deployable and item on the ground is gone, and most servers come back with a new seed or size.
+- **Inventories.** Everyone starts fresh.
+- **Blueprints, sometimes.** A monthly force wipe resets blueprints only when Facepunch says so in the update notes. Many community servers wipe blueprints on their own schedule, so check the server's description.
+
+What it does not reset: your Steam account and your Rust+ sign-in.
+
+## What it does to Rust+
+
+**Server pairing may or may not survive.** It depends on what the host deletes. The server's Rust+ identity (`companion.id`) and its record of paired players are files kept next to the map save. A wipe that deletes only the map leaves your pairing working once the server is back at the same address. A wipe that clears the whole save folder, or a move to a new IP or port, breaks it. If the server stays offline in the app after you can join it in game, or pressing it fails, remove it from the app and pair again from in game: [how to pair](/guides/how-to-pair-rust-plus).
+
+**Smart devices do not survive.** The switches, alarms and storage monitors you paired existed on the old map. Their entries in the app now point at nothing and will show as inactive or unreachable. Delete them and pair the new ones: [Pairing smart devices](/guides/pairing-smart-devices-with-rust-plus).
+
+**Expect a gap.** While the server is updating and restarting, Rust+ shows it offline. That is normal. Wait until you can join in game before you start troubleshooting. Wipe day is also when the most people pair for the first time, so if pairing is slow that evening, try again after a few minutes.
+
+## What to do with a Discord bot
+
+For [rustplusplus](/docs) and similar team bots:
+
+1. **Keep the bot running.** It reconnects when the server comes back. If it doesn't within a few minutes of the server being joinable, press **Connect** for the server in the `servers` channel again.
+2. **Clean up devices.** Remove the old switches, alarms and storage monitors from their channels, then pair the new ones in game.
+3. **Check your credentials.** They expire every 14 days, which has nothing to do with wipes, but wipe day is when you will notice. If the bot isn't receiving new pairings, generate fresh credentials on this site and run the new `/credentials add` command: [how credentials work](/guides/rustplusplus-credentials-explained).
+4. **Use `!wipe`** in team chat. The bot answers with how long ago the server wiped.
+
+If you set the bot up from scratch on wipe day, follow the [setup guide](/guides/rustplusplus-setup-guide) and [how to pair Rust+](/guides/how-to-pair-rust-plus) in that order.

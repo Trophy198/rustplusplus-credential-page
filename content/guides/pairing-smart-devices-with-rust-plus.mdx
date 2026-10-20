@@ -3,7 +3,7 @@ title: "Pairing smart devices"
 pageTitle: "Pairing Smart Switches, Smart Alarms and Storage Monitors With Rust+"
 description: "How to pair each smart device with the Rust+ app or the rustplusplus bot, what each one gives you once paired, what breaks pairings, and the wiring that makes alarms and monitors actually useful."
 order: 16
-updated: "2026-09-24"
+updated: "2026-10-20"
 ads: true
 ---
 
@@ -54,7 +54,7 @@ CCTV and PTZ cameras are not "paired". You view them by entering the identifier 
 
 ## Things that break device pairings
 
-- **Wipe.** Everything is gone; pair again.
+- **Wipe.** Everything is gone; pair again. Dates and what else resets: [force wipe schedule](/guides/rust-force-wipe-schedule).
 - **The device was picked up and placed again.** It is a new entity; pair again.
 - **Server re-paired after an IP change.** Devices stay listed but may need re-pairing if the server's identity changed.
 - **Expired bot credentials.** Devices paired under credentials that have since expired stop reporting to the bot; regenerate credentials and pair again ([why credentials expire](/guides/rustplusplus-credentials-explained)).

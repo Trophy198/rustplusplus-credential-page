@@ -1,0 +1,60 @@
+---
+title: "Rust Discord bots"
+pageTitle: "Rust Discord Bots: Team Bots vs Server Bots, and Which One You Need"
+description: "\"Rust Discord bot\" means two different things: a bot for your team that runs on Rust+, or a bot for a server owner that runs on RCON or plugins. What each kind can do, the main options, and how to choose."
+order: 23
+updated: "2026-10-20"
+ads: true
+---
+
+Search for a Rust Discord bot and you get two kinds of results that have almost nothing in common. **Team bots** are for players. They connect to a server the way the Rust+ app does, and put your base, your team chat and your alarms into Discord. **Server bots** are for the people who run a server. They connect through admin access and handle the community side: server status, chat relays, reports and bans. Work out which one you need first. One kind cannot do the other's job, because they get their data from different places.
+
+## Team bots: Rust+ in Discord
+
+A team bot pairs with the server through Rust+, just like the phone app ([how pairing works](/guides/how-to-pair-rust-plus)). It sees what a Rust+ device on your account is allowed to see, and nothing more:
+
+- your team: who is online, where they are on the map, and team chat in both directions,
+- your smart devices: switches you can flip from Discord, alarms that post when your base is hit, storage monitors and Tool Cupboard upkeep,
+- the server: population, time, the map with monuments, and events such as cargo ship, the Chinook and patrol helicopter,
+- in-game commands: teammates type things like `!pop` or `!wipe` in team chat and the bot answers.
+
+It works on **any server that has Rust+ enabled**, and it does not need the server owner's permission or plugins. It cannot see enemy bases or other teams, kick anyone, or read global chat beyond what Rust+ provides.
+
+The main options:
+
+- **[rustplusplus](/docs)**: free and open source. You host it yourself on a PC or a small server that stays on, and each teammate registers their own credentials. This site exists to make that step easy.
+- **RustPlusBot**: a hosted service with a monthly subscription. Nothing to install, and it has extras such as camera viewing in Discord.
+- **RustLink** and other smaller projects with different trade-offs.
+
+We compare the three in detail, including who holds your credentials, in [rustplusplus vs RustPlusBot vs RustLink](/guides/rustplusplus-vs-rustplusbot-vs-rustlink). If you were looking for a way to use Rust+ on a computer rather than in Discord, see [Rust+ on PC](/guides/rust-plus-on-pc).
+
+## Server bots: running a community
+
+A server bot needs **admin access**: either RCON (the server's remote console) or a plugin installed on the server through a framework such as Oxide/uMod or Carbon. That is why only server owners and their admins can set one up. Typical jobs:
+
+- a status message or channel name that shows population and the next wipe,
+- relaying in-game chat and team reports to Discord, and staff replies back,
+- logging connections, kills and bans,
+- linking Discord accounts to Steam accounts so supporters get in-game perks automatically,
+- wipe announcements and map votes.
+
+The usual ways to get them:
+
+- **Plugins.** The Discord Extension for Oxide/uMod and the plugins built on it (Discord Core, Discord Chat and many others) run inside the server and post to Discord directly.
+- **RCON tools.** Admin tools that connect over RCON, such as BattleMetrics' RCON product, can send triggers and logs to Discord.
+- **Status bots.** Simple bots that query the server's public info for name, player count and map. These do not need admin access, but they only show public data.
+
+Some status bots and population trackers got their data from the free BattleMetrics API, which became subscription-only in July 2026. If one of them went blank, that is probably why: [BattleMetrics API key](/guides/battlemetrics-api-key-for-rust).
+
+## Which one do you need?
+
+- *"I want raid alerts, team chat and switches in our Discord."* → A **team bot**.
+- *"I want to know when a specific enemy is online."* → A team bot with BattleMetrics trackers. That means a BattleMetrics subscription, or a hosted service that includes it.
+- *"I run a server and want chat logs, status and account linking."* → A **server bot** (plugins or RCON).
+- *"I run a server and want my players to use team bots."* → Nothing to install. Keep Rust+ enabled and the companion port reachable: [what server owners need](/guides/rust-plus-pair-button-not-showing).
+
+## Before you add any bot to Discord
+
+- **Check what it asks for.** A team bot needs your Rust+ credentials, which let it act as a Rust+ device on your Steam account. Hosted services keep them on their servers; with a self-hosted bot they stay on your own machine. Only give credentials to a service you trust.
+- **Check Discord permissions.** Many bots ask for Administrator. The official rustplusplus setup does too, because the bot creates and manages its own category and channels. Grant that only to a bot you host yourself or fully trust, ideally in a Discord server just for your team.
+- **Plan for wipes.** Smart devices disappear with every map wipe, so expect to pair them again on [force wipe day](/guides/rust-force-wipe-schedule).
