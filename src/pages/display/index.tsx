@@ -7,6 +7,15 @@ import { formatCredentialsData } from '@/utils/formatCredentialsData';
 import { trackEvent } from '@/lib/gtag';
 import { CONFIG_COOKIE, LOGIN_FLAG_COOKIE } from '@/lib/authCookie';
 
+/** Where people usually get stuck after copying the command. */
+const NEXT_STEPS = [
+  { href: '/guides/rustplusplus-setup-guide', label: 'Set up the rustplusplus bot from scratch' },
+  { href: '/guides/rustplusplus-credentials-explained', label: 'What /credentials add does, and when to renew' },
+  { href: '/guides/rust-plus-not-pairing', label: 'Bot never receives the pairing' },
+  { href: '/guides/rust-plus-notifications-not-working', label: 'Smart alarm and other notifications not arriving' },
+  { href: '/guides/rustplusplus-in-game-commands-cheat-sheet', label: 'In-game commands cheat sheet' },
+];
+
 interface DisplayProps {
   formattedCredentials?: string;
   expire_date?: string;
@@ -86,6 +95,18 @@ const Display: NextPage<DisplayProps> = ({ formattedCredentials, expire_date, er
               </div>
             </section>
           )}
+          <nav className={styles.nextSteps} aria-label="Next steps">
+            <h2 className={styles.nextStepsTitle}>Next steps</h2>
+            <ul>
+              {NEXT_STEPS.map((s) => (
+                <li key={s.href}>
+                  <Link className={styles.secondaryLink} href={s.href}>
+                    {s.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </nav>
         </>
       )}
     </article>

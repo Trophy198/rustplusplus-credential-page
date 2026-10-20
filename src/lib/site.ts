@@ -28,12 +28,12 @@ export const OG_IMAGE = `${SITE_URL}/images/rustplusplusLogo.png`;
 /** Per-route titles and descriptions. Keys are the page paths. */
 export const PAGE_META: Record<string, { title: string; description: string }> = {
   '/': {
-    title: 'rustplusplus Credentials: Rust+ Discord Bot Setup Made Easy',
+    title: 'Rust++ Discord Bot (rustplusplus): Rust+ Credentials & Setup',
     description:
-      'Generate the Rust+ FCM credentials the rustplusplus Discord bot needs, in one click with a browser extension. Free, open source, no .exe required.',
+      'Set up Rust++ (rustplusplus), the free open-source Rust Discord bot for Rust+. Get your credentials in one click with the browser extension, then follow the setup docs and fix guides.',
   },
   '/docs': {
-    title: 'rustplusplus Documentation: Setup, Channels and Commands',
+    title: 'rustplusplus Docs: Install and Set Up the Rust+ Discord Bot',
     description:
       'Official rustplusplus documentation, mirrored and kept in sync: installation, Discord bot setup, credentials, server pairing, channels, smart devices and commands.',
   },
