@@ -7,11 +7,12 @@ import matter from 'gray-matter';
  *   content/docs/*.md    reference docs synced from alexemanuelol/rustplusplus (scripts/sync-upstream-docs.mjs)
  *   content/pages/*.mdx  site pages we author (about, privacy, terms)
  *   content/guides/*.mdx original guides (phase 3)
+ *   content/tools/*.mdx  explanatory text shown under each interactive tool
  * Only called from getStaticProps/getStaticPaths, so `fs` is build-time only.
  */
 const ROOT = path.join(process.cwd(), 'content');
 
-export type Collection = 'docs' | 'pages' | 'guides';
+export type Collection = 'docs' | 'pages' | 'guides' | 'tools';
 
 export interface ContentMeta {
   slug: string;

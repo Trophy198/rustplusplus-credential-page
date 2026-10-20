@@ -24,3 +24,15 @@ export function guidesMenu(guides: ContentMeta[]): MenuItem[] {
     },
   ];
 }
+
+/** Sidebar for interactive tools. */
+export function toolsMenu(tools: ContentMeta[]): MenuItem[] {
+  return [
+    {
+      id: 'tools',
+      label: 'Rust Tools',
+      href: '/tools',
+      subItems: tools.map((t) => ({ id: t.slug, label: t.title, href: `/tools/${t.slug}` })),
+    },
+  ];
+}

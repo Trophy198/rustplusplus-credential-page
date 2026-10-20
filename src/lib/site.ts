@@ -42,6 +42,11 @@ export const PAGE_META: Record<string, { title: string; description: string }> =
     description:
       'Fixes for the Rust+ companion app sorted by symptom, written for players: pairing, server offline, notifications, sign-in loops, smart alarms.',
   },
+  '/tools': {
+    title: 'Rust Tools: Power Planner and Calculators for Rust+ Players',
+    description:
+      'Free Rust calculators built around Rust+ and electricity: plan power draw, battery runtime, solar panels, wind turbines and generators for your base.',
+  },
   '/display': {
     title: 'Your Rust+ Credentials',
     description: 'Copy the /credentials add command for the rustplusplus bot.',

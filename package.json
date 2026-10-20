@@ -9,7 +9,8 @@
     "lint": "next lint",
     "prebuild": "node scripts/build-sitemap.mjs",
     "sync:docs": "node scripts/sync-upstream-docs.mjs",
-    "sitemap": "node scripts/build-sitemap.mjs"
+    "sitemap": "node scripts/build-sitemap.mjs",
+    "test": "node --experimental-strip-types --no-warnings src/lib/power/calc.test.mjs"
   },
   "dependencies": {
     "@liamcottle/push-receiver": "^0.0.4",

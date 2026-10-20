@@ -1,0 +1,281 @@
+.planner {
+  container-type: inline-size;
+  font-size: 1rem;
+  line-height: 1.5;
+  color: var(--color-text);
+  margin-bottom: 2.5rem;
+}
+
+.planner button {
+  font: inherit;
+  cursor: pointer;
+}
+
+.presets {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 1.25rem;
+  font-size: 0.9rem;
+  color: var(--color-link-text);
+}
+
+.presets button {
+  background: #2a2a2a;
+  color: var(--color-text);
+  border: 1px solid #4f4d4d;
+  border-radius: 999px;
+  padding: 4px 12px;
+}
+
+.presets button:hover {
+  border-color: var(--color-primary);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 340px);
+  gap: 1.5rem;
+  align-items: start;
+}
+
+.inputs {
+  display: grid;
+  gap: 1.25rem;
+  min-width: 0;
+}
+
+.group {
+  border: 1px solid #4f4d4d;
+  border-radius: 6px;
+  padding: 0.75rem 1rem 1rem;
+  min-width: 0;
+}
+
+.group legend {
+  font-weight: 600;
+  padding: 0 6px;
+}
+
+.group details {
+  border-top: 1px solid #333;
+}
+
+.group details:first-of-type {
+  border-top: 0;
+}
+
+.group summary {
+  cursor: pointer;
+  padding: 0.6rem 0;
+  font-weight: 600;
+  color: var(--color-link-text);
+}
+
+.rows {
+  list-style: none;
+  display: grid;
+  gap: 6px;
+  padding-bottom: 0.5rem;
+}
+
+.rows li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.name {
+  min-width: 0;
+}
+
+.rw {
+  color: #9a9a9a;
+  font-size: 0.85rem;
+  white-space: nowrap;
+}
+
+.rw[title] {
+  text-decoration: underline dotted;
+  text-underline-offset: 3px;
+  cursor: help;
+}
+
+.stepper {
+  display: inline-flex;
+  flex-shrink: 0;
+  border: 1px solid #4f4d4d;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.stepper button {
+  width: 32px;
+  background: #2a2a2a;
+  color: var(--color-text);
+  border: 0;
+  font-size: 1.1rem;
+}
+
+.stepper button:hover {
+  background: var(--color-primary);
+}
+
+.stepper input {
+  width: 48px;
+  text-align: center;
+  background: #1f1f1f;
+  color: var(--color-text);
+  border: 0;
+  border-left: 1px solid #4f4d4d;
+  border-right: 1px solid #4f4d4d;
+  font-size: 1rem;
+  -moz-appearance: textfield;
+}
+
+.stepper input::-webkit-outer-spin-button,
+.stepper input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.advanced {
+  margin-top: 0.5rem;
+}
+
+.advanced label {
+  display: grid;
+  gap: 4px;
+  margin-bottom: 0.75rem;
+  font-size: 0.9rem;
+}
+
+.advanced input {
+  width: 120px;
+  padding: 4px 8px;
+  background: #1f1f1f;
+  color: var(--color-text);
+  border: 1px solid #4f4d4d;
+  border-radius: 4px;
+  font-size: 1rem;
+}
+
+.advanced small {
+  color: #9a9a9a;
+}
+
+.advanced button {
+  background: transparent;
+  color: #7cc4ff;
+  border: 0;
+  text-decoration: underline;
+  padding: 0;
+}
+
+.results {
+  position: sticky;
+  top: 100px;
+  border: 1px solid #4f4d4d;
+  border-radius: 6px;
+  padding: 1rem;
+  background: #222;
+  display: grid;
+  gap: 0.9rem;
+}
+
+.big {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  border-bottom: 1px solid #4f4d4d;
+  padding-bottom: 0.6rem;
+}
+
+.big strong {
+  font-size: 1.8rem;
+  color: #fff;
+}
+
+.stats {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 6px 12px;
+  font-size: 0.9rem;
+}
+
+.stats dt {
+  color: var(--color-link-text);
+}
+
+.stats dd {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+  font-weight: 600;
+}
+
+.good,
+.bad {
+  border-radius: 4px;
+  padding: 8px 10px;
+  font-size: 0.9rem;
+}
+
+.good {
+  background: #16362c;
+  color: #8fe0c3;
+}
+
+.bad {
+  background: #45211f;
+  color: #f2a199;
+}
+
+.warnings {
+  padding-left: 1.1rem;
+  font-size: 0.85rem;
+  color: #f0c36a;
+  display: grid;
+  gap: 6px;
+}
+
+.subhead {
+  font-size: 0.95rem;
+  margin-bottom: -0.4rem;
+}
+
+.needs {
+  padding-left: 1.1rem;
+  font-size: 0.9rem;
+  display: grid;
+  gap: 4px;
+}
+
+.note {
+  font-size: 0.85rem;
+  color: var(--color-link-text);
+}
+
+.share {
+  background: var(--color-primary);
+  color: #fff;
+  border: 0;
+  border-radius: 6px;
+  padding: 8px 12px;
+}
+
+.share:hover {
+  background: var(--color-primary-hover);
+}
+
+/* Two columns only when the planner itself has room; the docs sidebar eats viewport width. */
+@container (max-width: 720px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+
+  .results {
+    position: static;
+  }
+}
