@@ -10,7 +10,9 @@ import {
   type Category,
 } from '@/lib/power/constants';
 import { trackEvent } from '@/lib/gtag';
-import styles from './powerPlanner.module.css';
+import Stepper from '../stepper';
+import { formatMinutes, num, plural } from '../format';
+import styles from '../tool.module.css';
 
 type Counts = Record<string, number>;
 
@@ -37,20 +39,6 @@ const PRESETS: { label: string; consumers: Counts; batteries: Counts; sources: S
 
 const NO_SOURCES: Sources = { solar: 0, wind: 0, generators: 0 };
 
-/** "2 h 05 min", "45 min", "never". */
-export function formatMinutes(min: number): string {
-  if (!Number.isFinite(min)) return 'never';
-  if (min < 1) return '< 1 min';
-  const h = Math.floor(min / 60);
-  const m = Math.round(min % 60);
-  if (h === 0) return `${m} min`;
-  if (h >= 48) return `${(min / 1440).toFixed(1)} days`;
-  return `${h} h ${String(m).padStart(2, '0')} min`;
-}
-
-const num = (n: number) => Math.round(n).toLocaleString('en-US');
-const plural = (n: number, one: string, many: string) => (n === 1 ? one : many);
-
 // Share links: ?l=turret.4,sam.1&b=large.1&s=2.1.0&w=60
 const encodeCounts = (c: Counts) =>
   Object.entries(c)
@@ -67,26 +55,6 @@ const decodeCounts = (v: unknown, allowed: readonly { id: string }[]): Counts =>
   }
   return out;
 };
-
-const Stepper = ({ value, onChange, label }: { value: number; onChange: (n: number) => void; label: string }) => (
-  <span className={styles.stepper}>
-    <button type="button" aria-label={`Fewer ${label}`} onClick={() => onChange(Math.max(0, value - 1))}>
-      −
-    </button>
-    <input
-      type="number"
-      min={0}
-      max={999}
-      inputMode="numeric"
-      aria-label={label}
-      value={value}
-      onChange={(e) => onChange(Math.min(999, Math.max(0, Number.parseInt(e.target.value, 10) || 0)))}
-    />
-    <button type="button" aria-label={`More ${label}`} onClick={() => onChange(Math.min(999, value + 1))}>
-      +
-    </button>
-  </span>
-);
 
 const PowerPlanner = () => {
   const router = useRouter();

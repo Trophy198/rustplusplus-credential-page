@@ -279,3 +279,106 @@
     position: static;
   }
 }
+
+/* Upkeep calculator */
+.segmented {
+  display: inline-flex;
+  border: 1px solid #4f4d4d;
+  border-radius: 6px;
+  overflow: hidden;
+  margin: 0.25rem 0 0.9rem;
+}
+
+.segmented button {
+  background: #2a2a2a;
+  color: var(--color-text);
+  border: 0;
+  padding: 6px 12px;
+  font-size: 0.9rem;
+}
+
+.segmented button[aria-checked='true'] {
+  background: var(--color-primary);
+  color: #fff;
+}
+
+.lineRow {
+  justify-content: flex-start !important;
+  flex-wrap: wrap;
+}
+
+.lineRow select,
+.inline input,
+.amounts input {
+  background: #1f1f1f;
+  color: var(--color-text);
+  border: 1px solid #4f4d4d;
+  border-radius: 4px;
+  padding: 4px 8px;
+  font-size: 0.95rem;
+}
+
+.lineRow select {
+  min-width: 0;
+  flex: 1 1 140px;
+}
+
+.remove {
+  background: transparent;
+  color: #9a9a9a;
+  border: 0;
+  font-size: 1.2rem;
+  padding: 0 6px;
+}
+
+.remove:hover {
+  color: #f2a199;
+}
+
+.addLine {
+  background: transparent;
+  color: #7cc4ff;
+  border: 1px dashed #4f4d4d;
+  border-radius: 6px;
+  padding: 6px 12px;
+  margin: 0.25rem 0 0.75rem;
+}
+
+.amounts {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+  gap: 10px;
+}
+
+.amounts label {
+  display: grid;
+  gap: 4px;
+  font-size: 0.85rem;
+  color: var(--color-link-text);
+}
+
+.amounts input {
+  width: 100%;
+}
+
+.inline {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.inline input {
+  width: 80px;
+}
+
+.hint {
+  font-size: 0.9rem;
+  color: var(--color-link-text);
+  margin-bottom: 0.75rem;
+}
+
+.sub {
+  font-weight: 400;
+  color: #9a9a9a;
+}
