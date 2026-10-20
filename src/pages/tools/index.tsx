@@ -18,8 +18,9 @@ const ToolsIndex = ({ tools, menuItems }: InferGetStaticPropsType<typeof getStat
     <section className={styles.container}>
       <Heading>Rust Tools</Heading>
       <Paragraph>
-        Calculators for the parts of Rust that Rust+ players run into: base electricity first. Every tool runs in your
-        browser, shows where its numbers come from, and lets you change the assumptions it makes.
+        Calculators for the parts of Rust that Rust+ players run into: base power, Tool Cupboard upkeep and farming.
+        Every tool runs in your browser, shows where its numbers come from, and lets you change the assumptions it
+        makes.
       </Paragraph>
       <div className={styles.gridcontainer}>
         {tools.map((t) => (
