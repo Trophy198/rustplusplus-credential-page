@@ -2,8 +2,10 @@
  * Pure Tool Cupboard upkeep maths.
  *
  * Upkeep per period = build cost × blended bracket fraction, where the
- * fraction is the average of the bracket rates over all blocks. Deployables
- * that pay upkeep are charged at the same blended rate.
+ * fraction is the average of the bracket rates over all building blocks.
+ * Doors and other non-block entities pay the same rate without counting as
+ * blocks (High External Walls pay a fixed rate). The game keeps fractional
+ * upkeep and only takes whole units from the TC, so nothing is rounded here.
  */
 import type { Deployable, Grade, Resource, Shape } from './constants';
 
@@ -47,34 +49,45 @@ export interface BaseEstimate {
   blocks: number;
   buildCost: Amounts;
   fraction: number;
-  /** Upkeep per period (24 h by default), rounded up per resource. */
+  /** Upkeep per period (24 h by default), unrounded, including the group tax. */
   upkeep: Amounts;
+  /** Extra share from the group tax (0.04 = +4%). */
+  tax: number;
 }
 
 export function estimateBase(
   lines: readonly BlockLine[],
   deployables: Record<string, number>,
   data: UpkeepData,
+  tax = 0,
 ): BaseEstimate {
   const buildCost = zero();
+  const atBlendedRate = zero(); // cost of everything that pays the building's blended rate
+  const fixed = zero(); // upkeep from fixed-rate entities (High External Walls)
   let blocks = 0;
   for (const l of lines) {
     const shape = data.shapes.find((s) => s.id === l.shape);
     const grade = data.grades.find((g) => g.id === l.grade);
     if (!shape || !grade || l.count <= 0) continue;
-    buildCost[grade.resource] += Math.round(grade.fullCost * shape.factor) * l.count;
+    const cost = Math.ceil(grade.fullCost * shape.factor) * l.count;
+    buildCost[grade.resource] += cost;
+    atBlendedRate[grade.resource] += cost;
     blocks += l.count;
   }
+  // Doors and other entities pay upkeep but don't count as blocks.
   for (const d of data.deployables) {
     const n = deployables[d.id] ?? 0;
     if (n <= 0) continue;
-    for (const [r, c] of Object.entries(d.cost) as [Resource, number][]) buildCost[r] += c * n;
-    blocks += n;
+    for (const [r, c] of Object.entries(d.cost) as [Resource, number][]) {
+      buildCost[r] += c * n;
+      if (d.fixedRate === undefined) atBlendedRate[r] += c * n;
+      else fixed[r] += c * n * d.fixedRate;
+    }
   }
   const fraction = blendedFraction(blocks, data.brackets);
   const upkeep = zero();
-  for (const r of RESOURCE_IDS) upkeep[r] = Math.ceil(buildCost[r] * fraction);
-  return { blocks, buildCost, fraction, upkeep };
+  for (const r of RESOURCE_IDS) upkeep[r] = (atBlendedRate[r] * fraction + fixed[r]) * (1 + tax);
+  return { blocks, buildCost, fraction, upkeep, tax };
 }
 
 export interface Protection {

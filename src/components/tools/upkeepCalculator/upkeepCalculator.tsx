@@ -18,6 +18,7 @@ import {
   RESOURCES,
   SHAPES,
   TC_SLOTS,
+  groupTax,
   type Grade,
   type Resource,
 } from '@/lib/upkeep/constants';
@@ -72,6 +73,9 @@ const PRESETS: { label: string; lines: BlockLine[]; deployables: Counts }[] = [
     deployables: { armoreddoor: 2, metaldoor: 6, garage: 2 },
   },
 ];
+
+/** Upkeep keeps fractions; show one decimal for small amounts. */
+const amount = (n: number) => (n > 0 && n < 10 ? n.toFixed(1) : num(n));
 
 const RES_SHORT: Record<Resource, string> = { wood: 'Wood', stone: 'Stone', metal: 'Metal frags', hqm: 'HQM' };
 /** For use mid-sentence. */
@@ -138,6 +142,7 @@ const UpkeepCalculator = () => {
   const [known, setKnown] = useState<Amounts>(zero());
   const [stock, setStock] = useState<Amounts>(zero());
   const [targetDays, setTargetDays] = useState(3);
+  const [players, setPlayers] = useState(1);
   const [copied, setCopied] = useState(false);
   const loaded = useRef(false);
 
@@ -164,11 +169,16 @@ const UpkeepCalculator = () => {
     }
     if (k) setKnown(k);
     if (q.m === 'known' && k) setMode('known');
+    const pl = Number(q.p);
+    if (pl >= 1 && pl <= 200) setPlayers(Math.floor(pl));
     if (t) setStock(t);
     else setStock({ ...zero(), stone: 2000, metal: 200 });
   }, [router.isReady, router.query]);
 
-  const estimate = useMemo(() => estimateBase(lines, deployables, DATA), [lines, deployables]);
+  const estimate = useMemo(
+    () => estimateBase(lines, deployables, DATA, groupTax(players)),
+    [lines, deployables, players],
+  );
   const upkeep = mode === 'known' ? known : estimate.upkeep;
   const prot = useMemo(() => protection(stock, upkeep), [stock, upkeep]);
   const target = useMemo(() => fillFor(upkeep, targetDays), [upkeep, targetDays]);
@@ -192,6 +202,7 @@ const UpkeepCalculator = () => {
         .join(',');
       if (d) params.set('d', d);
     }
+    if (mode === 'estimate' && players > 1) params.set('p', String(players));
     params.set('t', encodeAmounts(stock));
     return `${window.location.origin}${window.location.pathname}?${params.toString().replace(/%2C/g, ',')}`;
   };
@@ -287,7 +298,7 @@ const UpkeepCalculator = () => {
                   + Add building pieces
                 </button>
                 <details open={DEPLOYABLES.some((d) => deployables[d.id])}>
-                  <summary>Doors, hatches and windows</summary>
+                  <summary>Doors, hatches, windows and high walls</summary>
                   <ul className={styles.rows}>
                     {DEPLOYABLES.map((d) => (
                       <li key={d.id}>
@@ -301,6 +312,19 @@ const UpkeepCalculator = () => {
                     ))}
                   </ul>
                 </details>
+                <label className={styles.inline}>
+                  Players authorised on the TC or code locks
+                  <input
+                    type="number"
+                    min={1}
+                    max={200}
+                    value={players}
+                    onChange={(e) => setPlayers(Math.max(1, Math.min(200, Number.parseInt(e.target.value, 10) || 1)))}
+                  />
+                </label>
+                <p className={styles.hint}>
+                  Groups of 5 or more pay extra upkeep: +2% for each of players 5 to 10, +4% for each player after that.
+                </p>
               </>
             ) : (
               <>
@@ -352,7 +376,13 @@ const UpkeepCalculator = () => {
               <>
                 <dt>Pieces counted</dt>
                 <dd>{num(estimate.blocks)}</dd>
-                <dt>Upkeep rate</dt>
+                {estimate.tax > 0 && (
+                  <>
+                    <dt>Group tax</dt>
+                    <dd>+{Math.round(estimate.tax * 100)}%</dd>
+                  </>
+                )}
+                <dt>Block upkeep rate</dt>
                 <dd>{(estimate.fraction * 100).toFixed(1)}% / day</dd>
               </>
             )}
@@ -360,7 +390,7 @@ const UpkeepCalculator = () => {
               <Fragment key={r.id}>
                 <dt>{r.name} per 24 h</dt>
                 <dd>
-                  {num(upkeep[r.id])}
+                  {amount(upkeep[r.id])}
                   <span className={styles.sub}> · lasts {formatMinutes(prot.hoursByResource[r.id] * 60)}</span>
                 </dd>
               </Fragment>

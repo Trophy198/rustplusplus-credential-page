@@ -17,9 +17,9 @@ ads: true
 
 ## How upkeep works
 
-A Tool Cupboard protects every building piece in its range from decay, as long as it holds the resources to pay for them. It charges a share of each piece's build cost every 24 hours, taken from the cupboard continuously.
+A Tool Cupboard protects every building piece in its range from decay, as long as it holds the resources to pay for them. It charges a share of each piece's build cost every 24 hours, taken from the cupboard a little at a time: every piece pays a few minutes ahead, every ten minutes.
 
-The share depends on **how many pieces the base has**, in brackets:
+The share depends on **how many building blocks the base has** (foundations, walls, floors, frames, stairs and roofs, twig included), in brackets:
 
 | Pieces | Charged per 24 h |
 |---|---|
@@ -28,9 +28,17 @@ The share depends on **how many pieces the base has**, in brackets:
 | Next 125 (66–190) | 20% |
 | Every piece after 190 | 33.3% |
 
-So upkeep grows faster than the base. A 2×2 house of about 30 pieces pays around 12% of its build cost a day; a compound of 300 pieces pays over 25%. The calculator blends the brackets across your whole base, the same way the cupboard does.
+The cupboard doesn't charge the first 15 blocks less than the rest: it blends the brackets into **one rate for the whole base**, and every piece pays that rate. So upkeep grows faster than the base. A 2×2 house of 28 blocks pays about 12% of its build cost a day; a compound of 300 blocks pays about 23.5%.
 
-Each piece pays in the material of its grade: wood, stone, metal fragments or high quality metal. A stone wall costs 300 stones to build and roughly 30 to 100 stones a day to keep, depending on how big the base is. Doors, hatches and other pieces that need upkeep count as well.
+Each piece pays in the material of its grade: wood, stone, metal fragments or high quality metal. A stone wall costs 300 stones to build and roughly 30 to 100 stones a day to keep, depending on how big the base is. The game keeps fractions and takes whole units as they add up, so the calculator doesn't round daily amounts.
+
+**Doors, hatches, garage doors and window bars** pay the same rate on the resources they were crafted from, but they don't count as blocks, so adding doors never pushes the base into a higher bracket. Gears and ladders in a recipe don't count.
+
+**High External Walls and Gates** have paid a fixed 20% since the August 2026 update, whatever the size of the base. A stone or wooden high wall works out to about 267 a day each, a gate to 600.
+
+## Bigger groups pay more
+
+Since the September 2026 update, upkeep also rises with the size of the group. Everyone authorised on the Tool Cupboard or on the base's code locks counts, guest codes included, and so does anyone removed in the last 24 hours. Up to 4 players pay nothing extra. Each of players 5 to 10 adds 2%, and every player after that adds 4%, up to a maximum of +300%. A group of 6 pays 4% more; a group of 12 pays 20% more. Set the number of players in the calculator; hovering the upkeep cost in your TC shows the rate you are paying.
 
 ## When one resource runs out
 
@@ -42,7 +50,11 @@ A Tool Cupboard has 24 slots for upkeep resources. Wood, stones and metal fragme
 
 ## Server settings
 
-Servers can change how upkeep works: the length of the upkeep period, the bracket percentages, or switch upkeep off. If your TC shows different numbers from the estimate, trust the TC and use **Copy from my TC**.
+Servers can change how upkeep works: the length of the upkeep period, the bracket sizes and percentages, building costs, or switch upkeep off. If your TC shows different numbers from the estimate, trust the TC and use **Copy from my TC**.
+
+## Where the numbers come from
+
+Building costs come from the game's own item data (build of 10 October 2026). The bracket model and defaults come from the server code and its 2026 settings. The high wall and group changes come from Facepunch's August and September 2026 update notes. Some 2026 calculators add multipliers for distance from the TC or how full it is; those don't exist in the game.
 
 ## Keep an eye on it from your phone or Discord
 
