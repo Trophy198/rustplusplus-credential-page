@@ -1,0 +1,66 @@
+---
+title: "Farm planner and genetics"
+pageTitle: "Rust Farm Planner and Genetics Calculator: Crossbreeding, Cloth per Hour, Water and Light"
+description: "Predict Rust crossbreeding results gene by gene, and size a farm: planters, cloth or food per hour, sprinklers, pumps, ceiling lights and power. Built on the game's own formulas, checked October 2026."
+order: 3
+updated: "2026-10-20"
+ads: true
+---
+
+## Two tools in one
+
+**Crossbreeding** shows what every plant in a planter turns into when it crossbreeds, given its neighbours. Use it to plan where to put a fresh seed or clone so it picks up good genes.
+
+**Farm size and yield** works the other way: pick a crop, its genes and how much you want per hour, and get the number of planters, how fast the plants grow, the water, sprinklers, pumps and ceiling lights, and the power for all of it, with a link that opens the [power planner](/tools/power-planner) already filled in.
+
+## Genes, briefly
+
+Every plant has six gene slots. Each slot holds one of five genes:
+
+| Gene | Effect | Crossbreeding weight |
+|---|---|---|
+| **G** | Grows 25% faster per G | 0.6 |
+| **Y** | 25% more yield per Y, and one more clone for every two Y | 0.6 |
+| **H** | Copes better with cold and with planting in the ground | 0.6 |
+| **W** | Drinks 10% more water per W | 1.0 |
+| **X** | Empty slot, does nothing | 1.0 |
+
+The effects add up in a straight line: three G make a plant grow 75% faster, six Y give 150% more yield. A hemp plant in perfect conditions gives 40 cloth with no Y and 85 with six.
+
+**GGGYYY** is the usual target for hemp: fast and productive, with three clones per plant so you can keep the genes going. **GGYYYY** trades a little speed for more cloth per harvest.
+
+## How crossbreeding works
+
+About twenty minutes after planting, a plant spends a short time in its **Crossbreed** stage. At that moment it looks at the other plants of the same kind in the **same planter** within about 1.5 m. In a large planter that is all eight surrounding plants for the middle one, five for an edge plant and three for a corner. Plants in the ground never crossbreed.
+
+For each of its six slots, the plant adds up the weights of its neighbours' genes in that slot. The heaviest gene type wins the slot **only if its total is greater than the weight of the plant's own gene** there. The plant's own gene doesn't add to anything; it only sets the bar to beat.
+
+- One G neighbour (0.6) never replaces a G (0.6).
+- Two G neighbours (1.2) replace a W (1.0).
+- A single W or X neighbour (1.0) replaces a G, Y or H (0.6). That is why one bad plant can ruin a good one.
+- If two gene types tie for the highest total, the game takes whichever it counted first. You can't predict which, so the calculator shows both.
+
+Neighbours count with the genes they have at that moment, at any stage. Plants crossbreed one at a time, so a neighbour that has already crossbred passes on its new genes. **Clones** are exact copies of the plant you cut them from and keep their genes until they crossbreed in their new planter; seeds from a harvest come with random genes.
+
+A common way to work: fill a planter with plants that already have good genes, plant the new seed or clone in the middle, and let the good genes take over the slots you want.
+
+## Growing fast
+
+A plant grows at full speed when every condition is at least at the crop's optimum: light, water, ground and temperature. Growth follows the **weakest** of the four, so one bad condition slows everything.
+
+- **Light:** sunlight outdoors. Indoors, a powered **Ceiling Light** (or Ceiling Fluorescent Light) within about 3 m of the planter gives full light day and night. No other lamp counts.
+- **Water:** a planter grows best at about **60% full**. Below that, growth slows; above it, it slows again, to roughly 70% of full speed for hemp when the planter is completely full. So running sprinklers non-stop is not ideal; the planner works out how often they need to run.
+- **Ground:** a planter on its own is not quite enough for most crops. **Fertilizer**, one per plant, makes the ground perfect. Without it hemp grows at about two thirds of full speed.
+- **Temperature:** best around 30 °C. Planters never count as colder than 15 °C, and a heater nearby warms them.
+
+From planting to ripe, hemp takes **about 1 h 52 min** in perfect conditions with no G genes, and about **1 h 04 min** with three G. A ripe plant stays ripe for 24 hours before it starts to die.
+
+## Water and power
+
+- A **sprinkler** splashes water every few seconds onto every planter within 3 m, sharing it between them, and uses no electricity.
+- A **water pump** draws water from the ground for 5 rW, enough for about four sprinklers running at once.
+- A **ceiling light** draws 2 rW. Placed where four large planters meet, one light should reach all four; that follows from the game's 3 m range and hasn't been tested on every layout, so add a light if a planter shows poor light.
+
+## Where the numbers come from
+
+The formulas are from the game's server code: growth speed, yield, cloning, water use, sprinklers, lights and the crossbreeding rule. Crop, planter and device values were extracted from the game files of 9 October 2026. Facepunch's 2025 and 2026 update notes added the 24-hour ripe stage, the triangle planter, wheat and flowers. The newest public copy of the server code is from 2024; Facepunch reworked plant collisions in March 2026 and said gameplay didn't change, but if crossbreeding ever behaves differently in game, trust the game.

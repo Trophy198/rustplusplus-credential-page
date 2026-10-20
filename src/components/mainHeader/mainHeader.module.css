@@ -71,3 +71,19 @@
     font-weight: 600;
   }
 }
+
+/* Phones: Guides, Tools and Docs must fit next to the menu button and title. */
+@media (max-width: 480px) {
+  .container {
+    padding: 1rem;
+  }
+  .title {
+    font-size: 1.3rem;
+  }
+  .rustplusplusActionButton {
+    margin-right: 0.4rem;
+    padding: 8px 9px;
+    min-height: 34px;
+    font-size: 0.85rem;
+  }
+}

@@ -297,7 +297,8 @@
   font-size: 0.9rem;
 }
 
-.segmented button[aria-checked='true'] {
+.segmented button[aria-checked='true'],
+.segmented button[aria-selected='true'] {
   background: var(--color-primary);
   color: #fff;
 }
@@ -308,6 +309,7 @@
 }
 
 .lineRow select,
+.inline select,
 .inline input,
 .amounts input {
   background: #1f1f1f;
@@ -381,4 +383,138 @@
 .sub {
   font-weight: 400;
   color: #9a9a9a;
+}
+
+/* Farm planner: gene slots */
+.genes {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  flex-wrap: wrap;
+}
+
+.genes button {
+  width: 28px;
+  height: 28px;
+  border: 0;
+  border-radius: 4px;
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: #111;
+}
+
+.geneG,
+.geneY,
+.geneH {
+  background: #7bd389;
+}
+
+.geneW,
+.geneX {
+  background: #f08a7e;
+}
+
+.geneText {
+  width: 76px;
+  margin-left: 6px;
+  padding: 4px 6px;
+  background: #1f1f1f;
+  color: var(--color-text);
+  border: 1px solid #4f4d4d;
+  border-radius: 4px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  text-transform: uppercase;
+}
+
+.genesResult {
+  display: inline-flex;
+  gap: 3px;
+  flex-wrap: wrap;
+}
+
+.genesResult span {
+  min-width: 22px;
+  padding: 0 3px;
+  text-align: center;
+  border-radius: 3px;
+  font-weight: 700;
+  font-size: 0.85rem;
+  color: #111;
+}
+
+.geneTie {
+  background: #f0c36a;
+}
+
+.geneChanged {
+  outline: 2px solid #fff;
+  outline-offset: 1px;
+}
+
+.planterGrid {
+  display: grid;
+  gap: 8px;
+  margin: 0.75rem 0;
+}
+
+.cell {
+  position: relative;
+  border: 1px solid #4f4d4d;
+  border-radius: 6px;
+  padding: 8px 8px 10px;
+  min-height: 92px;
+  display: grid;
+  align-content: start;
+  gap: 6px;
+  min-width: 0;
+}
+
+.cell .remove {
+  position: absolute;
+  top: 2px;
+  right: 2px;
+}
+
+.cell .geneText {
+  display: none;
+}
+
+.cellResult {
+  display: grid;
+  gap: 3px;
+  font-size: 0.8rem;
+  color: var(--color-link-text);
+}
+
+/* Narrow screens: planter cells switch from six buttons to the six-letter text box. */
+@container (max-width: 520px) {
+  .cell .genes button {
+    display: none;
+  }
+
+  .cell .geneText {
+    display: block;
+    width: 100%;
+    margin-left: 0;
+    font-size: 0.9rem;
+  }
+
+  .cell .genes {
+    width: 100%;
+  }
+
+  .genesResult {
+    gap: 1px;
+    flex-wrap: nowrap;
+  }
+
+  .genesResult span {
+    min-width: 0;
+    padding: 0 1px;
+    font-size: 0.75rem;
+  }
+
+  .cell {
+    padding: 6px 6px 8px;
+  }
 }

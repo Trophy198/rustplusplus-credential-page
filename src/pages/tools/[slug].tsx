@@ -15,6 +15,7 @@ import styles from '@/components/document/pages/common.module.css';
 const TOOLS: Record<string, ComponentType> = {
   'power-planner': dynamic(() => import('@/components/tools/powerPlanner/powerPlanner')),
   'upkeep-calculator': dynamic(() => import('@/components/tools/upkeepCalculator/upkeepCalculator')),
+  'farm-planner': dynamic(() => import('@/components/tools/farmPlanner/farmPlanner')),
 };
 
 interface Props {
