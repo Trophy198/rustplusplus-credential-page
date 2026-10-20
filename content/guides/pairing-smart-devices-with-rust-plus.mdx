@@ -3,7 +3,7 @@ title: "Pairing smart devices"
 pageTitle: "Pairing Smart Switches, Smart Alarms and Storage Monitors With Rust+"
 description: "How to pair each smart device with the Rust+ app or the rustplusplus bot, what each one gives you once paired, what breaks pairings, and the wiring that makes alarms and monitors actually useful."
 order: 16
-updated: "2026-09-24"
+updated: "2026-10-20"
 ads: true
 ---
 
@@ -19,7 +19,7 @@ Smart devices are the reason to bother with Rust+ at all. A paired Smart Switch 
 
 1. Hold a **Wire Tool** (or the Hose Tool for fluid devices) and look at the device.
 2. Hold the interact key to open the device's menu and choose **Pair**.
-3. On your phone (or in the bot's Discord channel) accept the pairing notification within a few seconds; it expires like a server pairing.
+3. On your phone (or in the bot's Discord channel) accept the pairing notification promptly; it expires after a short while, like a server pairing.
 4. The device appears in the app under the server, with a default name you can change.
 
 If nothing arrives on the phone, the same push-delivery problems as server pairing apply: [notifications](/guides/rust-plus-notifications-not-working).
@@ -54,7 +54,7 @@ CCTV and PTZ cameras are not "paired". You view them by entering the identifier 
 
 ## Things that break device pairings
 
-- **Wipe.** Everything is gone; pair again.
+- **Wipe.** Everything is gone; pair again. Dates and what else resets: [force wipe schedule](/guides/rust-force-wipe-schedule).
 - **The device was picked up and placed again.** It is a new entity; pair again.
 - **Server re-paired after an IP change.** Devices stay listed but may need re-pairing if the server's identity changed.
 - **Expired bot credentials.** Devices paired under credentials that have since expired stop reporting to the bot; regenerate credentials and pair again ([why credentials expire](/guides/rustplusplus-credentials-explained)).

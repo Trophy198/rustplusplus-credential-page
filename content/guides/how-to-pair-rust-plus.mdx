@@ -1,0 +1,65 @@
+---
+title: "How to pair Rust+"
+pageTitle: "How to Pair Rust+ With a Server, Step by Step (Phone and Discord Bot)"
+description: "Set up Rust+ from scratch: install the app, sign in with Steam, press Pair with server in game and accept the notification. Then the same steps for smart devices and for the rustplusplus Discord bot."
+order: 21
+updated: "2026-10-20"
+ads: true
+---
+
+Pairing is how Rust+ learns which server to show you. You start it from **inside the game**, not from the app: the server sends a pairing request to Facepunch, Facepunch pushes it to every Rust+ device signed in with your Steam account, and accepting it saves the server in the app. It takes about a minute the first time. These steps are for the PC version of Rust; [console players do not have Rust+](/guides/rust-plus-on-console).
+
+## What you need first
+
+- **Rust on PC**, and a server that has Rust+ enabled. Most official and large community servers do. If the server has it off, the in-game menu tells you (see the last section).
+- **A phone** with the Rust+ app from the App Store or Google Play. It is free and made by Facepunch.
+- **The same Steam account** on both. The account playing the game is the account the pairing is sent to.
+- **Notifications allowed** for Rust+ on the phone. Pairing arrives as a push notification, so if notifications are blocked, nothing will appear.
+
+## 1. Sign in to the app
+
+Open Rust+ and choose to sign in with Steam. The app opens Facepunch's login page, which hands you to Steam. Sign in, approve the Steam Guard prompt in the Steam mobile app or enter the code, and you are returned to Rust+. Allow notifications when the app asks.
+
+If the app keeps returning you to the sign-in screen, fix that before going further: [Please sign in loop](/guides/rust-plus-please-sign-in).
+
+## 2. Join the server in game
+
+Start Rust on your PC and connect to the server you want to pair. You need to be **on the server**, fully loaded in, not in the main menu. Pairing is a request from that server, so it has to be the one you are playing on.
+
+## 3. Press Pair with server
+
+Press **ESC** and open the **Rust+** tab. Click **Pair with server**. Within a few seconds your phone should show a notification for that server.
+
+## 4. Accept the notification
+
+Tap the notification, and the app opens with the server's name and asks you to confirm. Accept it. The server now appears in your list with its map, team, server info and events. Do it promptly: the request expires after a short while, and if it does, press the button again.
+
+That is the whole server pairing. You do it once per server, and it usually survives restarts. After a [monthly force wipe](/guides/rust-force-wipe-schedule) or a server move to a new address you may need to repeat it.
+
+## 5. Pair smart devices (optional)
+
+Smart Switches, Smart Alarms and Storage Monitors pair the same way, one device at a time. Hold a **Wire Tool**, look at the device, hold the interact key and choose **Pair**. Accept the notification on the phone and the device appears under the server in the app. What each one does and how to wire it: [Pairing smart devices](/guides/pairing-smart-devices-with-rust-plus).
+
+## If nothing arrives on your phone
+
+Check these in order; the first one that fails is your problem.
+
+1. **Still on the server?** Disconnecting or crashing before you press Pair sends nothing.
+2. **Does the Rust+ tab show a Pair button at all?** If it says Rust+ is disabled, the server has it off and only the admin can change that: [Pair button missing](/guides/rust-plus-pair-button-not-showing).
+3. **Same Steam account in the app and in game?** If you have more than one, check the name in the app.
+4. **Notifications on?** Check the phone's settings for Rust+, and turn off battery saving or focus modes while you try.
+5. **Try an official server.** If pairing works there, the community server is the problem, not your phone.
+
+The full list of causes, including the ones on the server side: [Rust+ not pairing](/guides/rust-plus-not-pairing). If pairing worked but the server then shows offline, that is a different connection: [Server offline](/guides/rust-plus-server-offline).
+
+## Pairing with the rustplusplus Discord bot
+
+The [rustplusplus](/docs) bot pairs exactly like the phone, because to Facepunch it is one more Rust+ device on your Steam account. The difference is where the notification lands.
+
+1. Set up the bot and start it: [rustplusplus setup guide](/guides/rustplusplus-setup-guide).
+2. Register your credentials with the `/credentials add` command from this site's **Log In** button. This is what makes the bot a device on your account: [how credentials work](/guides/rustplusplus-credentials-explained).
+3. Join the server in game and press **ESC → Rust+ → Pair with server**, as above.
+4. The server appears in the bot's `servers` channel in Discord. Press **Connect**.
+5. Pair smart devices in game the same way as on a phone; each one appears in its own Discord channel.
+
+You can keep the phone app too. With both registered on the same Steam account, a pairing request normally reaches both the phone and the bot. If the bot never shows the server while the phone does, the credentials were registered for a different Steam account, or they have expired: credentials last 14 days, and you generate new ones on this site when they do.

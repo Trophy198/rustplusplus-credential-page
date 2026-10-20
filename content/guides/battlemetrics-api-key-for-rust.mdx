@@ -1,0 +1,57 @@
+---
+title: "BattleMetrics API key"
+pageTitle: "BattleMetrics API Key for Rust Bots (Now Paid): How to Set It Up"
+description: "BattleMetrics stopped free API access in July 2026; requests without a paid token now get Access denied. What that breaks in Rust Discord bots, which plan is enough, and how to add the token to rustplusplus."
+order: 22
+updated: "2026-10-20"
+ads: true
+---
+
+If player trackers, online player lists or a `/players` command stopped working in your Rust Discord bot this summer, the bot is probably fine. **BattleMetrics ended free access to its API in July 2026.** Every request now needs a token from an account with an active subscription, and requests without one are refused. We checked on 20 October 2026: an anonymous request to the API returns HTTP 403 with the message *"Access denied. A subscription is required to use the API."*
+
+## What BattleMetrics is used for
+
+[BattleMetrics](https://www.battlemetrics.com) tracks game servers and the players on them. For Rust, that means server lists, population history, and who is online right now under which name. Rust+ itself does not provide any of this: it only knows about your own team. So any bot feature that involves **players outside your team** usually comes from BattleMetrics:
+
+- trackers that alert you when a specific enemy logs on or off,
+- the full online player list for a server,
+- name history and play time for a player,
+- server population and rank.
+
+Bots that only use Rust+ (team chat, smart switches, alarms, storage monitors, the map, events) are not affected.
+
+## Which plan you need
+
+API access is included in **every paid plan**, including the cheapest. On BattleMetrics' [subscription page](https://www.battlemetrics.com/subscription) on 20 October 2026, that was **Basic at US$1 a month, billed yearly**; Premium was US$5 a month and the RCON plans started at US$10 a month. The RCON plans are for server owners; a team bot does not need them. The rustplusplus maintainer also recommends Basic.
+
+Prices are BattleMetrics' and may change; check the page before you pay.
+
+## Create the token
+
+1. Sign in to BattleMetrics, subscribe to a plan, and open **[Developers](https://www.battlemetrics.com/developers)** in your account.
+2. Create a new personal access token. A tracker bot only reads public server and player data, so leave RCON and organization permissions unticked.
+3. Copy the token. It is a long string starting with `eyJ`.
+
+Treat the token like a password. Anyone who has it can make requests as your account and use up your rate limit. Do not paste it into Discord, a screenshot or a public repository. If it leaks, revoke it on the same page and create a new one.
+
+## Add it to rustplusplus
+
+rustplusplus reads the token from its config. Set it in one of two places:
+
+- the environment variable `RPP_BATTLEMETRICS_TOKEN` (best for Docker and hosted setups), or
+- `battlemetrics.token` in `config/index.js`, which by default reads that variable and falls back to an empty string.
+
+Restart the bot. With a token set, it checks BattleMetrics for each connected server about once a minute, and the trackers channel, the `/players` command and the BattleMetrics player buttons in the server information come back. With the token left empty, the bot skips BattleMetrics completely: those features stay switched off, and everything else works as before. The official page for this is [Battlemetrics & Trackers](/docs/battlemetrics-and-trackers).
+
+One token serves the whole bot. Whoever hosts the bot pays for one subscription, not each teammate.
+
+## If it still doesn't work
+
+- **Still getting 403?** The subscription is not active on the account that created the token, or the token was copied with a space or line break. Create a new token after the subscription shows as active.
+- **401, *"The authentication token provided is invalid or expired"*?** The token was revoked, expired or mistyped. Create a new one.
+- **Trackers empty but no errors?** The server must be found on BattleMetrics. Search for it on the site; if it isn't listed there, there is nothing to track.
+- **Changed the config but nothing changed?** The token is read at startup. Restart the bot, and if you use Docker, recreate the container so the new environment variable is passed in.
+
+## Other bots and tools
+
+This change hits every tool that used the free API, not just rustplusplus: server status bots, population trackers, community sites and scripts. If a tool you use shows empty player data since July 2026, ask its developer whether it now needs a BattleMetrics token. Hosted bot services may handle it for you. RustPlusBot, for example, lists BattleMetrics-based features as part of its paid plan; see our [bot comparison](/guides/rustplusplus-vs-rustplusbot-vs-rustlink).
