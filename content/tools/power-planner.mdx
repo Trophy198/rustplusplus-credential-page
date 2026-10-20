@@ -1,0 +1,51 @@
+---
+title: "Power planner"
+pageTitle: "Rust Power Planner: Battery Runtime, Solar, Wind and Generator Calculator"
+description: "Add up your Rust base's power draw, see how long your batteries last, and how many solar panels, wind turbines or generators keep them charged through the night. Free, with editable assumptions."
+order: 1
+updated: "2026-10-20"
+ads: true
+---
+
+## How to use it
+
+1. **Add what you are powering.** Turrets, lights, pumps, alarms: set the count for each. Values marked ≈ differ between sources; hover them for details.
+2. **Add your batteries.** The planner adds their storage and their maximum output.
+3. **Add your power sources** and read the result: how long a full bank lasts, whether your sources keep up over a day and night, and what it would take to run the load on solar, wind or generators alone.
+
+Use **Copy link to this setup** to share the plan with your team. The link restores everything you entered.
+
+## How Rust electricity works, briefly
+
+Power in Rust is measured in **rW** (Rust watts), and stored energy in **rWm**: one rW for one real minute. A Large Battery holds 24,000 rWm, so it can run a 40 rW load for 600 minutes, ten real hours, if nothing charges it.
+
+**Every device needs its full rating or it stays off.** Power flows down the wire in order: each device takes its full draw and passes the rest on. An Auto Turret that receives 9 rW instead of 10 does not run at half strength; it doesn't run at all. When there isn't enough to go round, devices at the end of the chain go dark first.
+
+**Batteries lose 20% when charging.** A battery stores 80% of what goes in, so to keep a 40 rW load running indefinitely you need 50 rW of input. The planner assumes everything flows through your batteries, which is how most bases are wired and the safe way to size a system.
+
+**Each battery also has a speed limit.** It can only deliver so much at once: 15 rW for a Small Battery, 50 for a Medium and 100 for a Large. If your load is bigger than one battery's output, join batteries with a **Root Combiner**; their outputs add up.
+
+**Some things that look electrical are not.** Sprinklers use water only and draw no power. Splitters, branches, switches and most logic gates draw nothing either. An elevator draws 5 rW however many floors it has.
+
+## Choosing a power source
+
+- **Solar panels** peak at 20 rW and produce only while the sun is on them, on a curve that depends on which way they face. Measured over a full day, a pair of panels facing east and west collects roughly 940 to 1,075 rWm, so the planner counts about **480 rWm per panel per cycle** and assumes about 30 dark minutes in a 60-minute day/night cycle. They are free to run but need enough battery to carry the base through the dark. Servers can change their day length, and shade cuts output to nothing, so adjust the assumptions if your setup differs.
+- **Wind turbines** produce up to 150 rW, day and night, and more the higher and more exposed they are. Roughly 60 rW on average from six floors up and 80 from nine; much less near the ground or within 15 m of other turbines and buildings. Set the average that matches your build.
+- **Small generators** give a steady 40 rW but burn about 250 Low Grade Fuel per hour each. Good as a backup or for raid defense, expensive as a full-time source.
+
+## What the planner does not model
+
+- Logic: timers, switches, memory cells and blockers change *when* things draw power, not how much. The planner counts every device as always on, which sizes for the worst case.
+- Tesla Coils draw more the more power you feed them, up to 25 rW in current data. Facepunch's wiki still lists 35.
+- Auto Turrets need 11 rW instead of 10 if you also use their target or ammo outputs.
+- How fast each battery can charge. No first-party source gives these limits, so the planner doesn't cap charging.
+- The Power Plant grid from the August 2026 update. Transformer output depends on how many Heavy Fuses are in the plant, and published figures disagree.
+- Weather, shade and other turbines nearby lower solar and wind output. Be generous.
+
+## Where the numbers come from
+
+There is no official data file for Rust electricity. Values here were checked on 20 October 2026, after the August 2026 *Power Trip* update. The main sources were item data that [rusthelp](https://rusthelp.com) verified on 1 October 2026, the [rustrician](https://rustrician.io) handbook, Facepunch's wiki and Corrosion Hour. Where sources disagree, the planner marks the value with ≈ and uses the most recent, most widely confirmed figure.
+
+Older guides still carry pre-2026 numbers: a Small Battery of 150 rWm and 10 rW (now 400 and 15), CCTV at 5 rW (now 3), and splitters and branches drawing 1 rW (now none). Facepunch occasionally rebalances electricity in monthly updates, so the values are re-checked after updates; if something looks wrong after a [force wipe](/guides/rust-force-wipe-schedule), trust what the game shows.
+
+For pairing Smart Switches and alarms to your phone or Discord, see [Pairing smart devices](/guides/pairing-smart-devices-with-rust-plus).

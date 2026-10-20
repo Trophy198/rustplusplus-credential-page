@@ -72,6 +72,9 @@ const MainHeader = () => {
             <Link href="/guides" className={styles.rustplusplusActionButton}>
               Guides
             </Link>
+            <Link href="/tools" className={styles.rustplusplusActionButton}>
+              Tools
+            </Link>
             <Link href="/docs" className={styles.rustplusplusActionButton}>
               Docs
             </Link>

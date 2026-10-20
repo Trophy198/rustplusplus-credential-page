@@ -30,6 +30,7 @@ const Footer = () => {
           <Link href="/privacy">Privacy</Link>
           <Link href="/terms">Terms</Link>
           <Link href="/guides">Guides</Link>
+          <Link href="/tools">Tools</Link>
           <Link href="/docs">Docs</Link>
         </nav>
         <p className={styles.legal}>

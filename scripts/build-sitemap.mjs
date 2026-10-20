@@ -12,6 +12,8 @@ if (!SITE_URL) throw new Error('SITE_URL not found in src/lib/site.ts');
 const entries = [
   { loc: '/', priority: '1.0' },
   { loc: '/docs', priority: '0.8' },
+  { loc: '/guides', priority: '0.8' },
+  { loc: '/tools', priority: '0.8' },
 ];
 
 const collect = (dir, base, priority) => {
@@ -25,6 +27,7 @@ const collect = (dir, base, priority) => {
 };
 collect('content/docs', '/docs/', '0.7');
 collect('content/guides', '/guides/', '0.8');
+collect('content/tools', '/tools/', '0.9');
 collect('content/pages', '/', '0.3');
 
 const xml =
