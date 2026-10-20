@@ -216,3 +216,18 @@
   text-decoration: none;
   display: inline-block;
 }
+
+.nextSteps {
+  max-width: 720px;
+  margin-top: 40px;
+  line-height: 1.9;
+}
+
+.nextSteps ul {
+  padding-left: 24px;
+}
+
+.nextStepsTitle {
+  font-size: 1.2rem;
+  margin-bottom: 8px;
+}
