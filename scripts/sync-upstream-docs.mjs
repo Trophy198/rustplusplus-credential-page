@@ -102,6 +102,10 @@ function transform(md, file) {
   return { title, description, body };
 }
 
+/** Frontmatter lines that change on every upstream commit or run, not with the docs themselves. */
+const VOLATILE = /^(upstream|upstreamSha|syncedAt): .*$/gm;
+const stable = (doc) => doc.replace(VOLATILE, '');
+
 async function main() {
   const commit = await json(`${API}/commits/${ref}`);
   const sha = commit.sha;
@@ -110,17 +114,16 @@ async function main() {
   const files = tree.tree.filter((t) => t.type === 'blob' && /^docs\/[^/]+\.md$/.test(t.path));
   const images = tree.tree.filter((t) => t.type === 'blob' && t.path.startsWith('docs/images/'));
 
+  // Previously synced docs (ours carry an upstream: line; hand-written files are left alone).
   await mkdir(OUT_DOCS, { recursive: true });
-  // Remove previously synced docs so deletions upstream propagate.
-  if (existsSync(OUT_DOCS)) {
-    for (const f of await readdir(OUT_DOCS)) {
-      const p = path.join(OUT_DOCS, f);
-      const head = (await readFile(p, 'utf8')).slice(0, 400);
-      if (head.includes('upstream:')) await unlink(p);
-    }
+  const previous = new Map();
+  for (const f of await readdir(OUT_DOCS)) {
+    if (!f.endsWith('.md')) continue;
+    const doc = await readFile(path.join(OUT_DOCS, f), 'utf8');
+    if (doc.slice(0, 400).includes('upstream:')) previous.set(f, doc);
   }
 
-  let n = 0;
+  const next = new Map();
   for (const f of files) {
     const name = path.basename(f.path, '.md');
     if (SKIP.has(name)) continue;
@@ -143,24 +146,35 @@ async function main() {
       '---',
       '',
     ].join('\n');
-    await writeFile(path.join(OUT_DOCS, `${slugOf(name)}.md`), fm + body + '\n');
-    n++;
+    next.set(`${slugOf(name)}.md`, fm + body + '\n');
   }
 
-  let m = 0;
-  for (const img of images) {
-    const rel = img.path.replace(/^docs\/images\//, '');
-    const dest = path.join(OUT_IMG, rel);
+  const newImages = images.filter((img) => !existsSync(path.join(OUT_IMG, img.path.replace(/^docs\/images\//, ''))));
+  const docsChanged =
+    previous.size !== next.size ||
+    [...next].some(([f, doc]) => !previous.has(f) || stable(previous.get(f)) !== stable(doc));
+
+  // Upstream commits that don't touch docs/ would otherwise rewrite every file's
+  // SHA and sync time, and the weekly Action would open an empty-looking PR.
+  if (!docsChanged && newImages.length === 0) {
+    console.log(`docs unchanged at ${REPO}@${sha.slice(0, 7)}, nothing written`);
+    return;
+  }
+
+  for (const f of previous.keys()) await unlink(path.join(OUT_DOCS, f)); // so deletions upstream propagate
+  for (const [f, doc] of next) await writeFile(path.join(OUT_DOCS, f), doc);
+
+  for (const img of newImages) {
+    const dest = path.join(OUT_IMG, img.path.replace(/^docs\/images\//, ''));
     await mkdir(path.dirname(dest), { recursive: true });
-    if (existsSync(dest)) continue;
     await writeFile(dest, await bytes(`${RAW}/${sha}/${img.path}`));
-    m++;
   }
   await writeFile(
     path.join(OUT_DOCS, '.sync.json'),
-    JSON.stringify({ repo: REPO, ref, sha, syncedAt, docs: n, imagesDownloaded: m }, null, 2) + '\n',
+    JSON.stringify({ repo: REPO, ref, sha, syncedAt, docs: next.size, imagesDownloaded: newImages.length }, null, 2) +
+      '\n',
   );
-  console.log(`synced ${n} docs, ${m} new images from ${REPO}@${sha.slice(0, 7)}`);
+  console.log(`synced ${next.size} docs, ${newImages.length} new images from ${REPO}@${sha.slice(0, 7)}`);
 }
 
 main().catch((e) => {
