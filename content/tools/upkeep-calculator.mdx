@@ -1,0 +1,49 @@
+---
+title: "Upkeep calculator"
+pageTitle: "Rust Upkeep Calculator: How Long Your Tool Cupboard Lasts"
+description: "Estimate your Rust base's upkeep per day, see how long the resources in your Tool Cupboard keep it protected, and how much to add for the days you are away. Free, shareable, built for Rust+ players."
+order: 2
+updated: "2026-10-20"
+ads: true
+---
+
+## How to use it
+
+1. **Get your upkeep.** Either describe your base, piece by piece and grade by grade, or switch to **Copy from my TC** and type in the upkeep your Tool Cupboard shows for 24 hours. Copying from the TC is exact; the estimate is for planning a base you haven't built yet, or checking what an upgrade will cost to keep.
+2. **Enter what is in your Tool Cupboard now.**
+3. Read how long you are protected, which resource runs out first, how much to add for the days you will be away, and the most a single TC can hold.
+
+**Copy link to this base** saves everything in a link you can send to your team.
+
+## How upkeep works
+
+A Tool Cupboard protects every building piece in its range from decay, as long as it holds the resources to pay for them. It charges a share of each piece's build cost every 24 hours, taken from the cupboard continuously.
+
+The share depends on **how many pieces the base has**, in brackets:
+
+| Pieces | Charged per 24 h |
+|---|---|
+| First 15 | 10% of their cost |
+| Next 50 (16–65) | 15% |
+| Next 125 (66–190) | 20% |
+| Every piece after 190 | 33.3% |
+
+So upkeep grows faster than the base. A 2×2 house of about 30 pieces pays around 12% of its build cost a day; a compound of 300 pieces pays over 25%. The calculator blends the brackets across your whole base, the same way the cupboard does.
+
+Each piece pays in the material of its grade: wood, stone, metal fragments or high quality metal. A stone wall costs 300 stones to build and roughly 30 to 100 stones a day to keep, depending on how big the base is. Doors, hatches and other pieces that need upkeep count as well.
+
+## When one resource runs out
+
+The cupboard keeps paying from whatever it has. If it runs out of one resource, only the pieces that need that resource start to decay; a stone base with metal doors loses its doors first when the metal is gone. That is why the calculator shows the limiting resource, and the time each resource lasts on its own.
+
+## Filling a Tool Cupboard
+
+A Tool Cupboard has 24 slots for upkeep resources. Wood, stones and metal fragments stack to 1,000 per slot, high quality metal to 100. For a large base, the slots run out before your patience does. **Most a full TC can hold** works out the mix that gives the longest protection in 24 slots.
+
+## Server settings
+
+Servers can change how upkeep works: the length of the upkeep period, the bracket percentages, or switch upkeep off. If your TC shows different numbers from the estimate, trust the TC and use **Copy from my TC**.
+
+## Keep an eye on it from your phone or Discord
+
+This calculator is for planning. To watch the real thing, put a **Storage Monitor** on your Tool Cupboard and pair it with Rust+: the app then shows what is inside the cupboard and how long it lasts, without logging in. With the [rustplusplus](/docs) Discord bot, the monitor posts to the `storagemonitors` channel and the in-game `!upkeep` command reports the time left on every monitored cupboard in team chat. [Pairing smart devices](/guides/pairing-smart-devices-with-rust-plus) shows how.
