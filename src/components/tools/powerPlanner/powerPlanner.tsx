@@ -96,6 +96,15 @@ const PowerPlanner = () => {
   const [assumptions, setAssumptions] = useState<Assumptions>(DEFAULT_ASSUMPTIONS);
   const [copied, setCopied] = useState(false);
   const loaded = useRef(false);
+  // Which consumer categories are expanded. Owned here (not derived from counts)
+  // so a section the user opened doesn't snap shut when its counts drop to 0.
+  const [openCats, setOpenCats] = useState<Set<Category>>(() => new Set<Category>(['defense']));
+  const reveal = (counts: Counts) =>
+    setOpenCats((prev) => {
+      const next = new Set(prev);
+      for (const c of CONSUMERS) if (counts[c.id]) next.add(c.category);
+      return next;
+    });
 
   // Restore from a shared link once the router has the query.
   useEffect(() => {
@@ -107,8 +116,10 @@ const PowerPlanner = () => {
     if (Object.keys(c).length || Object.keys(b).length) {
       setConsumers(c);
       setBatteries(b);
+      reveal(c);
     } else {
       setConsumers(PRESETS[0].consumers);
+      reveal(PRESETS[0].consumers);
       setBatteries(PRESETS[0].batteries);
       setSources(PRESETS[0].sources);
     }
@@ -151,6 +162,7 @@ const PowerPlanner = () => {
     setConsumers(p.consumers);
     setBatteries(p.batteries);
     setSources(p.sources);
+    reveal(p.consumers);
     trackEvent('power_planner_preset', { preset: p.label });
   };
 
@@ -185,7 +197,17 @@ const PowerPlanner = () => {
             {categories.map((cat) => (
               <details
                 key={cat}
-                open={cat === 'defense' || CONSUMERS.some((c) => c.category === cat && consumers[c.id])}
+                open={openCats.has(cat)}
+                onToggle={(e) => {
+                  const isOpen = e.currentTarget.open;
+                  setOpenCats((prev) => {
+                    if (prev.has(cat) === isOpen) return prev;
+                    const next = new Set(prev);
+                    if (isOpen) next.add(cat);
+                    else next.delete(cat);
+                    return next;
+                  });
+                }}
               >
                 <summary>{CATEGORY_LABELS[cat]}</summary>
                 <ul className={styles.rows}>
