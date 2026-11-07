@@ -19,12 +19,13 @@ const NEXT_STEPS = [
 interface DisplayProps {
   formattedCredentials?: string;
   expire_date?: string;
+  hasAuthToken?: boolean;
   error?: string;
   /** True when the request carried no credential cookie at all. */
   noCredential?: boolean;
 }
 
-const Display: NextPage<DisplayProps> = ({ formattedCredentials, expire_date, error, noCredential }) => {
+const Display: NextPage<DisplayProps> = ({ formattedCredentials, expire_date, hasAuthToken, error, noCredential }) => {
   const copyToClipboard = async () => {
     try {
       await navigator.clipboard.writeText(formattedCredentials || '');
@@ -76,6 +77,13 @@ const Display: NextPage<DisplayProps> = ({ formattedCredentials, expire_date, er
             <button className={styles.copyButton} onClick={copyToClipboard}>
               Copy to Clipboard
             </button>
+            {!hasAuthToken && (
+              <p className={styles.expireText}>
+                This credential was issued before the November 2026 Rust+ change and has no Rust+ auth token. Log out
+                and log in again to get a command that includes <code>rustplus_auth_token</code>, which updated bots
+                need to connect.
+              </p>
+            )}
           </section>
           {timeRemaining && (
             <section className={styles.statusContainer}>
@@ -132,7 +140,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
   try {
     const credentials = JSON.parse(decodeURIComponent(config));
-    const { formattedData, expire_date } = formatCredentialsData(credentials);
+    const { formattedData, expire_date, hasAuthToken } = formatCredentialsData(credentials);
 
     // Credentials issued before the login-flag cookie existed: backfill it so the
     // header shows the logged-in state without an extra API call.
@@ -146,7 +154,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     }
 
     return {
-      props: { formattedCredentials: formattedData, expire_date, error: null },
+      props: { formattedCredentials: formattedData, expire_date, hasAuthToken, error: null },
     };
   } catch (error) {
     console.error('Error parsing credentials:', error);

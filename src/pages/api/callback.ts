@@ -58,6 +58,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       steamId: steamId,
       expire_date: expireDateSeconds,
       issued_date: header.iss,
+      // Since the Nov 2026 Rust+ relay change the bot connects with this token instead of ip:port.
+      rustplus_auth_token: token,
     };
 
     res.setHeader('Set-Cookie', [
